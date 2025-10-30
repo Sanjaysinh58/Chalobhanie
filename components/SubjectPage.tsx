@@ -1,0 +1,82 @@
+import React from 'react';
+import { Chapter } from '../App';
+
+interface SubjectPageProps {
+  grade: number | null;
+  onChapterSelect: (chapter: Chapter) => void;
+}
+
+const std9MathChapters: Chapter[] = [
+  { number: 1, name: 'સંખ્યા પદ્ધતિ' },
+  { number: 2, name: 'બહુપદીઓ' },
+  { number: 3, name: 'યામ ભૂમિતિ' },
+  { number: 4, name: 'દ્વિચલ સુરેખ સમીકરણો' },
+  { number: 5, name: 'યુક્લિડની ભૂમિતિનો પરિચય' },
+  { number: 6, name: 'રેખાઓ અને ખૂણાઓ' },
+  { number: 7, name: 'ત્રિકોણ' },
+  { number: 8, name: 'ચતુષ્કોણ' },
+  { number: 9, name: 'વર્તુળ' },
+  { number: 10, name: 'હેરોનનું સૂત્ર' },
+  { number: 11, name: 'પૃષ્ઠફળ અને ઘનફળ' },
+  { number: 12, name: 'આંકડાશાસ્ત્ર' },
+];
+
+const std10MathChapters: Chapter[] = [
+  { number: 1, name: 'વાસ્તવિક સંખ્યાઓ' },
+  { number: 2, name: 'બહુપદીઓ' },
+  { number: 3, name: 'દ્વિચલ સુરેખ સમીકરણયુગ્મ' },
+  { number: 4, name: 'દ્વિઘાત સમીકરણ' },
+  { number: 5, name: 'સમાંતર શ્રેણી' },
+  { number: 6, name: 'ત્રિકોણ' },
+  { number: 7, name: 'યામ ભૂમિતિ' },
+  { number: 8, name: 'ત્રિકોણમિતિનો પરિચય' },
+  { number: 9, name: 'ત્રિકોણમિતિના ઉપયોગો' },
+  { number: 10, name: 'વર્તુળ' },
+  { number: 11, name: 'વર્તુળ સંબંધિત ક્ષેત્રફળ' },
+  { number: 12, name: 'પૃષ્ઠફળ અને ઘનફળ' },
+  { number: 13, name: 'આંકડાશાસ્ત્ર' },
+  { number: 14, name: 'સંભાવના' },
+];
+
+
+const SubjectPage: React.FC<SubjectPageProps> = ({ grade, onChapterSelect }) => {
+  const chapters = grade === 9 ? std9MathChapters : grade === 10 ? std10MathChapters : [];
+
+  if (chapters.length === 0) {
+      return (
+          <div className="text-center p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-lg animate-fade-in">
+              <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Solutions</h2>
+              <p className="mt-4 text-slate-500 dark:text-slate-400">Chapter-wise solutions for this grade will be available soon.</p>
+          </div>
+      );
+  }
+
+  return (
+    <div className="space-y-4 animate-fade-in">
+      {chapters.map((chapter) => (
+        <button
+          key={chapter.number}
+          onClick={() => onChapterSelect(chapter)}
+          className="w-full flex items-center p-4 text-left bg-white dark:bg-slate-800 shadow-lg hover:shadow-xl hover:-translate-y-0.5 rounded-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+        >
+          <div className="flex-shrink-0 h-12 w-12 flex items-center justify-center bg-indigo-100 dark:bg-indigo-900/50 rounded-full text-indigo-600 dark:text-indigo-300 font-bold text-lg">
+            {chapter.number}
+          </div>
+          <div className="ml-4 flex-grow">
+            <p className="text-lg font-semibold text-slate-800 dark:text-slate-100">
+              પ્રકરણ {chapter.number}
+            </p>
+            <p className="text-md text-slate-600 dark:text-slate-300">
+              {chapter.name}
+            </p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 text-slate-400">
+              <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 0 1 .02-1.06L11.168 10 7.23 6.29a.75.75 0 1 1 1.04-1.08l4.5 4.25a.75.75 0 0 1 0 1.08l-4.5 4.25a.75.75 0 0 1-1.06-.02Z" clipRule="evenodd" />
+          </svg>
+        </button>
+      ))}
+    </div>
+  );
+};
+
+export default SubjectPage;
