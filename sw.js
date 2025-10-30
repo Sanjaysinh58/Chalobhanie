@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chalo-bhanie-cache-v8';
+const CACHE_NAME = 'chalo-bhanie-cache-v9';
 const urlsToCache = [
   './',
   './index.html',
@@ -55,6 +55,7 @@ self.addEventListener('install', event => {
         });
         return Promise.all(promises);
       })
+      .then(() => self.skipWaiting()) // Force the waiting service worker to become the active service worker.
   );
 });
 
@@ -129,6 +130,6 @@ self.addEventListener('activate', event => {
           }
         })
       );
-    })
+    }).then(() => self.clients.claim()) // Take control of the page immediately.
   );
 });
