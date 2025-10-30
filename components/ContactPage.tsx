@@ -1,5 +1,5 @@
 import React from 'react';
-import { EnvelopeIcon } from './icons';
+import { EnvelopeIcon } from './icons.tsx';
 
 const ContactPage: React.FC = () => {
   return (

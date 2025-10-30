@@ -1,5 +1,5 @@
 import React from 'react';
-import { SchoolIcon } from './icons';
+import { SchoolIcon } from './icons.tsx';
 
 const AboutPage: React.FC = () => {
   return (

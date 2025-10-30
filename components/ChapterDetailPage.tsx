@@ -1,12 +1,10 @@
-
-
 import React, { useState, useMemo } from 'react';
-import { Chapter } from '../App';
-import { videoData, getYouTubeId } from './SolutionDisplay';
-import { swaadhyayData } from './WrittenSolution';
-import VideoSolution from './VideoSolution';
-import PdfViewer from './PdfViewer';
-import { DocumentTextIcon } from './icons';
+import { Chapter } from '../App.tsx';
+import { videoData, getYouTubeId } from './SolutionDisplay.tsx';
+import { swaadhyayData } from './WrittenSolution.tsx';
+import VideoSolution from './VideoSolution.tsx';
+import PdfViewer from './PdfViewer.tsx';
+import { DocumentTextIcon } from './icons.tsx';
 
 interface Video { name: string; youtubeUrl: string; }
 interface SolutionResource { name: string; pdfUrl: string; }

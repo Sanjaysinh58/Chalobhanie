@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import { Chapter, ViewState } from '../App';
-import { SearchIcon } from './icons';
-import { videoData } from './SolutionDisplay';
-import { swaadhyayData } from './WrittenSolution';
+import { Chapter, ViewState } from '../App.tsx';
+import { SearchIcon } from './icons.tsx';
+import { videoData } from './SolutionDisplay.tsx';
+import { swaadhyayData } from './WrittenSolution.tsx';
 
 // --- Data ---
 const std9MathChapters: Chapter[] = [

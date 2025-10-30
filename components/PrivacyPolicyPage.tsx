@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheckIcon } from './icons';
+import { ShieldCheckIcon } from './icons.tsx';
 
 const PrivacyPolicyPage: React.FC = () => {
   return (

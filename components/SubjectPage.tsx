@@ -1,5 +1,5 @@
 import React from 'react';
-import { Chapter } from '../App';
+import { Chapter } from '../App.tsx';
 
 interface SubjectPageProps {
   grade: number | null;
@@ -32,7 +32,7 @@ const std10MathChapters: Chapter[] = [
   { number: 8, name: 'ત્રિકોણમિતિનો પરિચય' },
   { number: 9, name: 'ત્રિકોણમિતિના ઉપયોગો' },
   { number: 10, name: 'વર્તુળ' },
-  { number: 11, name: 'વર્તુળ સંબંધિત ક્ષેત્રફળ' },
+  { number: 11, name: 'વર્તુળ સંબંધિત ક્ષੇત્રફળ' },
   { number: 12, name: 'પૃષ્ઠફળ અને ઘનફળ' },
   { number: 13, name: 'આંકડાશાસ્ત્ર' },
   { number: 14, name: 'સંભાવના' },
