@@ -1,6 +1,6 @@
 // FIX: Refactored to remove React components from a .ts file, resolving numerous JSX parsing errors.
 // This file now only contains data-fetching logic and type definitions, aligning with its role as a service.
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI } from "https://aistudiocdn.com/@google/genai@^1.27.0";
 
 // Interfaces for typing API response for grounding
 export interface WebChunk {

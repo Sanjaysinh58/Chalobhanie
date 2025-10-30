@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'https://aistudiocdn.com/react@^19.2.0';
 
 const PlaceholderPage: React.FC<{ title: string; content: string }> = ({ title, content }) => {
   return (

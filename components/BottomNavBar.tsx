@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'https://aistudiocdn.com/react@^19.2.0';
 import { TopLevelPage } from '../App';
 import { HomeIcon, ArrowPathIcon, ShareIcon } from './icons';
 

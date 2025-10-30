@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'https://aistudiocdn.com/react@^19.2.0';
 
 const GoogleFormPage: React.FC = () => {
   // IMPORTANT: Replace this placeholder with your actual Google Form URL.

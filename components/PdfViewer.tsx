@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'https://aistudiocdn.com/react@^19.2.0';
 import { CloseIcon } from './icons.tsx';
 
 // Icons for navigation

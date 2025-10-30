@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'https://aistudiocdn.com/react@^19.2.0';
 import { Notification } from '../App.tsx';
 import { BellIcon } from './icons.tsx';
 

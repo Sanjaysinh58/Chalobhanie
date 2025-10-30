@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'https://aistudiocdn.com/react@^19.2.0';
 import { Chapter } from '../App.tsx';
 import VideoSolution from './VideoSolution.tsx';
 

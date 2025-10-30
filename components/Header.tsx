@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'https://aistudiocdn.com/react@^19.2.0';
 import { ArrowLeftIcon, MenuIcon } from './icons.tsx';
 import NotificationBell from './NotificationBell.tsx';
 import { Notification } from '../App.tsx';

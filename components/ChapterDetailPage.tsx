@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'https://aistudiocdn.com/react@^19.2.0';
 import { Chapter } from '../App.tsx';
 import { videoData, getYouTubeId } from './SolutionDisplay.tsx';
 import { swaadhyayData } from './WrittenSolution.tsx';

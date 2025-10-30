@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { GoogleGenAI, Chat } from '@google/genai';
+import React, { useState, useEffect, useRef } from 'https://aistudiocdn.com/react@^19.2.0';
+import { GoogleGenAI, Chat } from 'https://aistudiocdn.com/@google/genai@^1.27.0';
 import { CloseIcon, PaperAirplaneIcon } from './icons.tsx';
 import { ViewState, Chapter } from '../App.tsx';
 

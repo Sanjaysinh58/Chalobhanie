@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'https://aistudiocdn.com/react@^19.2.0';
 import { SchoolIcon } from './icons.tsx';
 
 const AboutPage: React.FC = () => {

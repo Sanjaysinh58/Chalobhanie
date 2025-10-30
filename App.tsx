@@ -1,5 +1,5 @@
 // FIX: Implemented the main App component to manage application state and view routing, resolving numerous 'file not a module' and 'cannot find name' errors across the project.
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'https://aistudiocdn.com/react@^19.2.0';
 
 // Components
 import Header from './components/Header.tsx';

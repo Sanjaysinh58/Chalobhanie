@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'https://aistudiocdn.com/react@^19.2.0';
 import { Chapter } from '../App.tsx';
 
 interface SubjectPageProps {
@@ -24,7 +24,7 @@ const std9MathChapters: Chapter[] = [
 const std10MathChapters: Chapter[] = [
   { number: 1, name: 'વાસ્તવિક સંખ્યાઓ' },
   { number: 2, name: 'બહુપદીઓ' },
-  { number: 3, name: 'દ્વિચલ સુરેખ સમીકરણયુગ્મ' },
+  { number: 3, name: 'દ્વિચલ સુરેખ સમੀਕਰణયુગ્મ' },
   { number: 4, name: 'દ્વિઘાત સમીકરણ' },
   { number: 5, name: 'સમાંતર શ્રેણી' },
   { number: 6, name: 'ત્રિકોણ' },
@@ -32,7 +32,7 @@ const std10MathChapters: Chapter[] = [
   { number: 8, name: 'ત્રિકોણમિતિનો પરિચય' },
   { number: 9, name: 'ત્રિકોણમિતિના ઉપયોગો' },
   { number: 10, name: 'વર્તુળ' },
-  { number: 11, name: 'વર્તુળ સંબંધિત ક્ષੇત્રફળ' },
+  { number: 11, name: 'વર્તુળ સંબંધિત ક્ષેત્રફળ' },
   { number: 12, name: 'પૃષ્ઠફળ અને ઘનફળ' },
   { number: 13, name: 'આંકડાશાસ્ત્ર' },
   { number: 14, name: 'સંભાવના' },

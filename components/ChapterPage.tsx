@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'https://aistudiocdn.com/react@^19.2.0';
 import { Chapter, ViewState } from '../App.tsx';
 import { SearchIcon } from './icons.tsx';
 import { videoData } from './SolutionDisplay.tsx';
