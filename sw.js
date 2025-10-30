@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chalo-bhanie-cache-v2';
+const CACHE_NAME = 'chalo-bhanie-cache-v3';
 const urlsToCache = [
   './',
   './index.html',
@@ -37,6 +37,7 @@ const urlsToCache = [
   'https://cdn.tailwindcss.com',
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js',
+  'https://unpkg.com/@babel/standalone/babel.min.js',
 ];
 
 // Install a service worker

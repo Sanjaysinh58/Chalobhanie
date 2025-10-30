@@ -102,6 +102,8 @@
       .bounce-3 { animation-delay: 0s; }
     </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+<!-- Add Babel Standalone for in-browser JSX/TS transpilation -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="importmap">
 {
   "imports": {
@@ -115,7 +117,8 @@
 </head>
 <body class="bg-slate-100 dark:bg-slate-900 antialiased">
     <div id="root"></div>
-    <script type="module" src="./index.tsx"></script>
+    <!-- Change script type to text/babel for Babel to transpile it -->
+    <script type="text/babel" data-type="module" src="./index.tsx"></script>
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
