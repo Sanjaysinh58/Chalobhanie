@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PdfViewer from './PdfViewer.js';
+import PdfViewer from './PdfViewer.tsx';
 
 interface GradePageProps {
   grade: number;

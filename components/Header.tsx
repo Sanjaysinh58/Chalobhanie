@@ -1,7 +1,7 @@
 import React from 'react';
-import { ArrowLeftIcon, MenuIcon } from './icons.js';
-import NotificationBell from './NotificationBell.js';
-import { Notification } from '../App.js';
+import { ArrowLeftIcon, MenuIcon } from './icons.tsx';
+import NotificationBell from './NotificationBell.tsx';
+import { Notification } from '../App.tsx';
 
 interface HeaderProps {
   title: string;

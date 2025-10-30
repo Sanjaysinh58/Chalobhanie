@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { CloseIcon } from './icons.js';
+import { CloseIcon } from './icons.tsx';
 
 // Icons for navigation
 const ChevronLeftIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (

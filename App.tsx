@@ -2,22 +2,22 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 
 // Components
-import Header from './components/Header.js';
-import Sidebar from './components/Sidebar.js';
-import BottomNavBar from './components/BottomNavBar.js';
-import HomePage from './components/MathInput.js';
-import GradePage from './components/GradePage.js';
-import SubjectPage from './components/SubjectPage.js';
-import BooksPage from './components/BooksPage.js';
-import OldPapersPage from './components/OldPapersPage.js';
-import MockTestPage from './components/LoadingSpinner.js';
-import ChapterDetailPage from './components/ChapterDetailPage.js';
-import AboutPage from './components/AboutPage.js';
-import ContactPage from './components/ContactPage.js';
-import ExampleSearchPage from './components/ChapterPage.js';
-import GoogleFormPage from './components/GoogleFormPage.js';
-import PrivacyPolicyPage from './components/PrivacyPolicyPage.js';
-import DisclaimerPage from './components/DisclaimerPage.js';
+import Header from './components/Header.tsx';
+import Sidebar from './components/Sidebar.tsx';
+import BottomNavBar from './components/BottomNavBar.tsx';
+import HomePage from './components/MathInput.tsx';
+import GradePage from './components/GradePage.tsx';
+import SubjectPage from './components/SubjectPage.tsx';
+import BooksPage from './components/BooksPage.tsx';
+import OldPapersPage from './components/OldPapersPage.tsx';
+import MockTestPage from './components/LoadingSpinner.tsx';
+import ChapterDetailPage from './components/ChapterDetailPage.tsx';
+import AboutPage from './components/AboutPage.tsx';
+import ContactPage from './components/ContactPage.tsx';
+import ExampleSearchPage from './components/ChapterPage.tsx';
+import GoogleFormPage from './components/GoogleFormPage.tsx';
+import PrivacyPolicyPage from './components/PrivacyPolicyPage.tsx';
+import DisclaimerPage from './components/DisclaimerPage.tsx';
 
 
 // Type definitions

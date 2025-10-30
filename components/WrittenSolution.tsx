@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Chapter } from '../App.js';
-import PdfViewer from './PdfViewer.js';
-import { DocumentTextIcon } from './icons.js';
+import { Chapter } from '../App.tsx';
+import PdfViewer from './PdfViewer.tsx';
+import { DocumentTextIcon } from './icons.tsx';
 
 const PlaceholderPage: React.FC<{ title: string; content: string }> = ({ title, content }) => {
   return (

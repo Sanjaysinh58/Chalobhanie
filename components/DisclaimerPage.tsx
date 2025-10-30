@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExclamationTriangleIcon } from './icons.js';
+import { ExclamationTriangleIcon } from './icons.tsx';
 
 const DisclaimerPage: React.FC = () => {
   return (

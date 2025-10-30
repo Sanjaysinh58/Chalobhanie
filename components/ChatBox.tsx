@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { GoogleGenAI, Chat } from '@google/genai';
-import { CloseIcon, PaperAirplaneIcon } from './icons.js';
-import { ViewState, Chapter } from '../App.js';
+import { CloseIcon, PaperAirplaneIcon } from './icons.tsx';
+import { ViewState, Chapter } from '../App.tsx';
 
 interface ChatBoxProps {
   isOpen: boolean;

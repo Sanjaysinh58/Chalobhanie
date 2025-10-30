@@ -1,6 +1,6 @@
 import React from 'react';
-import { TopLevelPage } from '../App.js';
-import { HomeIcon, ArrowPathIcon, ShareIcon } from './icons.js';
+import { TopLevelPage } from '../App.tsx';
+import { HomeIcon, ArrowPathIcon, ShareIcon } from './icons.tsx';
 
 interface BottomNavBarProps {
   onNav: (page: TopLevelPage | 'refresh' | 'share') => void;

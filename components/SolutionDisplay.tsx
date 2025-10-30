@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Chapter } from '../App.js';
-import VideoSolution from './VideoSolution.js';
+import { Chapter } from '../App.tsx';
+import VideoSolution from './VideoSolution.tsx';
 
 const PlaceholderPage: React.FC<{ title: string; content: string }> = ({ title, content }) => {
   return (
