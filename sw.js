@@ -1,7 +1,8 @@
-const CACHE_NAME = 'chalo-bhanie-cache-v12';
+const CACHE_NAME = 'chalo-bhanie-cache-v13';
 const urlsToCache = [
   './',
   './index.html',
+  './loader.js',
   './manifest.json',
   './favicon.ico',
   './apple-touch-icon.png',
