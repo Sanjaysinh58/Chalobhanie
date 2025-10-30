@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Chapter } from '../types.ts';
-import { videoData, getYouTubeId } from './SolutionDisplay.tsx';
+import { videoData, getYouTubeId } from './VideosPage.tsx';
 import { swaadhyayData } from './WrittenSolution.tsx';
 import VideoSolution from './VideoSolution.tsx';
 import PdfViewer from './PdfViewer.tsx';
