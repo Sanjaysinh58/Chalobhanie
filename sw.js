@@ -1,8 +1,12 @@
-const CACHE_NAME = 'chalo-bhanie-cache-v1';
+const CACHE_NAME = 'chalo-bhanie-cache-v2';
 const urlsToCache = [
   './',
   './index.html',
   './manifest.json',
+  './favicon.ico',
+  './apple-touch-icon.png',
+  './icon-192x192.png',
+  './icon-512x512.png',
   './index.tsx',
   './App.tsx',
   './types.ts',
@@ -66,8 +70,8 @@ self.addEventListener('fetch', event => {
         // Not in cache - fetch from network
         return fetch(event.request).then(
           networkResponse => {
-            // Check if we received a valid response
-            if(!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+            // Check if we received a valid response. We don't cache non-basic (e.g. CDN) responses.
+            if(!networkResponse || networkResponse.status !== 200) {
               return networkResponse;
             }
             
@@ -79,7 +83,10 @@ self.addEventListener('fetch', event => {
 
             caches.open(CACHE_NAME)
               .then(cache => {
-                cache.put(event.request, responseToCache);
+                 // We only cache GET requests
+                if (event.request.method === 'GET') {
+                    cache.put(event.request, responseToCache);
+                }
               });
 
             return networkResponse;
