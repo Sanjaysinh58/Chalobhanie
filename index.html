@@ -118,8 +118,6 @@
       }
     </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
-<!-- Add Babel Standalone for in-browser JSX/TS transpilation -->
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="importmap">
 {
   "imports": {
@@ -133,8 +131,7 @@
         <div id="app-loader">Loading application...</div>
     </div>
     
-    <!-- This script tag tells Babel to fetch and transpile our entire application -->
-    <script type="text/babel" data-presets="react,typescript" data-type="module" src="./index.tsx"></script>
+    <script src="./loader.js"></script>
 
 </body>
 </html>
