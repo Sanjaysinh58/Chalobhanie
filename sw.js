@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chalo-bhanie-cache-v9';
+const CACHE_NAME = 'chalo-bhanie-cache-v10';
 const urlsToCache = [
   './',
   './index.html',
