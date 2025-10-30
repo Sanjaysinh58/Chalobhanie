@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chalo-bhanie-cache-v11';
+const CACHE_NAME = 'chalo-bhanie-cache-v12';
 const urlsToCache = [
   './',
   './index.html',
@@ -58,6 +58,7 @@ self.addEventListener('activate', event => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheWhitelist.indexOf(cacheName) === -1) {
+            console.log('Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
@@ -71,58 +72,47 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // This function handles the core logic of fixing the MIME type for .tsx files.
-  // It takes a Response object and returns a new one with the correct header if needed.
-  const handleTsxResponse = (response) => {
-    // If the response is invalid or not for a .tsx file, return it as is.
-    if (!response || response.status !== 200 || !event.request.url.endsWith('.tsx')) {
-      return response;
-    }
-
-    // It's a valid response for a .tsx file. We need to recreate it with the
-    // correct Content-Type header for the browser to execute it.
-    return response.text().then(text => {
-      const headers = new Headers(response.headers);
-      headers.set('Content-Type', 'text/javascript');
-      return new Response(text, { status: response.status, statusText: response.statusText, headers });
-    });
-  };
-
-  // Use a standard cache-first strategy.
   event.respondWith(
-    caches.match(event.request)
-      .then(cachedResponse => {
-        // If we have a cached response, process it and return.
+    caches.open(CACHE_NAME).then(cache => {
+      // Try to find the response in the cache.
+      return cache.match(event.request).then(cachedResponse => {
+        // If a valid response is found in the cache, return it.
         if (cachedResponse) {
-          return handleTsxResponse(cachedResponse);
+          return cachedResponse;
         }
 
-        // If not in cache, fetch from the network.
+        // If the response is not in the cache, fetch it from the network.
         return fetch(event.request).then(networkResponse => {
-          // Cache the original, unmodified network response for future requests.
-          // Don't cache opaque responses (e.g. from CDNs with no CORS).
-          if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
-            const responseToCache = networkResponse.clone();
-            caches.open(CACHE_NAME).then(cache => {
-              cache.put(event.request, responseToCache);
-            });
+          // Don't cache unsuccessful responses.
+          if (!networkResponse || networkResponse.status !== 200) {
+            return networkResponse;
           }
           
-          // Process the network response before returning it to the browser.
-          return handleTsxResponse(networkResponse);
+          // For .tsx files, we must create a new response with the correct MIME type.
+          if (event.request.url.endsWith('.tsx')) {
+            // Clone the response to read its body.
+            return networkResponse.text().then(text => {
+              const headers = new Headers(networkResponse.headers);
+              headers.set('Content-Type', 'text/javascript');
+              
+              const fixedResponse = new Response(text, {
+                status: networkResponse.status,
+                statusText: networkResponse.statusText,
+                headers: headers
+              });
+              
+              // Cache the *fixed* response and then return it to the browser.
+              // Clone again because a response body can only be used once.
+              cache.put(event.request, fixedResponse.clone());
+              return fixedResponse;
+            });
+          } else {
+            // For all other files, cache the original response.
+            cache.put(event.request, networkResponse.clone());
+            return networkResponse;
+          }
         });
-      })
-      .catch(error => {
-        console.error("Fetch failed:", error);
-        // Fallback for navigation requests could be the root page
-        if (event.request.mode === 'navigate') {
-          return caches.match('./');
-        }
-        // For other assets, just let the browser handle the error.
-        return new Response('Network error', {
-          status: 408,
-          headers: { 'Content-Type': 'text/plain' },
-        });
-      })
+      });
+    })
   );
 });
