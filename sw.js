@@ -1,5 +1,5 @@
 // sw.js
-const CACHE_NAME = 'chalo-bhanie-v20';
+const CACHE_NAME = 'chalo-bhanie-v21';
 const PRECACHE_ASSETS = [
     './',
     './index.html',
@@ -8,7 +8,6 @@ const PRECACHE_ASSETS = [
     './apple-touch-icon.png',
     './icon-192x192.png',
     './icon-512x512.png',
-    './loader.js'
 ];
 
 self.addEventListener('install', (event) => {
@@ -18,9 +17,7 @@ self.addEventListener('install', (event) => {
         console.log('Service Worker: Caching app shell');
         return cache.addAll(PRECACHE_ASSETS);
       })
-      .then(() => {
-        return self.skipWaiting();
-      })
+      .then(() => self.skipWaiting())
   );
 });
 
@@ -35,70 +32,60 @@ self.addEventListener('activate', (event) => {
           }
         })
       );
-    }).then(() => {
-      return self.clients.claim();
-    })
+    }).then(() => self.clients.claim())
   );
 });
 
-self.addEventListener('fetch', (event) => {
-  const url = new URL(event.request.url);
+async function fetchAndFixMimeType(request) {
+    const networkResponse = await fetch(request);
+    if (networkResponse.ok) {
+        const headers = new Headers(networkResponse.headers);
+        headers.set('Content-Type', 'text/javascript');
 
-  if (url.pathname.endsWith('.ts') || url.pathname.endsWith('.tsx')) {
-    event.respondWith(
-      fetch(event.request)
-        .then(networkResponse => {
-          if (!networkResponse.ok) {
-            return caches.match(event.request).then(cachedResponse => {
-                return cachedResponse || networkResponse;
-            });
-          }
-          
-          const responseToCache = networkResponse.clone();
-          const headers = new Headers(networkResponse.headers);
-          headers.set('Content-Type', 'text/javascript');
-          
-          const modifiedResponse = new Response(networkResponse.body, {
+        const blob = await networkResponse.blob();
+        const fixedResponse = new Response(blob, {
             status: networkResponse.status,
             statusText: networkResponse.statusText,
             headers: headers
-          });
-          
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, responseToCache);
-          });
-          
-          return modifiedResponse;
-        })
-        .catch(() => {
-          return caches.match(event.request);
-        })
-    );
-  } else {
+        });
+
+        // Cache the fixed response
+        const cache = await caches.open(CACHE_NAME);
+        await cache.put(request, fixedResponse.clone());
+        return fixedResponse;
+    }
+    return networkResponse;
+}
+
+self.addEventListener('fetch', (event) => {
+  const { request } = event;
+  const url = new URL(request.url);
+
+  // For TS/TSX files, always try network first to get the code,
+  // fix its MIME type, cache the fix, and then serve it.
+  // Fallback to cache if network fails.
+  if (url.pathname.endsWith('.ts') || url.pathname.endsWith('.tsx')) {
     event.respondWith(
-      caches.match(event.request)
-        .then(response => {
-          if (response) {
-            return response;
-          }
-          
-          return fetch(event.request).then(
-            networkResponse => {
-              if(!networkResponse || networkResponse.status !== 200) { // Removed type basic check for more flexibility
-                return networkResponse;
-              }
-
-              const responseToCache = networkResponse.clone();
-
-              caches.open(CACHE_NAME)
-                .then(cache => {
-                  cache.put(event.request, responseToCache);
-                });
-
-              return networkResponse;
-            }
-          );
-        })
+        fetchAndFixMimeType(request).catch(() => caches.match(request))
     );
+    return;
   }
+
+  // For all other requests, use a standard cache-first strategy.
+  event.respondWith(
+    caches.match(request).then(cachedResponse => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      return fetch(request).then(networkResponse => {
+        if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(request, responseToCache);
+          });
+        }
+        return networkResponse;
+      });
+    })
+  );
 });

@@ -6,8 +6,6 @@
     <title>Chalo ભણીએ !</title>
     <script>
       // Polyfill process.env for browser environments where it's not defined.
-      // This prevents a ReferenceError from crashing the entire app.
-      // The execution environment (like AI Studio) is expected to inject the actual API_KEY.
       if (typeof window.process === 'undefined') {
         window.process = { env: { API_KEY: undefined } };
       }
@@ -131,7 +129,19 @@
         <div id="app-loader">Loading application...</div>
     </div>
     
-    <script src="./loader.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel" data-presets="react,typescript" data-type="module" src="./index.tsx"></script>
 
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js').then(registration => {
+            console.log('SW registered: ', registration);
+          }).catch(registrationError => {
+            console.log('SW registration failed: ', registrationError);
+          });
+        });
+      }
+    </script>
 </body>
 </html>
