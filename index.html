@@ -136,19 +136,5 @@
     <!-- This script tag tells Babel to fetch and transpile our entire application -->
     <script type="text/babel" data-presets="react,typescript" data-type="module" src="./index.tsx"></script>
 
-    <!-- Standard Service Worker Registration -->
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./sw.js')
-            .then(registration => {
-              console.log('ServiceWorker registration successful:', registration);
-            })
-            .catch(error => {
-              console.warn('ServiceWorker registration failed:', error);
-            });
-        });
-      }
-    </script>
 </body>
 </html>
