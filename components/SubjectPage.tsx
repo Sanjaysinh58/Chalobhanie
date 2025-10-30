@@ -1,5 +1,5 @@
-import React from 'https://aistudiocdn.com/react@^19.2.0';
-import { Chapter } from '../App.tsx';
+import React from 'react';
+import { Chapter } from '../App.js';
 
 interface SubjectPageProps {
   grade: number | null;

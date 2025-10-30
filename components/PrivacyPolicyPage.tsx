@@ -1,5 +1,5 @@
-import React from 'https://aistudiocdn.com/react@^19.2.0';
-import { ShieldCheckIcon } from './icons.tsx';
+import React from 'react';
+import { ShieldCheckIcon } from './icons.js';
 
 const PrivacyPolicyPage: React.FC = () => {
   return (

@@ -1,8 +1,8 @@
-import React, { useState, useMemo } from 'https://aistudiocdn.com/react@^19.2.0';
-import { Chapter, ViewState } from '../App.tsx';
-import { SearchIcon } from './icons.tsx';
-import { videoData } from './SolutionDisplay.tsx';
-import { swaadhyayData } from './WrittenSolution.tsx';
+import React, { useState, useMemo } from 'react';
+import { Chapter, ViewState } from '../App.js';
+import { SearchIcon } from './icons.js';
+import { videoData } from './SolutionDisplay.js';
+import { swaadhyayData } from './WrittenSolution.js';
 
 // --- Data ---
 const std9MathChapters: Chapter[] = [

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'https://aistudiocdn.com/react@^19.2.0';
-import { Notification } from '../App.tsx';
-import { BellIcon } from './icons.tsx';
+import React, { useState, useEffect, useRef } from 'react';
+import { Notification } from '../App.js';
+import { BellIcon } from './icons.js';
 
 interface NotificationBellProps {
   notifications: Notification[];

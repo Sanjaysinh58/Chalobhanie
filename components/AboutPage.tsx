@@ -1,5 +1,5 @@
-import React from 'https://aistudiocdn.com/react@^19.2.0';
-import { SchoolIcon } from './icons.tsx';
+import React from 'react';
+import { SchoolIcon } from './icons.js';
 
 const AboutPage: React.FC = () => {
   return (

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from 'https://aistudiocdn.com/react@^19.2.0';
-import { CloseIcon } from './icons.tsx';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { CloseIcon } from './icons.js';
 
 // Icons for navigation
 const ChevronLeftIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (

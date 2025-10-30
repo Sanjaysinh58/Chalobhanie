@@ -1,6 +1,6 @@
-import React from 'https://aistudiocdn.com/react@^19.2.0';
-import { TopLevelPage } from '../App';
-import { HomeIcon, ArrowPathIcon, ShareIcon } from './icons';
+import React from 'react';
+import { TopLevelPage } from '../App.js';
+import { HomeIcon, ArrowPathIcon, ShareIcon } from './icons.js';
 
 interface BottomNavBarProps {
   onNav: (page: TopLevelPage | 'refresh' | 'share') => void;

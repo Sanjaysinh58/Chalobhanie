@@ -1,5 +1,5 @@
 // sw.js
-const CACHE_NAME = 'chalo-bhanie-v21';
+const CACHE_NAME = 'chalo-bhanie-v22';
 const PRECACHE_ASSETS = [
     './',
     './index.html',
@@ -36,48 +36,16 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-async function fetchAndFixMimeType(request) {
-    const networkResponse = await fetch(request);
-    if (networkResponse.ok) {
-        const headers = new Headers(networkResponse.headers);
-        headers.set('Content-Type', 'text/javascript');
-
-        const blob = await networkResponse.blob();
-        const fixedResponse = new Response(blob, {
-            status: networkResponse.status,
-            statusText: networkResponse.statusText,
-            headers: headers
-        });
-
-        // Cache the fixed response
-        const cache = await caches.open(CACHE_NAME);
-        await cache.put(request, fixedResponse.clone());
-        return fixedResponse;
-    }
-    return networkResponse;
-}
-
+// Use a standard cache-first strategy for all requests.
 self.addEventListener('fetch', (event) => {
   const { request } = event;
-  const url = new URL(request.url);
-
-  // For TS/TSX files, always try network first to get the code,
-  // fix its MIME type, cache the fix, and then serve it.
-  // Fallback to cache if network fails.
-  if (url.pathname.endsWith('.ts') || url.pathname.endsWith('.tsx')) {
-    event.respondWith(
-        fetchAndFixMimeType(request).catch(() => caches.match(request))
-    );
-    return;
-  }
-
-  // For all other requests, use a standard cache-first strategy.
   event.respondWith(
     caches.match(request).then(cachedResponse => {
       if (cachedResponse) {
         return cachedResponse;
       }
       return fetch(request).then(networkResponse => {
+        // Cache successful responses from our origin.
         if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
           const responseToCache = networkResponse.clone();
           caches.open(CACHE_NAME).then(cache => {

@@ -1,5 +1,5 @@
-import React from 'https://aistudiocdn.com/react@^19.2.0';
-import { EnvelopeIcon } from './icons.tsx';
+import React from 'react';
+import { EnvelopeIcon } from './icons.js';
 
 const ContactPage: React.FC = () => {
   return (

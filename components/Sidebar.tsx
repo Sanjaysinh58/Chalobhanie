@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'https://aistudiocdn.com/react@^19.2.0';
-import { User, SidebarPage } from '../App.tsx';
-import { CloseIcon, UserCircleIcon, LoginIcon, LogoutIcon, PencilIcon, HomeIcon, InformationCircleIcon, EnvelopeIcon, ShieldCheckIcon, ExclamationTriangleIcon, WhatsappIcon, FacebookIcon, XIcon, InstagramIcon, TelegramIcon } from './icons.tsx';
+import React, { useState, useRef } from 'react';
+import { User, SidebarPage } from '../App.js';
+import { CloseIcon, UserCircleIcon, LoginIcon, LogoutIcon, PencilIcon, HomeIcon, InformationCircleIcon, EnvelopeIcon, ShieldCheckIcon, ExclamationTriangleIcon, WhatsappIcon, FacebookIcon, XIcon, InstagramIcon, TelegramIcon } from './icons.js';
 
 interface SidebarProps {
   isOpen: boolean;

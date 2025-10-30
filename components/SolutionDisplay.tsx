@@ -1,6 +1,6 @@
-import React, { useState } from 'https://aistudiocdn.com/react@^19.2.0';
-import { Chapter } from '../App.tsx';
-import VideoSolution from './VideoSolution.tsx';
+import React, { useState } from 'react';
+import { Chapter } from '../App.js';
+import VideoSolution from './VideoSolution.js';
 
 const PlaceholderPage: React.FC<{ title: string; content: string }> = ({ title, content }) => {
   return (

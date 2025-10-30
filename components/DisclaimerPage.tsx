@@ -1,5 +1,5 @@
-import React from 'https://aistudiocdn.com/react@^19.2.0';
-import { ExclamationTriangleIcon } from './icons.tsx';
+import React from 'react';
+import { ExclamationTriangleIcon } from './icons.js';
 
 const DisclaimerPage: React.FC = () => {
   return (

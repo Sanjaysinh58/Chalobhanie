@@ -1,7 +1,7 @@
-import React, { useState } from 'https://aistudiocdn.com/react@^19.2.0';
-import { Chapter } from '../App.tsx';
-import PdfViewer from './PdfViewer.tsx';
-import { DocumentTextIcon } from './icons.tsx';
+import React, { useState } from 'react';
+import { Chapter } from '../App.js';
+import PdfViewer from './PdfViewer.js';
+import { DocumentTextIcon } from './icons.js';
 
 const PlaceholderPage: React.FC<{ title: string; content: string }> = ({ title, content }) => {
   return (
