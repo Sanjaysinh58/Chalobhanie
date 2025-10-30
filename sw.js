@@ -1,5 +1,5 @@
 // sw.js
-const CACHE_NAME = 'chalo-bhanie-v23';
+const CACHE_NAME = 'chalo-bhanie-v24';
 const PRECACHE_ASSETS = [
     './',
     './index.html',

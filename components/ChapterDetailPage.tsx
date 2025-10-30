@@ -1,7 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { Chapter } from '../types.ts';
-import { videoData, getYouTubeId } from './VideosPage.tsx';
-import { swaadhyayData } from './WrittenSolution.tsx';
+import { getYouTubeId } from './VideosPage.tsx';
+import { videoData } from '../data/videoData.ts';
+import { swaadhyayData } from '../data/swaadhyayData.ts';
 import VideoSolution from './VideoSolution.tsx';
 import PdfViewer from './PdfViewer.tsx';
 import { DocumentTextIcon } from './icons.tsx';
