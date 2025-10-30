@@ -126,47 +126,24 @@
 <body class="bg-slate-100 dark:bg-slate-900 antialiased">
     <div id="root"></div>
     <!-- 
-      The main application script is no longer hardcoded here.
-      It will be dynamically loaded by the service worker registration script below.
-      This solves a race condition on static hosting platforms where the browser
-      tries to fetch the script before the service worker is ready to handle it.
+      The main application script is now loaded directly. This is a more robust
+      approach than dynamic injection, avoiding race conditions with the
+      service worker and Babel's transpiler on initial page load.
     -->
+    <script type="text/babel" data-type="module" data-presets="react,typescript" src="./index.tsx"></script>
+    
     <script>
-      const loadApp = () => {
-        console.log('Service worker is ready, loading application script.');
-        const script = document.createElement('script');
-        script.type = 'text/babel';
-        script.setAttribute('data-type', 'module');
-        script.setAttribute('data-presets', 'react,typescript');
-        script.src = './index.tsx';
-        document.body.appendChild(script);
-      };
-
+      // Standard service worker registration.
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          // Construct an absolute URL for the service worker script. This is a robust
-          // way to avoid cross-origin errors in certain sandboxed environments (like iframes)
-          // where relative paths might be resolved against the wrong base URL.
-          const swUrl = new URL('./sw.js', window.location.href);
-          navigator.serviceWorker.register(swUrl).then(registration => {
-            console.log('SW registered: ', registration);
-            // The 'ready' promise resolves when a service worker is active and controlling the page.
-            // This is crucial to ensure our .tsx file requests are intercepted correctly.
-            return navigator.serviceWorker.ready;
-          }).then(readyRegistration => {
-            console.log('SW is active and ready: ', readyRegistration);
-            // Now that we know the service worker is in control, it's safe to load the app.
-            loadApp();
-          }).catch(registrationError => {
-            console.error('SW registration failed: ', registrationError);
-            // Fallback for catastrophic failure.
-            alert('Application failed to load. Please try clearing your cache and reloading.');
-          });
+          navigator.serviceWorker.register('./sw.js')
+            .then(registration => {
+              console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            })
+            .catch(error => {
+              console.log('ServiceWorker registration failed: ', error);
+            });
         });
-      } else {
-        // Fallback for browsers that don't support service workers.
-        console.warn('Service workers not supported. Loading app directly.');
-        loadApp();
       }
     </script>
 </body>

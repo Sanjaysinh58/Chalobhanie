@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chalo-bhanie-cache-v10';
+const CACHE_NAME = 'chalo-bhanie-cache-v11';
 const urlsToCache = [
   './',
   './index.html',
@@ -40,85 +40,17 @@ const urlsToCache = [
   'https://unpkg.com/@babel/standalone/babel.min.js',
 ];
 
-// Install a service worker
 self.addEventListener('install', event => {
-  // Perform install steps
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
         console.log('Opened cache');
-        // Add all URLs to cache, but don't fail the install if one fetch fails
-        const promises = urlsToCache.map(url => {
-          return cache.add(url).catch(err => {
-            console.warn(`Failed to cache ${url}:`, err);
-          });
-        });
-        return Promise.all(promises);
+        return cache.addAll(urlsToCache);
       })
-      .then(() => self.skipWaiting()) // Force the waiting service worker to become the active service worker.
+      .then(() => self.skipWaiting())
   );
 });
 
-// Cache and return requests
-self.addEventListener('fetch', event => {
-  // We only want to intercept GET requests.
-  if (event.request.method !== 'GET') {
-    return;
-  }
-
-  event.respondWith(
-    caches.match(event.request)
-      .then(cachedResponse => {
-        // Cache hit - return response
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-
-        // Not in cache - fetch from network
-        return fetch(event.request).then(
-          networkResponse => {
-            // Check if we received a valid response.
-            if (!networkResponse || networkResponse.status !== 200) {
-              return networkResponse;
-            }
-
-            const url = new URL(event.request.url);
-            // For .ts/.tsx files, we need to fix the MIME type for the browser to treat them as modules.
-            if (url.pathname.endsWith('.ts') || url.pathname.endsWith('.tsx')) {
-              return networkResponse.text().then(text => {
-                const headers = new Headers(networkResponse.headers);
-                headers.set('Content-Type', 'text/javascript');
-                
-                const responseToCache = new Response(text, { headers });
-
-                caches.open(CACHE_NAME).then(cache => {
-                  cache.put(event.request, responseToCache.clone());
-                });
-
-                return responseToCache;
-              });
-            }
-
-            // For all other assets, cache them as is.
-            const responseToCache = networkResponse.clone();
-            caches.open(CACHE_NAME)
-              .then(cache => {
-                cache.put(event.request, responseToCache);
-              });
-
-            return networkResponse;
-          }
-        ).catch(error => {
-          console.error('Fetching failed:', error);
-          // You could return a custom offline page here if you had one
-          throw error;
-        });
-      })
-  );
-});
-
-
-// Update a service worker and remove old caches
 self.addEventListener('activate', event => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
@@ -130,6 +62,67 @@ self.addEventListener('activate', event => {
           }
         })
       );
-    }).then(() => self.clients.claim()) // Take control of the page immediately.
+    }).then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
+  // This function handles the core logic of fixing the MIME type for .tsx files.
+  // It takes a Response object and returns a new one with the correct header if needed.
+  const handleTsxResponse = (response) => {
+    // If the response is invalid or not for a .tsx file, return it as is.
+    if (!response || response.status !== 200 || !event.request.url.endsWith('.tsx')) {
+      return response;
+    }
+
+    // It's a valid response for a .tsx file. We need to recreate it with the
+    // correct Content-Type header for the browser to execute it.
+    return response.text().then(text => {
+      const headers = new Headers(response.headers);
+      headers.set('Content-Type', 'text/javascript');
+      return new Response(text, { status: response.status, statusText: response.statusText, headers });
+    });
+  };
+
+  // Use a standard cache-first strategy.
+  event.respondWith(
+    caches.match(event.request)
+      .then(cachedResponse => {
+        // If we have a cached response, process it and return.
+        if (cachedResponse) {
+          return handleTsxResponse(cachedResponse);
+        }
+
+        // If not in cache, fetch from the network.
+        return fetch(event.request).then(networkResponse => {
+          // Cache the original, unmodified network response for future requests.
+          // Don't cache opaque responses (e.g. from CDNs with no CORS).
+          if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+            const responseToCache = networkResponse.clone();
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put(event.request, responseToCache);
+            });
+          }
+          
+          // Process the network response before returning it to the browser.
+          return handleTsxResponse(networkResponse);
+        });
+      })
+      .catch(error => {
+        console.error("Fetch failed:", error);
+        // Fallback for navigation requests could be the root page
+        if (event.request.mode === 'navigate') {
+          return caches.match('./');
+        }
+        // For other assets, just let the browser handle the error.
+        return new Response('Network error', {
+          status: 408,
+          headers: { 'Content-Type': 'text/plain' },
+        });
+      })
   );
 });
