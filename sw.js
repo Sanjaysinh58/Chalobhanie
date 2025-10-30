@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chalo-bhanie-cache-v16';
+const CACHE_NAME = 'chalo-bhanie-cache-v17';
 
 // Only cache the core app shell. Dynamic content like .tsx files will be cached on demand.
 const urlsToCache = [
