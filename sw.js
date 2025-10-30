@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chalo-bhanie-cache-v6';
+const CACHE_NAME = 'chalo-bhanie-cache-v7';
 const urlsToCache = [
   './',
   './index.html',
@@ -60,45 +60,60 @@ self.addEventListener('install', event => {
 
 // Cache and return requests
 self.addEventListener('fetch', event => {
+  // We only want to intercept GET requests.
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request)
-      .then(response => {
+      .then(cachedResponse => {
         // Cache hit - return response
-        if (response) {
-          return response;
+        if (cachedResponse) {
+          return cachedResponse;
         }
-        
+
         // Not in cache - fetch from network
         return fetch(event.request).then(
           networkResponse => {
-            // Check if we received a valid response. We don't cache non-basic (e.g. CDN) responses.
-            if(!networkResponse || networkResponse.status !== 200) {
+            // Check if we received a valid response.
+            if (!networkResponse || networkResponse.status !== 200) {
               return networkResponse;
             }
-            
-            // IMPORTANT: Clone the response. A response is a stream
-            // and because we want the browser to consume the response
-            // as well as the cache consuming the response, we need
-            // to clone it so we have two streams.
-            const responseToCache = networkResponse.clone();
 
+            const url = new URL(event.request.url);
+            // For .ts/.tsx files, we need to fix the MIME type for the browser to treat them as modules.
+            if (url.pathname.endsWith('.ts') || url.pathname.endsWith('.tsx')) {
+              return networkResponse.text().then(text => {
+                const headers = new Headers(networkResponse.headers);
+                headers.set('Content-Type', 'text/javascript');
+                
+                const responseToCache = new Response(text, { headers });
+
+                caches.open(CACHE_NAME).then(cache => {
+                  cache.put(event.request, responseToCache.clone());
+                });
+
+                return responseToCache;
+              });
+            }
+
+            // For all other assets, cache them as is.
+            const responseToCache = networkResponse.clone();
             caches.open(CACHE_NAME)
               .then(cache => {
-                 // We only cache GET requests
-                if (event.request.method === 'GET') {
-                    cache.put(event.request, responseToCache);
-                }
+                cache.put(event.request, responseToCache);
               });
 
             return networkResponse;
           }
         ).catch(error => {
-            console.error('Fetching failed:', error);
-            // You could return a custom offline page here if you had one
-            throw error;
+          console.error('Fetching failed:', error);
+          // You could return a custom offline page here if you had one
+          throw error;
         });
       })
-    );
+  );
 });
 
 
