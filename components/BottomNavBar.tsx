@@ -1,5 +1,5 @@
 import React from 'react';
-import { TopLevelPage } from '../App.tsx';
+import { TopLevelPage } from '../types.ts';
 import { HomeIcon, ArrowPathIcon, ShareIcon } from './icons.tsx';
 
 interface BottomNavBarProps {

@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Chapter } from '../App.tsx';
+import { Chapter } from '../types.ts';
 import { videoData, getYouTubeId } from './SolutionDisplay.tsx';
 import { swaadhyayData } from './WrittenSolution.tsx';
 import VideoSolution from './VideoSolution.tsx';

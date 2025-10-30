@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SearchIcon, ChatBubbleIcon, PencilIcon } from './icons.tsx';
 import ChatBox from './ChatBox.tsx';
-import { ViewState } from '../App.tsx';
+import { ViewState } from '../types.ts';
 
 interface HomePageProps {
   onGradeSelect: (grade: number) => void;

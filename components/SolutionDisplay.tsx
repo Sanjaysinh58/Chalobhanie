@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Chapter } from '../App.tsx';
+import { Chapter } from '../types.ts';
 import VideoSolution from './VideoSolution.tsx';
 
 const PlaceholderPage: React.FC<{ title: string; content: string }> = ({ title, content }) => {

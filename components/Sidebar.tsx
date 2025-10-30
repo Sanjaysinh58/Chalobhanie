@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { User, SidebarPage } from '../App.tsx';
+import { User, SidebarPage } from '../types.ts';
 import { CloseIcon, UserCircleIcon, LoginIcon, LogoutIcon, PencilIcon, HomeIcon, InformationCircleIcon, EnvelopeIcon, ShieldCheckIcon, ExclamationTriangleIcon, WhatsappIcon, FacebookIcon, XIcon, InstagramIcon, TelegramIcon } from './icons.tsx';
 
 interface SidebarProps {
@@ -158,149 +158,118 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, user, onLogin, onLog
   
   const renderLoggedOutView = () => {
     if (showSignInForm) {
-      // Show the actual form
       return (
-        <form onSubmit={handleSignIn} className="space-y-3">
-            <div>
-                <label htmlFor="signin-name" className="block text-sm font-medium text-slate-700 dark:text-slate-300">Full Name</label>
-                <input
-                    type="text"
-                    id="signin-name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    required
-                />
-            </div>
-            <div>
-                <label htmlFor="signin-contact" className="block text-sm font-medium text-slate-700 dark:text-slate-300">Email or Phone Number</label>
-                <input
-                    type="text"
-                    id="signin-contact"
-                    value={contactInfo}
-                    onChange={(e) => setContactInfo(e.target.value)}
-                    className="mt-1 block w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    required
-                />
-            </div>
-            <button
-                type="submit"
-                className="w-full flex items-center justify-center p-3 rounded-lg bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors"
-            >
-                <LoginIcon className="h-5 w-5 mr-2" />
-                Sign In
-            </button>
+        <form onSubmit={handleSignIn} className="space-y-4">
+          <h3 className="text-xl font-bold text-center text-slate-800 dark:text-slate-100">Sign In / Register</h3>
+          <div>
+            <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300">Name</label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="mt-1 block w-full p-2 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-200"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="contact" className="block text-sm font-medium text-slate-700 dark:text-slate-300">Email or Mobile</label>
+            <input
+              type="text"
+              id="contact"
+              value={contactInfo}
+              onChange={(e) => setContactInfo(e.target.value)}
+              className="mt-1 block w-full p-2 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-200"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full flex items-center justify-center p-3 rounded-lg bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors"
+          >
+            <LoginIcon className="h-5 w-5 mr-2" />
+            Sign In
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowSignInForm(false)}
+            className="w-full text-center text-sm text-slate-600 dark:text-slate-400 hover:underline"
+          >
+            Cancel
+          </button>
         </form>
       );
     }
-    
-    // Show the initial "Sign In" prompt
     return (
-      <div className="flex flex-col items-center text-center space-y-4">
-        <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Chalo ભણીએ !</h3>
-        <p className="text-slate-500 dark:text-slate-400">Sign in to sync your progress and get a personalized experience.</p>
-        <button
-          onClick={() => setShowSignInForm(true)}
-          className="w-full flex items-center justify-center p-3 rounded-lg bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors"
-        >
-          <LoginIcon className="h-5 w-5 mr-2" />
-          Sign In
-        </button>
-      </div>
+      <button
+        onClick={() => setShowSignInForm(true)}
+        className="w-full flex items-center justify-center p-3 rounded-lg bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors"
+      >
+        <LoginIcon className="h-5 w-5 mr-2" />
+        Login / Register
+      </button>
     );
   };
 
-
   return (
     <>
-      {/* Backdrop */}
       <div
-        className={`fixed inset-0 bg-black/60 z-20 transition-opacity duration-300 ease-in-out ${
-          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
+        className={`fixed inset-0 bg-black/60 z-30 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
         onClick={handleClose}
         aria-hidden="true"
       ></div>
-
-      {/* Sidebar Panel */}
       <aside
-        className={`fixed top-0 left-0 h-full w-80 bg-white dark:bg-slate-800 shadow-xl z-30 transform transition-transform duration-300 ease-in-out ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+        className={`fixed top-0 left-0 h-full w-80 max-w-[90vw] bg-white dark:bg-slate-800 shadow-xl z-40 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="sidebar-title"
       >
         <div className="flex flex-col h-full">
-          {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
-            <h2 id="sidebar-title" className="text-xl font-bold text-slate-800 dark:text-slate-100 flex-grow">
-              {user ? 'My Profile' : (showSignInForm ? 'Sign In' : 'Chalo ભણીએ !')}
-            </h2>
-            <button
-              onClick={handleClose}
-              className="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-              aria-label="Close menu"
-            >
-              <CloseIcon className="h-6 w-6 text-slate-600 dark:text-slate-300" />
+          <div className="p-4 flex items-center justify-between border-b border-slate-200 dark:border-slate-700">
+            <h2 id="sidebar-title" className="text-xl font-bold text-slate-800 dark:text-slate-100">Menu</h2>
+            <button onClick={handleClose} className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700" aria-label="Close menu">
+              <CloseIcon className="h-6 w-6 text-slate-500" />
             </button>
           </div>
-
-          {/* Content */}
-          <div className="flex-grow p-4 overflow-y-auto">
-            {user ? renderLoggedInView() : renderLoggedOutView()}
-            <div className="border-t border-slate-200 dark:border-slate-700 my-4"></div>
-              <nav className="space-y-2">
-                 <SidebarButton Icon={HomeIcon} label="Home" onClick={() => onSidebarNav('home')} />
-                 <div>
-                    <button
-                        onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
-                        className="w-full flex items-center justify-between p-3 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
-                        aria-expanded={isAboutDropdownOpen}
-                        aria-controls="about-submenu"
-                    >
-                        <div className="flex items-center">
-                            <InformationCircleIcon className="h-6 w-6 mr-3 text-slate-500" />
-                            <span className="font-semibold">About</span>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className={`w-5 h-5 text-slate-500 transition-transform duration-300 ${isAboutDropdownOpen ? 'rotate-180' : ''}`} aria-hidden="true">
-                            <path fillRule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
-                        </svg>
-                    </button>
-                    {isAboutDropdownOpen && (
-                        <div id="about-submenu" className="pl-6 pt-2 space-y-1 animate-fade-in-down">
-                            <SidebarButton Icon={InformationCircleIcon} label="About Us" onClick={() => onSidebarNav('about')} />
-                            <SidebarButton Icon={EnvelopeIcon} label="Contact Us" onClick={() => onSidebarNav('contact')} />
-                            <SidebarButton Icon={ShieldCheckIcon} label="Privacy Policy" onClick={() => onSidebarNav('privacy')} />
-                            <SidebarButton Icon={ExclamationTriangleIcon} label="Disclaimer" onClick={() => onSidebarNav('disclaimer')} />
-                        </div>
-                    )}
-                 </div>
-              </nav>
-          </div>
-
-          {/* Footer */}
-          <div className="p-4 border-t border-slate-200 dark:border-slate-700">
-            <div className="mb-4 text-center">
-              <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-3">Follow Us</h4>
-              <div className="flex justify-center space-x-4">
-                {socialLinks.map(({ Icon, label, href, color }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Follow us on ${label}`}
-                    className={`${color} transition-opacity hover:opacity-80`}
-                  >
-                    <Icon className="h-6 w-6" />
-                  </a>
-                ))}
-              </div>
+          <div className="flex-1 p-4 space-y-4 overflow-y-auto">
+            <div className="p-4 bg-slate-100 dark:bg-slate-700/50 rounded-lg">
+              {user ? renderLoggedInView() : renderLoggedOutView()}
             </div>
-            <p className="text-center text-sm text-slate-500 dark:text-slate-400">
-              Chalo ભણીએ ! &copy; {new Date().getFullYear()}
-            </p>
+            <nav className="space-y-1">
+              <SidebarButton Icon={HomeIcon} label="Home" onClick={() => onSidebarNav('home')} />
+              <div>
+                <button
+                  onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
+                  className="w-full flex items-center justify-between p-3 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                >
+                  <div className="flex items-center">
+                    <InformationCircleIcon className="h-6 w-6 mr-3 text-slate-500" />
+                    <span className="font-semibold">About App</span>
+                  </div>
+                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className={`w-5 h-5 text-slate-500 transform transition-transform duration-300 ${isAboutDropdownOpen ? 'rotate-180' : ''}`} aria-hidden="true">
+                        <path fillRule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+                    </svg>
+                </button>
+                {isAboutDropdownOpen && (
+                  <div className="pl-6 pt-1 space-y-1">
+                    <SidebarButton Icon={InformationCircleIcon} label="About Us" onClick={() => onSidebarNav('about')} />
+                    <SidebarButton Icon={EnvelopeIcon} label="Contact Us" onClick={() => onSidebarNav('contact')} />
+                    <SidebarButton Icon={ShieldCheckIcon} label="Privacy Policy" onClick={() => onSidebarNav('privacy')} />
+                    <SidebarButton Icon={ExclamationTriangleIcon} label="Disclaimer" onClick={() => onSidebarNav('disclaimer')} />
+                  </div>
+                )}
+              </div>
+            </nav>
+          </div>
+          <div className="p-4 border-t border-slate-200 dark:border-slate-700">
+            <p className="text-center text-sm font-semibold text-slate-600 dark:text-slate-300 mb-3">Follow Us</p>
+            <div className="flex justify-center space-x-4">
+              {socialLinks.map(({ Icon, label, href, color }) => (
+                <a key={label} href={href} aria-label={label} className={`${color} hover:opacity-80 transition-opacity`}>
+                  <Icon className="h-6 w-6" />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </aside>

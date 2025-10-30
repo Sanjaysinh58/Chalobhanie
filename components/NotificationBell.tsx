@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Notification } from '../App.tsx';
+import { Notification } from '../types.ts';
 import { BellIcon } from './icons.tsx';
 
 interface NotificationBellProps {

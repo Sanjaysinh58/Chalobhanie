@@ -1,5 +1,5 @@
 import React from 'react';
-import { Chapter } from '../App.tsx';
+import { Chapter } from '../types.ts';
 
 interface SubjectPageProps {
   grade: number | null;

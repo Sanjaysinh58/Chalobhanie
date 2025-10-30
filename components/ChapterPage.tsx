@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Chapter, ViewState } from '../App.tsx';
+import { Chapter, ViewState } from '../types.ts';
 import { SearchIcon } from './icons.tsx';
 import { videoData } from './SolutionDisplay.tsx';
 import { swaadhyayData } from './WrittenSolution.tsx';

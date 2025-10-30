@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Chapter } from '../App.tsx';
+import { Chapter } from '../types.ts';
 import PdfViewer from './PdfViewer.tsx';
 import { DocumentTextIcon } from './icons.tsx';
 
