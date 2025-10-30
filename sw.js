@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chalo-bhanie-cache-v13';
+const CACHE_NAME = 'chalo-bhanie-cache-v14';
 const urlsToCache = [
   './',
   './index.html',
@@ -46,9 +46,13 @@ self.addEventListener('install', event => {
     caches.open(CACHE_NAME)
       .then(cache => {
         console.log('Opened cache');
+        // Use addAll for atomic caching of essential assets
         return cache.addAll(urlsToCache);
       })
       .then(() => self.skipWaiting())
+      .catch(error => {
+        console.error('Failed to cache resources during install:', error);
+      })
   );
 });
 
@@ -73,47 +77,28 @@ self.addEventListener('fetch', event => {
     return;
   }
 
+  // Use a cache-first strategy
   event.respondWith(
-    caches.open(CACHE_NAME).then(cache => {
-      // Try to find the response in the cache.
-      return cache.match(event.request).then(cachedResponse => {
-        // If a valid response is found in the cache, return it.
+    caches.match(event.request)
+      .then(cachedResponse => {
+        // If we have a response in the cache, return it
         if (cachedResponse) {
           return cachedResponse;
         }
 
-        // If the response is not in the cache, fetch it from the network.
+        // Otherwise, fetch from the network
         return fetch(event.request).then(networkResponse => {
-          // Don't cache unsuccessful responses.
-          if (!networkResponse || networkResponse.status !== 200) {
-            return networkResponse;
-          }
-          
-          // For .tsx files, we must create a new response with the correct MIME type.
-          if (event.request.url.endsWith('.tsx')) {
-            // Clone the response to read its body.
-            return networkResponse.text().then(text => {
-              const headers = new Headers(networkResponse.headers);
-              headers.set('Content-Type', 'text/javascript');
-              
-              const fixedResponse = new Response(text, {
-                status: networkResponse.status,
-                statusText: networkResponse.statusText,
-                headers: headers
+          // If the network request is successful, clone it and cache it.
+          if (networkResponse && networkResponse.ok) {
+            const responseToCache = networkResponse.clone();
+            caches.open(CACHE_NAME)
+              .then(cache => {
+                cache.put(event.request, responseToCache);
               });
-              
-              // Cache the *fixed* response and then return it to the browser.
-              // Clone again because a response body can only be used once.
-              cache.put(event.request, fixedResponse.clone());
-              return fixedResponse;
-            });
-          } else {
-            // For all other files, cache the original response.
-            cache.put(event.request, networkResponse.clone());
-            return networkResponse;
           }
+          // Return the response from the network
+          return networkResponse;
         });
-      });
-    })
+      })
   );
 });
