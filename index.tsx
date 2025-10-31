@@ -254,6 +254,11 @@ const ExclamationTriangleIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props)
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
     </svg>
 );
+const ChevronDownIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+  </svg>
+);
 const WhatsappIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
     <path d="M16.75 13.96c.25.01 1.6-.28 1.83-.8.22-.52-.33-.84-.58-1.12-.25-.28-1.5-1.03-1.5-1.03s-.43-.45-.73-.78c0 0-.2-.23-.42-.48 0 0-.15-.18-.3-.23-.22-.08-.47-.03-.47-.03s-.43.1-.66.33c-.23.23-.78.73-.78.73s-.23.23-.43.48c-.2.25-.38.45-.5.53 0 0 0 0-.03.03l-.1.08c-.03.03-.03.03-.05.05h0s-.2.2-.23.23c-.03.03-.05.05-.08.08l-.12.15-.03.03c-.1.13-.15.2-.15.25s.1.42.33.63c.23.2.43.4.75.73.32.32.9.84 1.45 1.12.55.28 1.13.43 1.7.43.5 0 1.2-.18 1.55-.9ZM12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10Zm0 18.13a8.13 8.13 0 1 1 8.13-8.13 8.14 8.14 0 0 1-8.13 8.13Z"/>
@@ -579,6 +584,7 @@ const Sidebar: React.FC<{
     onSidebarNav: (page: SidebarPage) => void;
 }> = ({ isOpen, onClose, user, onLogin, onLogout, onUserUpdate, onSidebarNav }) => {
     const [isClosing, setIsClosing] = useState(false);
+    const [isAboutOpen, setIsAboutOpen] = useState(false);
     
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
@@ -605,20 +611,34 @@ const Sidebar: React.FC<{
         setTimeout(() => {
             onClose();
             setIsClosing(false);
+            setIsAboutOpen(false); // Reset dropdown state on close
         }, 300); // match animation duration
     };
 
     const handleNav = (page: SidebarPage) => {
         onSidebarNav(page);
+        handleClose(); // Close sidebar after navigation
     };
     
-    const sidebarPages: { page: SidebarPage; label: string; Icon: React.FC<React.SVGProps<SVGSVGElement>> }[] = [
-        { page: 'home', label: 'Home', Icon: HomeIcon },
-        { page: 'about', label: 'About Us', Icon: InformationCircleIcon },
-        { page: 'contact', label: 'Contact Us', Icon: EnvelopeIcon },
-        { page: 'privacy', label: 'Privacy Policy', Icon: ShieldCheckIcon },
-        { page: 'disclaimer', label: 'Disclaimer', Icon: ExclamationTriangleIcon },
+    const aboutPages: { page: SidebarPage; label: string; }[] = [
+        { page: 'about', label: 'About Us' },
+        { page: 'contact', label: 'Contact Us' },
+        { page: 'privacy', label: 'Privacy Policy' },
+        { page: 'disclaimer', label: 'Disclaimer' },
     ];
+    
+    const NavButton: React.FC<{
+        onClick: () => void;
+        children: React.ReactNode;
+        className?: string;
+    }> = ({ onClick, children, className = '' }) => (
+        <button
+            onClick={onClick}
+            className={`w-full flex items-center p-3 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors font-medium ${className}`}
+        >
+            {children}
+        </button>
+    );
 
     if (!isOpen) return null;
 
@@ -665,24 +685,53 @@ const Sidebar: React.FC<{
                     </div>
 
                     {/* Navigation links */}
-                    <nav className="space-y-2">
-                        {sidebarPages.map(({ page, label, Icon }) => (
-                            <button key={page} onClick={() => handleNav(page)} className="w-full flex items-center p-3 text-left rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors font-medium">
-                                <Icon className="h-6 w-6 mr-4 text-slate-500" />
-                                {label}
+                    <nav className="space-y-1">
+                        <NavButton onClick={() => handleNav('home')}>
+                            <HomeIcon className="h-6 w-6 mr-4 text-slate-500" />
+                            Home
+                        </NavButton>
+
+                        <div>
+                            <button
+                                onClick={() => setIsAboutOpen(!isAboutOpen)}
+                                className="w-full flex items-center justify-between p-3 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors font-medium"
+                                aria-expanded={isAboutOpen}
+                            >
+                                <div className="flex items-center">
+                                    <InformationCircleIcon className="h-6 w-6 mr-4 text-slate-500" />
+                                    About
+                                </div>
+                                <ChevronDownIcon className={`h-5 w-5 text-slate-500 transition-transform duration-200 ${isAboutOpen ? 'rotate-180' : ''}`} />
                             </button>
-                        ))}
+                            {isAboutOpen && (
+                                <div className="pl-8 mt-1 space-y-1 animate-fade-in-down">
+                                    {aboutPages.map(({ page, label }) => (
+                                        <button
+                                            key={page}
+                                            onClick={() => handleNav(page)}
+                                            className="w-full text-left p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                                        >
+                                            {label}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </nav>
                 </div>
 
                 <div className="flex-shrink-0 p-4 border-t border-slate-200 dark:border-slate-700 mt-auto">
-                    {user && (
-                        <button onClick={onLogout} className="w-full flex items-center p-3 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors font-medium">
+                    {user ? (
+                        <NavButton onClick={onLogout}>
                             <LogoutIcon className="h-6 w-6 mr-4 text-slate-500" />
                             Logout
-                        </button>
+                        </NavButton>
+                    ) : (
+                         <div className="text-center text-xs text-slate-400 dark:text-slate-500">
+                             <p>Login to see more options.</p>
+                         </div>
                     )}
-                     <div className="text-center text-xs text-slate-400 dark:text-slate-500 mt-4">
+                    <div className="text-center text-xs text-slate-400 dark:text-slate-500 mt-4">
                         <p>Chalo ભણીએ ! v1.0.0</p>
                     </div>
                 </div>
