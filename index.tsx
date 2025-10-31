@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom/client';
 import { GoogleGenAI, Chat } from '@google/genai';
@@ -49,7 +48,7 @@ interface Notification {
 
 // From: data/chapters.ts
 const std9MathChapters: Chapter[] = [
-  { number: 1, name: 'સંખ્યા પદ્ધતિ' }, { number: 2, name: 'બહુપદીઓ' }, { number: 3, name: 'યામ ભૂમિતિ' }, { number: 4, name: 'દ્વિચલ સુરેખ સમીકરણો' }, { number: 5, name: 'યુક્લિડની ભૂમિતિનો પરિચય' }, { number: 6, name: 'રેખાઓ અને ખૂણાઓ' }, { number: 7, name: 'ત્રિકોણ' }, { number: 8, name: 'ચતુષ્કોણ' }, { number: 9, name: 'વર્તુળ' }, { number: 10, name: 'હેરોનનું સૂત્ર' }, { number: 11, name: 'પૃષ્ઠફળ અને ઘનફળ' }, { number: 12, name: 'આંકડાશાસ્ત્ર' },
+  { number: 1, name: 'સંખ્યા પદ્ધતિ' }, { number: 2, name: 'બહુપદીઓ' }, { number: 3, name: 'યામ ભૂમિતિ' }, { number: 4, name: 'દ્વિચલ સુરેખ સમੀਕਰణો' }, { number: 5, name: 'યુક્લિડની ભૂમિતિનો પરિચય' }, { number: 6, name: 'રેખાઓ અને ખૂણાઓ' }, { number: 7, name: 'ત્રિકોણ' }, { number: 8, name: 'ચતુષ્કોણ' }, { number: 9, name: 'વર્તુળ' }, { number: 10, name: 'હેરોનનું સૂત્ર' }, { number: 11, name: 'પૃષ્ઠફળ અને ઘનફળ' }, { number: 12, name: 'આંકડાશાસ્ત્ર' },
 ];
 const std10MathChapters: Chapter[] = [
   { number: 1, name: 'વાસ્તવિક સંખ્યાઓ' }, { number: 2, name: 'બહુપદીઓ' }, { number: 3, name: 'દ્વિચલ સુરેખ સમੀਕਰణયુગ્મ' }, { number: 4, name: 'દ્વિઘાત સમીકરણ' }, { number: 5, name: 'સમાંતર શ્રેણી' }, { number: 6, name: 'ત્રિકોણ' }, { number: 7, name: 'યામ ભૂમિતિ' }, { number: 8, name: 'ત્રિકોણમિતિનો પરિચય' }, { number: 9, name: 'ત્રિકોણમિતિના ઉપયોગો' }, { number: 10, name: 'વર્તુળ' }, { number: 11, name: 'વર્તુળ સંબંધિત ક્ષેત્રફળ' }, { number: 12, name: 'પૃષ્ઠફળ અને ઘનફળ' }, { number: 13, name: 'આંકડાશાસ્ત્ર' }, { number: 14, name: 'સંભાવના' },
@@ -573,7 +572,6 @@ const NotificationBell: React.FC<{ notifications: Notification[]; onMarkAsRead: 
   );
 };
 
-// Fix: Add missing Sidebar component definition
 const Sidebar: React.FC<{
     isOpen: boolean;
     onClose: () => void;
@@ -585,160 +583,206 @@ const Sidebar: React.FC<{
 }> = ({ isOpen, onClose, user, onLogin, onLogout, onUserUpdate, onSidebarNav }) => {
     const [isClosing, setIsClosing] = useState(false);
     const [isAboutOpen, setIsAboutOpen] = useState(false);
+    const [isLoginDropdownOpen, setLoginDropdownOpen] = useState(false);
+    const [loginName, setLoginName] = useState('');
+    const [loginContact, setLoginContact] = useState('');
+    const [loginError, setLoginError] = useState('');
+    const fileInputRef = useRef<HTMLInputElement>(null);
     
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === 'Escape') {
-                handleClose();
-            }
+            if (event.key === 'Escape') { handleClose(); }
         };
-
-        if (isOpen) {
-            document.body.style.overflow = 'hidden';
-            window.addEventListener('keydown', handleKeyDown);
-        } else {
-            document.body.style.overflow = '';
-        }
-
-        return () => {
-            document.body.style.overflow = '';
-            window.removeEventListener('keydown', handleKeyDown);
-        };
+        if (isOpen) { document.body.style.overflow = 'hidden'; window.addEventListener('keydown', handleKeyDown); } 
+        else { document.body.style.overflow = ''; }
+        return () => { document.body.style.overflow = ''; window.removeEventListener('keydown', handleKeyDown); };
     }, [isOpen]);
 
     const handleClose = () => {
         setIsClosing(true);
-        setTimeout(() => {
-            onClose();
-            setIsClosing(false);
-            setIsAboutOpen(false); // Reset dropdown state on close
-        }, 300); // match animation duration
+        setTimeout(() => { onClose(); setIsClosing(false); setIsAboutOpen(false); setLoginDropdownOpen(false); setLoginError(''); }, 200);
     };
 
-    const handleNav = (page: SidebarPage) => {
-        onSidebarNav(page);
-        handleClose(); // Close sidebar after navigation
+    const handleNav = (page: SidebarPage) => { onSidebarNav(page); handleClose(); };
+    
+    const handleProfilePictureChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file && user) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const updatedUser: User = { ...user, profilePicture: e.target?.result as string };
+                onUserUpdate(updatedUser);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const validateContact = (contact: string): boolean => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^\+?[0-9]{10,14}$/;
+        return emailRegex.test(contact) || phoneRegex.test(contact);
+    };
+
+    const handleLoginSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoginError('');
+
+        if (!validateContact(loginContact.trim())) {
+            setLoginError('Please enter a valid email or phone number.');
+            return;
+        }
+
+        if (loginName.trim() && loginContact.trim()) {
+            const isEmail = loginContact.includes('@');
+            onLogin({
+                name: loginName.trim(),
+                email: isEmail ? loginContact.trim() : '',
+                mobile: !isEmail ? loginContact.trim() : '',
+            });
+            setLoginName('');
+            setLoginContact('');
+            setLoginDropdownOpen(false);
+        }
     };
     
-    const aboutPages: { page: SidebarPage; label: string; }[] = [
-        { page: 'about', label: 'About Us' },
-        { page: 'contact', label: 'Contact Us' },
-        { page: 'privacy', label: 'Privacy Policy' },
-        { page: 'disclaimer', label: 'Disclaimer' },
+    const aboutPages: { page: SidebarPage; label: string; Icon: React.FC<React.SVGProps<SVGSVGElement>>; }[] = [
+        { page: 'about', label: 'About Us', Icon: SchoolIcon },
+        { page: 'contact', label: 'Contact Us', Icon: EnvelopeIcon },
+        { page: 'privacy', label: 'Privacy Policy', Icon: ShieldCheckIcon },
+        { page: 'disclaimer', label: 'Disclaimer', Icon: ExclamationTriangleIcon },
     ];
     
-    const NavButton: React.FC<{
-        onClick: () => void;
-        children: React.ReactNode;
-        className?: string;
-    }> = ({ onClick, children, className = '' }) => (
-        <button
-            onClick={onClick}
-            className={`w-full flex items-center p-3 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors font-medium ${className}`}
-        >
+    const NavButton: React.FC<{ onClick: () => void; children: React.ReactNode; className?: string; }> = ({ onClick, children, className = '' }) => (
+        <button onClick={onClick} className={`w-full flex items-center p-3 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors font-medium ${className}`}>
             {children}
         </button>
     );
 
-    if (!isOpen) return null;
-
     return (
-        <div className="fixed inset-0 z-30" role="dialog" aria-modal="true" onClick={handleClose}>
-            <div className={`absolute inset-0 bg-black/60 ${isClosing ? 'animate-fade-out' : 'animate-fade-in'}`}></div>
-            <div 
-                className={`relative h-full w-72 sm:w-80 bg-white dark:bg-slate-800 shadow-xl flex flex-col ${isClosing ? 'animate-slide-out-to-left' : 'animate-slide-in-from-left'}`}
-                onClick={(e) => e.stopPropagation()}
-            >
-                <div className="flex-shrink-0 flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
-                    <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Menu</h2>
-                    <button onClick={handleClose} className="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" aria-label="Close menu">
-                        <CloseIcon className="h-6 w-6 text-slate-600 dark:text-slate-300" />
-                    </button>
-                </div>
-
-                <div className="flex-grow p-4 overflow-y-auto">
-                    {/* User profile section */}
-                    <div className="p-4 rounded-2xl bg-slate-100 dark:bg-slate-700/50 mb-6">
-                        {user ? (
-                            <div className="flex items-center space-x-4">
-                                {user.profilePicture ? (
-                                    <img src={user.profilePicture} alt={user.name} className="h-12 w-12 rounded-full object-cover" />
-                                ) : (
-                                    <UserCircleIcon className="h-12 w-12 text-slate-500" />
-                                )}
+      <>
+        {isOpen && (
+            <div className="fixed inset-0 z-30" role="dialog" aria-modal="true" onClick={handleClose}>
+                <div className={`absolute inset-0 bg-black/60 ${isClosing ? 'animate-fade-out' : 'animate-fade-in'}`}></div>
+                <div 
+                    className={`relative h-full w-72 sm:w-80 bg-white dark:bg-slate-800 shadow-xl flex flex-col ${isClosing ? 'animate-slide-out-to-left' : 'animate-slide-in-from-left'}`}
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    <div className="flex-shrink-0 flex items-start p-4 border-b border-slate-200 dark:border-slate-700">
+                        <div className="flex-grow">
+                            {user ? (
                                 <div>
-                                    <p className="font-bold text-slate-800 dark:text-slate-100">{user.name}</p>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400">{user.email || user.mobile}</p>
+                                    <div className="flex items-center space-x-4">
+                                        <div className="relative">
+                                            <input type="file" ref={fileInputRef} onChange={handleProfilePictureChange} accept="image/*" className="hidden" />
+                                            <button onClick={() => fileInputRef.current?.click()} className="w-16 h-16 rounded-full bg-slate-200 dark:bg-slate-600 flex items-center justify-center overflow-hidden group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-slate-100 dark:focus:ring-offset-slate-800" aria-label="Change profile picture">
+                                                {user.profilePicture ? (
+                                                    <img src={user.profilePicture} alt={user.name} className="h-full w-full object-cover" />
+                                                ) : (
+                                                    <UserCircleIcon className="h-12 w-12 text-slate-500" />
+                                                )}
+                                                <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                    <PencilIcon className="h-6 w-6 text-white" />
+                                                </div>
+                                            </button>
+                                        </div>
+                                        <div>
+                                            <p className="font-bold text-lg text-slate-800 dark:text-slate-100">{user.name}</p>
+                                        </div>
+                                    </div>
+                                    <button onClick={onLogout} className="w-full flex items-center justify-center mt-4 p-2 rounded-lg text-sm bg-slate-200 dark:bg-slate-600 text-slate-700 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-500 transition-colors">
+                                        <LogoutIcon className="h-5 w-5 mr-2" />
+                                        Logout
+                                    </button>
                                 </div>
-                            </div>
-                        ) : (
-                             <div className="text-center">
-                                <p className="mb-2 text-slate-600 dark:text-slate-300">Login to track progress.</p>
-                                <button className="w-full flex items-center justify-center p-2 rounded-lg bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors"
-                                    onClick={() => onLogin({name: 'Student', email: 'student@example.com', mobile: '1234567890'})}
-                                >
-                                    <LoginIcon className="h-5 w-5 mr-2" />
-                                    Login / Sign Up
-                                </button>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Navigation links */}
-                    <nav className="space-y-1">
-                        <NavButton onClick={() => handleNav('home')}>
-                            <HomeIcon className="h-6 w-6 mr-4 text-slate-500" />
-                            Home
-                        </NavButton>
-
-                        <div>
-                            <button
-                                onClick={() => setIsAboutOpen(!isAboutOpen)}
-                                className="w-full flex items-center justify-between p-3 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors font-medium"
-                                aria-expanded={isAboutOpen}
-                            >
-                                <div className="flex items-center">
-                                    <InformationCircleIcon className="h-6 w-6 mr-4 text-slate-500" />
-                                    About
-                                </div>
-                                <ChevronDownIcon className={`h-5 w-5 text-slate-500 transition-transform duration-200 ${isAboutOpen ? 'rotate-180' : ''}`} />
-                            </button>
-                            {isAboutOpen && (
-                                <div className="pl-8 mt-1 space-y-1 animate-fade-in-down">
-                                    {aboutPages.map(({ page, label }) => (
-                                        <button
-                                            key={page}
-                                            onClick={() => handleNav(page)}
-                                            className="w-full text-left p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
-                                        >
-                                            {label}
-                                        </button>
-                                    ))}
+                            ) : (
+                                <div>
+                                    <button 
+                                        className="w-full flex items-center justify-center p-3 rounded-lg bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors" 
+                                        onClick={() => setLoginDropdownOpen(prev => !prev)}
+                                        aria-expanded={isLoginDropdownOpen}
+                                    >
+                                        <LoginIcon className="h-5 w-5 mr-2" />
+                                        Login
+                                    </button>
+                                    {isLoginDropdownOpen && (
+                                        <form onSubmit={handleLoginSubmit} className="mt-4 space-y-3 animate-fade-in-down">
+                                            <input
+                                                type="text"
+                                                value={loginName}
+                                                onChange={(e) => setLoginName(e.target.value)}
+                                                required
+                                                className="w-full p-2 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-md text-sm text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                                                placeholder="Full Name"
+                                            />
+                                            <div>
+                                                <input
+                                                    type="text"
+                                                    value={loginContact}
+                                                    onChange={(e) => {
+                                                        setLoginContact(e.target.value);
+                                                        if (loginError) setLoginError('');
+                                                    }}
+                                                    required
+                                                    className={`w-full p-2 bg-white dark:bg-slate-700 border ${loginError ? 'border-red-500' : 'border-slate-300 dark:border-slate-600'} rounded-md text-sm text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-colors`}
+                                                    placeholder="Email or Phone"
+                                                />
+                                                {loginError && <p className="mt-1 text-xs text-red-500">{loginError}</p>}
+                                            </div>
+                                            <button 
+                                                type="submit" 
+                                                disabled={!loginName.trim() || !loginContact.trim()}
+                                                className="w-full p-2 rounded-md bg-emerald-500 text-white text-sm font-bold hover:bg-emerald-600 transition-colors disabled:bg-slate-400 disabled:dark:bg-slate-500"
+                                            >
+                                                Submit
+                                            </button>
+                                        </form>
+                                    )}
                                 </div>
                             )}
                         </div>
-                    </nav>
-                </div>
+                    </div>
 
-                <div className="flex-shrink-0 p-4 border-t border-slate-200 dark:border-slate-700 mt-auto">
-                    {user ? (
-                        <NavButton onClick={onLogout}>
-                            <LogoutIcon className="h-6 w-6 mr-4 text-slate-500" />
-                            Logout
-                        </NavButton>
-                    ) : (
-                         <div className="text-center text-xs text-slate-400 dark:text-slate-500">
-                             <p>Login to see more options.</p>
-                         </div>
-                    )}
-                    <div className="text-center text-xs text-slate-400 dark:text-slate-500 mt-4">
-                        <p>Chalo ભણીએ ! v1.0.0</p>
+                    <div className="flex-grow p-4 overflow-y-auto">
+                        <nav className="space-y-1">
+                            <NavButton onClick={() => handleNav('home')}>
+                                <HomeIcon className="h-6 w-6 mr-4 text-slate-500" />
+                                Home
+                            </NavButton>
+
+                            <div>
+                                <button onClick={() => setIsAboutOpen(!isAboutOpen)} className="w-full flex items-center justify-between p-3 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors font-medium" aria-expanded={isAboutOpen}>
+                                    <div className="flex items-center">
+                                        <InformationCircleIcon className="h-6 w-6 mr-4 text-slate-500" />
+                                        About
+                                    </div>
+                                    <ChevronDownIcon className={`h-5 w-5 text-slate-500 transition-transform duration-200 ${isAboutOpen ? 'rotate-180' : ''}`} />
+                                </button>
+                                {isAboutOpen && (
+                                    <div className="pl-8 mt-1 space-y-1 animate-fade-in-down">
+                                        {aboutPages.map(({ page, label, Icon }) => (
+                                            <button key={page} onClick={() => handleNav(page)} className="w-full flex items-center p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+                                                <Icon className="h-5 w-5 mr-3 text-slate-400" />
+                                                {label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </nav>
+                    </div>
+
+                    <div className="flex-shrink-0 p-4 border-t border-slate-200 dark:border-slate-700 mt-auto">
+                        <div className="text-center text-xs text-slate-400 dark:text-slate-500">
+                            <p>Chalo ભણીએ ! v1.0.0</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        )}
+      </>
     );
 };
+
 
 const Header: React.FC<{ title: string; showBackButton: boolean; onBack: () => void; onMenuClick: () => void; notifications: Notification[]; onMarkNotificationsRead: (ids: number[] | 'all') => void; onNotificationClick: (notification: Notification) => void; }> = ({ title, showBackButton, onBack, onMenuClick, notifications, onMarkNotificationsRead, onNotificationClick }) => {
   return (
