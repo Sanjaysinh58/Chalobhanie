@@ -804,7 +804,7 @@ const ChapterDetailPage: React.FC<{ grade: number; chapter: Chapter; expandedExe
     const exerciseMap = new Map<string, Partial<UnifiedExercise>>();
     swaadhyayExercises.forEach(ex => { exerciseMap.set(ex.name, { name: ex.name, solutions: ex.solutions }); });
     videoExercises.forEach(ex => { if (exerciseMap.has(ex.name)) { exerciseMap.get(ex.name)!.videos = ex.videos; } else { exerciseMap.set(ex.name, { name: ex.name, videos: ex.videos }); } });
-    return Array.from(exerciseMap.values()).map(ex => ({ name: ex.name!, videos: ex.videos || [], solutions: (ex.solutions as any) || [] })).sort((a,b) => a.name.localeCompare(b.name, undefined, {numeric: true}));
+    return Array.from(exerciseMap.values()).map(ex => ({ name: ex.name!, videos: ex.videos || [], solutions: ex.solutions || [] })).sort((a,b) => a.name.localeCompare(b.name, undefined, {numeric: true}));
   }, [grade, chapter]);
   const handleExerciseClick = (exerciseName: string) => { setExpandedExercise(current => (current === exerciseName ? null : exerciseName)); setPlayingVideoUrl(null); };
   const handleContentSelect = (exerciseName: string, contentType: 'videos' | 'solutions') => { setSelectedContent(prev => { if (prev[exerciseName] === contentType) { return { ...prev, [exerciseName]: undefined }; } return { ...prev, [exerciseName]: contentType }; }); setPlayingVideoUrl(null); };
@@ -850,7 +850,7 @@ const ExampleSearchPage: React.FC<{ navigate: (view: ViewState) => void; }> = ({
       const exerciseMap = new Map<string, Partial<UnifiedExercise>>();
       swaadhyayExercises.forEach(ex => { exerciseMap.set(ex.name, { name: ex.name, solutions: ex.solutions }); });
       videoExercises.forEach(ex => { if (exerciseMap.has(ex.name)) { exerciseMap.get(ex.name)!.videos = ex.videos; } else { exerciseMap.set(ex.name, { name: ex.name, videos: ex.videos }); } });
-      return Array.from(exerciseMap.values()).map(ex => ({ name: ex.name!, videos: ex.videos || [], solutions: (ex.solutions as any) || [] })).sort((a,b) => a.name.localeCompare(b.name, undefined, {numeric: true}));
+      return Array.from(exerciseMap.values()).map(ex => ({ name: ex.name!, videos: ex.videos || [], solutions: ex.solutions || [] })).sort((a,b) => a.name.localeCompare(b.name, undefined, {numeric: true}));
   };
   const chapters = useMemo(() => { if (selectedGrade === 9) return std9MathChapters; if (selectedGrade === 10) return std10MathChapters; return []; }, [selectedGrade]);
   const exercises = useMemo(() => { if (selectedGrade && selectedChapter) { return getUnifiedExercises(selectedGrade, selectedChapter.number); } return []; }, [selectedGrade, selectedChapter]);
