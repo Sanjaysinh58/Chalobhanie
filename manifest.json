@@ -1,0 +1,23 @@
+{
+  "name": "Chalo ભણીએ !",
+  "short_name": "Chalo ભણીએ !",
+  "description": "An education portal for Gujarat board students, offering access to videos, study materials, books, mock tests, and the latest news.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f1f5f9",
+  "theme_color": "#4f46e5",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiM0ZjQ2ZTUiIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTMuNzUgMjFoMTYuNU00LjUgM2gxNU01LjI1IDN2MThtMTMuNS0xOHYxOE05IDYuNzVoMS41bS0xLjUgM2gxLjVtLTEuNSAzIDNoMS41bS0xLjUgM2gxLjVtMy02aDEuNW0tMS41IDNoMS41bS0xLjUgM2gxLjVNOSAyMXYtMy4zNzVjMC0uNjIxLjUwNC0xLjEyNSAxLjEyNS0xLjEyNWgzLjc1Yy42MjEgMCAxLjEyNS41MDQgMS4xMjUgMS4xMjVWMjEiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgLz48L3N2Zz4=",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiM0ZjQ2ZTUiIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTMuNzUgMjFoMTYuNU00LjUgM2gxNU01LjI1IDN2MThtMTMuNS0xOHYxOE05IDYuNzVoMS41bS0xLjUgM2gxLjVtLTEuNSAzIDNoMS41bS0xLjUgM2gxLjVtMy02aDEuNW0tMS41IDNoMS41bS0xLjUgM2gxLjVNOSAyMXYtMy4zNzVjMC0uNjIxLjUwNC0xLjEyNSAxLjEyNS0xLjEyNWgzLjc1Yy42MjEgMCAxLjEyNS41MDQgMS4xMjUgMS4xMjVWMjEiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgLz48L3N2Zz4=",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
