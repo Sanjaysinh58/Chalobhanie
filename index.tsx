@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom/client';
-import { GoogleGenAI, Chat } from '@google/genai';
+import { GoogleGenAI, Chat, Type } from '@google/genai';
 
 // Fix: Moved `declare` to top-level scope to resolve "Modifiers cannot appear here" error.
 declare const pdfjsLib: any;
@@ -24,6 +24,12 @@ interface Chapter {
   name:string;
 }
 
+interface MockTestQuestion {
+  question: string;
+  options: string[];
+  correct_answer: string;
+}
+
 type ViewState =
   | { page: 'home' }
   | { page: 'grade'; grade: number }
@@ -35,7 +41,9 @@ type ViewState =
   | { page: 'privacy' }
   | { page: 'disclaimer' }
   | { page: 'example_search' }
-  | { page: 'google_form' };
+  | { page: 'google_form' }
+  | { page: 'ai_mock_test' }
+  | { page: 'generated_mock_test'; grade: number; chapterName: string; questions: MockTestQuestion[] };
   
 interface Notification {
   id: number;
@@ -48,10 +56,10 @@ interface Notification {
 
 // From: data/chapters.ts
 const std9MathChapters: Chapter[] = [
-  { number: 1, name: 'સંખ્યા પદ્ધતિ' }, { number: 2, name: 'બહુપદીઓ' }, { number: 3, name: 'યામ ભૂમિતિ' }, { number: 4, name: 'દ્વિચલ સુરેખ સમੀਕਰణો' }, { number: 5, name: 'યુક્લિડની ભૂમિતિનો પરિચય' }, { number: 6, name: 'રેખાઓ અને ખૂણાઓ' }, { number: 7, name: 'ત્રિકોણ' }, { number: 8, name: 'ચતુષ્કોણ' }, { number: 9, name: 'વર્તુળ' }, { number: 10, name: 'હેરોનનું સૂત્ર' }, { number: 11, name: 'પૃષ્ઠફળ અને ઘનફળ' }, { number: 12, name: 'આંકડાશાસ્ત્ર' },
+  { number: 1, name: 'સંખ્યા પદ્ધતિ' }, { number: 2, name: 'બહુપદીઓ' }, { number: 3, name: 'યામ ભૂમિતિ' }, { number: 4, name: 'દ્વિચલ સુરેખ સમીકરણો' }, { number: 5, name: 'યુક્લિડની ભૂમિતિનો પરિચય' }, { number: 6, name: 'રેખાઓ અને ખૂણાઓ' }, { number: 7, name: 'ત્રિકોણ' }, { number: 8, name: 'ચતુષ્કોણ' }, { number: 9, name: 'વર્તુળ' }, { number: 10, name: 'હેરોનનું સૂત્ર' }, { number: 11, name: 'પૃષ્ઠફળ અને ઘનફળ' }, { number: 12, name: 'આંકડાશાસ્ત્ર' },
 ];
 const std10MathChapters: Chapter[] = [
-  { number: 1, name: 'વાસ્તવિક સંખ્યાઓ' }, { number: 2, name: 'બહુપદીઓ' }, { number: 3, name: 'દ્વિચલ સુરેખ સમੀਕਰణયુગ્મ' }, { number: 4, name: 'દ્વિઘાત સમીકરણ' }, { number: 5, name: 'સમાંતર શ્રેણી' }, { number: 6, name: 'ત્રિકોણ' }, { number: 7, name: 'યામ ભૂમિતિ' }, { number: 8, name: 'ત્રિકોણમિતિનો પરિચય' }, { number: 9, name: 'ત્રિકોણમિતિના ઉપયોગો' }, { number: 10, name: 'વર્તુળ' }, { number: 11, name: 'વર્તુળ સંબંધિત ક્ષેત્રફળ' }, { number: 12, name: 'પૃષ્ઠફળ અને ઘનફળ' }, { number: 13, name: 'આંકડાશાસ્ત્ર' }, { number: 14, name: 'સંભાવના' },
+  { number: 1, name: 'વાસ્તવિક સંખ્યાઓ' }, { number: 2, name: 'બહુપદીઓ' }, { number: 3, name: 'દ્વિચલ સુરેખ સમીકરણયુગ્મ' }, { number: 4, name: 'દ્વિઘાત સમીકરણ' }, { number: 5, name: 'સમાંતર શ્રેણી' }, { number: 6, name: 'ત્રિકોણ' }, { number: 7, name: 'યામ ભૂમિતિ' }, { number: 8, name: 'ત્રિકોણમિતિનો પરિચય' }, { number: 9, name: 'ત્રિકોણમિતિના ઉપયોગો' }, { number: 10, name: 'વર્તુળ' }, { number: 11, name: 'વર્તુળ સંબંધિત ક્ષેત્રફળ' }, { number: 12, name: 'પૃષ્ઠફળ અને ઘનફળ' }, { number: 13, name: 'આંકડાશાસ્ત્ર' }, { number: 14, name: 'સંભાવના' },
 ];
 
 // From: data/swaadhyayData.ts
@@ -126,6 +134,51 @@ const fetchNews = async (): Promise<NewsData> => {
     }
     return { news: newsText, sources: (groundingChunks as GroundingChunk[]) || [] };
 };
+
+const generateMockTest = async (grade: number, chapterName: string): Promise<MockTestQuestion[]> => {
+    if (!process.env.API_KEY) {
+        throw new Error("API key is not configured.");
+    }
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const prompt = `Generate a 5-question multiple-choice mock test for a student in Gujarati language.
+    - Subject: Math
+    - Standard: ${grade}
+    - Chapter: "${chapterName}" ${chapterName === 'All Chapters' ? '(This means you should create questions covering various chapters from the standard).' : ''}
+    - Language: Gujarati (The entire JSON output, including questions, options, and correct answers, must be in Gujarati script).
+    - Each question must have exactly 4 options.
+    - The 'correct_answer' field must exactly match one of the strings in the 'options' array.
+    - Ensure the questions are relevant to the Gujarat Education Board (GSEB) curriculum.
+    `;
+    const responseSchema = {
+        type: Type.OBJECT,
+        properties: {
+            questions: {
+                type: Type.ARRAY,
+                items: {
+                    type: Type.OBJECT,
+                    properties: {
+                        question: { type: Type.STRING },
+                        options: { type: Type.ARRAY, items: { type: Type.STRING } },
+                        correct_answer: { type: Type.STRING }
+                    },
+                    required: ["question", "options", "correct_answer"]
+                }
+            }
+        },
+        required: ["questions"]
+    };
+    const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: prompt,
+        config: {
+            responseMimeType: "application/json",
+            responseSchema: responseSchema,
+        },
+    });
+    const jsonResponse = JSON.parse(response.text);
+    return jsonResponse.questions || [];
+};
+
 
 // From: components/icons.tsx
 const BookOpenIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
@@ -798,7 +851,7 @@ const Header: React.FC<{ title: string; showBackButton: boolean; onBack: () => v
   );
 };
 
-const HomePage: React.FC<{ onGradeSelect: (grade: number) => void; onExampleSearchSelect: () => void; onNavigate: (view: ViewState) => void; }> = ({ onGradeSelect, onExampleSearchSelect, onNavigate }) => {
+const HomePage: React.FC<{ onGradeSelect: (grade: number) => void; onNavigate: (view: ViewState) => void; }> = ({ onGradeSelect, onNavigate }) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const menuItems: { grade: number; gradeText: string; gradeNumber: string; }[] = [ { grade: 9, gradeText: 'ધોરણ', gradeNumber: '9' }, { grade: 10, gradeText: 'ધોરણ', gradeNumber: '10' }];
   const actionButtonClass = "group w-full flex flex-col items-center justify-center p-4 sm:p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-indigo-600 dark:text-indigo-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-slate-100 dark:focus:ring-offset-slate-900";
@@ -806,9 +859,39 @@ const HomePage: React.FC<{ onGradeSelect: (grade: number) => void; onExampleSear
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
         {menuItems.map(item => (<button key={item.grade} onClick={() => onGradeSelect(item.grade)} className="group flex flex-col items-center justify-center p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-indigo-600 dark:text-indigo-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-slate-100 dark:focus:ring-offset-slate-900"><div className="text-center font-bold text-slate-700 dark:text-slate-200"><span className="block text-xl -mb-1">{item.gradeText}</span><span className="block text-7xl font-extrabold leading-tight">{item.gradeNumber}</span></div></button>))}
-        <div className="sm:col-span-2 grid grid-cols-2 gap-4 sm:gap-6 md:gap-8">
-           <button onClick={onExampleSearchSelect} className={actionButtonClass}><SearchIcon className="h-10 w-10 sm:h-12 sm:w-12 mb-2 sm:mb-3 text-indigo-500 transition-transform duration-300 group-hover:scale-110" /><span className="text-center text-lg sm:text-2xl font-bold text-slate-700 dark:text-slate-200">દાખલો શોધો</span></button>
-          <button onClick={() => onNavigate({ page: 'google_form' })} className={actionButtonClass}><PencilIcon className="h-10 w-10 sm:h-12 sm:w-12 mb-2 sm:mb-3 text-indigo-500 transition-transform duration-300 group-hover:scale-110" /><span className="text-center text-lg sm:text-2xl font-bold text-slate-700 dark:text-slate-200">Comment લખો</span></button>
+        <div className="sm:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+           <button onClick={() => onNavigate({ page: 'example_search' })} className={actionButtonClass}>
+                <SearchIcon className="h-10 w-10 sm:h-12 sm:w-12 mb-2 sm:mb-3 text-indigo-500 transition-transform duration-300 group-hover:scale-110" />
+                <span className="text-center text-lg sm:text-2xl font-bold text-slate-700 dark:text-slate-200">દાખલો શોધો</span>
+            </button>
+            <button onClick={() => onNavigate({ page: 'ai_mock_test' })} className={actionButtonClass}>
+                <ClipboardDocumentCheckIcon className="h-10 w-10 sm:h-12 sm:w-12 mb-2 sm:mb-3 text-indigo-500 transition-transform duration-300 group-hover:scale-110" />
+                <span className="text-center text-lg sm:text-2xl font-bold text-slate-700 dark:text-slate-200">Mock Test</span>
+            </button>
+          <button onClick={() => onNavigate({ page: 'google_form' })} className={`${actionButtonClass} col-span-2 sm:col-span-1`}>
+            <PencilIcon className="h-10 w-10 sm:h-12 sm:w-12 mb-2 sm:mb-3 text-indigo-500 transition-transform duration-300 group-hover:scale-110" />
+            <span className="text-center text-lg sm:text-2xl font-bold text-slate-700 dark:text-slate-200">તમારા reviews જણાવો</span>
+          </button>
+        </div>
+      </div>
+      <div className="mt-12 text-center">
+        <h3 className="text-lg font-semibold text-slate-600 dark:text-slate-300 mb-4">Follow Us On</h3>
+        <div className="flex justify-center items-center space-x-6">
+          <a href="#" aria-label="Whatsapp" className="text-slate-500 dark:text-slate-400 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-300 transform hover:scale-110">
+            <WhatsappIcon className="h-8 w-8" />
+          </a>
+          <a href="#" aria-label="Instagram" className="text-slate-500 dark:text-slate-400 hover:text-pink-500 dark:hover:text-pink-400 transition-colors duration-300 transform hover:scale-110">
+            <InstagramIcon className="h-8 w-8" />
+          </a>
+          <a href="#" aria-label="Facebook" className="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-500 transition-colors duration-300 transform hover:scale-110">
+            <FacebookIcon className="h-8 w-8" />
+          </a>
+          <a href="#" aria-label="Telegram" className="text-slate-500 dark:text-slate-400 hover:text-sky-500 dark:hover:text-sky-400 transition-colors duration-300 transform hover:scale-110">
+            <TelegramIcon className="h-8 w-8" />
+          </a>
+          <a href="#" aria-label="X (formerly Twitter)" className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors duration-300 transform hover:scale-110">
+            <XIcon className="h-7 w-7" />
+          </a>
         </div>
       </div>
       <button onClick={() => setIsChatOpen(true)} aria-label="Chat with us" className="fixed bottom-24 right-6 bg-indigo-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-slate-100 dark:focus:ring-offset-slate-900 transition-all duration-300 transform hover:scale-110"><ChatBubbleIcon className="w-8 h-8" /></button>
@@ -961,6 +1044,258 @@ const ExampleSearchPage: React.FC<{ navigate: (view: ViewState) => void; }> = ({
   );
 };
 
+const AiMockTestPage: React.FC<{ navigate: (view: ViewState) => void; }> = ({ navigate }) => {
+    const [selectedGrade, setSelectedGrade] = useState<number | null>(null);
+    const [selectedChapterName, setSelectedChapterName] = useState<string>('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+
+    const chapters = useMemo(() => {
+        const baseChapters = selectedGrade === 9 ? std9MathChapters : selectedGrade === 10 ? std10MathChapters : [];
+        if (baseChapters.length > 0) {
+            return [{ number: 0, name: 'All Chapters' }, ...baseChapters];
+        }
+        return [];
+    }, [selectedGrade]);
+
+    const handleGenerateTest = async () => {
+        if (!selectedGrade || !selectedChapterName) return;
+        setIsLoading(true);
+        setError(null);
+        try {
+            const questions = await generateMockTest(selectedGrade, selectedChapterName);
+            if (questions && questions.length > 0) {
+                navigate({ page: 'generated_mock_test', grade: selectedGrade, chapterName: selectedChapterName, questions });
+            } else {
+                setError("Sorry, I couldn't generate a test for this topic. Please try another one.");
+            }
+        } catch (err) {
+            console.error("Error generating mock test:", err);
+            setError("An error occurred while generating the test. Please check your connection and try again.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const commonSelectClass = "w-full p-3 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none";
+    const FormSection: React.FC<{title: string, step: number, children: React.ReactNode, disabled?: boolean}> = ({title, step, children, disabled = false}) => (<div className={`transition-opacity duration-500 ${disabled ? 'opacity-40 pointer-events-none' : 'opacity-100'}`}><h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-3"><span className="bg-indigo-500 text-white rounded-full h-7 w-7 inline-flex items-center justify-center mr-3">{step}</span>{title}</h3>{children}</div>);
+
+    return (
+        <div className="p-4 bg-white dark:bg-slate-800 rounded-2xl shadow-lg space-y-6 animate-fade-in">
+            <h2 className="text-2xl font-bold text-center text-slate-800 dark:text-slate-100">Mock Test Generator</h2>
+            <FormSection title="ધોરણ પસંદ કરો" step={1}>
+                <div className="grid grid-cols-2 gap-4">{[9, 10].map(grade => (<button key={grade} onClick={() => { setSelectedGrade(grade); setSelectedChapterName(''); }} className={`p-4 rounded-lg font-bold text-2xl transition-all duration-200 ${selectedGrade === grade ? 'bg-indigo-600 text-white ring-2 ring-offset-2 ring-indigo-500 ring-offset-slate-100 dark:ring-offset-slate-800' : 'bg-slate-100 dark:bg-slate-700/50 hover:bg-slate-200 dark:hover:bg-slate-700'}`}>{grade}</button>))}</div>
+            </FormSection>
+            <FormSection title="પ્રકરણ પસંદ કરો" step={2} disabled={!selectedGrade}>
+                <select value={selectedChapterName} onChange={(e) => setSelectedChapterName(e.target.value)} className={commonSelectClass}>
+                    <option value="" disabled>-- Select Chapter --</option>
+                    {chapters.map(c => <option key={c.number} value={c.name}>{c.name === 'All Chapters' ? 'બધા પ્રકરણ' : `પ્રકરણ ${c.number}: ${c.name}`}</option>)}
+                </select>
+            </FormSection>
+            
+            {error && <div className="p-3 text-center bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-200 rounded-lg">{error}</div>}
+
+            <button onClick={handleGenerateTest} disabled={!selectedGrade || !selectedChapterName || isLoading} className="w-full flex items-center justify-center p-4 rounded-lg bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-all duration-300 disabled:bg-slate-400 disabled:dark:bg-slate-600 disabled:cursor-not-allowed transform hover:scale-105 disabled:transform-none">
+                {isLoading ? (
+                    <>
+                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                        Generating Test...
+                    </>
+                ) : (
+                    <>
+                        <ClipboardDocumentCheckIcon className="h-6 w-6 mr-2" />
+                        Generate Test
+                    </>
+                )}
+            </button>
+        </div>
+    );
+};
+
+const MockTestResultPopup: React.FC<{
+    isOpen: boolean;
+    score: number;
+    totalQuestions: number;
+    onClose: () => void;
+    onNewTest: () => void;
+}> = ({ isOpen, score, totalQuestions, onClose, onNewTest }) => {
+    const [isClosing, setIsClosing] = useState(false);
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isOpen]);
+
+    const handleClose = () => {
+        setIsClosing(true);
+        setTimeout(() => {
+            onClose();
+            setIsClosing(false);
+        }, 300);
+    };
+
+    const handleNewTest = () => {
+        setIsClosing(true);
+        setTimeout(() => {
+            onNewTest();
+            setIsClosing(false);
+        }, 300);
+    };
+
+    if (!isOpen) {
+        return null;
+    }
+
+    const percentage = totalQuestions > 0 ? (score / totalQuestions) * 100 : 0;
+    const resultMessage = percentage >= 80 ? "Excellent Work!" : percentage >= 50 ? "Good Job!" : "Keep Practicing!";
+
+    return (
+        <div 
+            className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 animate-fade-in" 
+            aria-modal="true" 
+            role="dialog"
+            onClick={handleClose}
+        >
+            <div 
+                className={`w-full max-w-md bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-6 text-center transform ${isClosing ? 'animate-fade-out animate-slide-out-to-bottom' : 'animate-fade-in-down'}`}
+                onClick={(e) => e.stopPropagation()}
+            >
+                <AcademicCapIcon className="h-20 w-20 text-indigo-500 mx-auto mb-4" />
+                <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Test Result</h2>
+                <p className="text-lg text-slate-600 dark:text-slate-300 mt-2">{resultMessage}</p>
+
+                <div className="my-6">
+                    <p className="text-5xl font-extrabold text-indigo-600 dark:text-indigo-300">
+                        {score} 
+                        <span className="text-3xl font-semibold text-slate-500 dark:text-slate-400">/ {totalQuestions}</span>
+                    </p>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4">
+                    <button 
+                        onClick={handleClose} 
+                        className="w-full p-3 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+                    >
+                        Review Answers
+                    </button>
+                    <button 
+                        onClick={handleNewTest} 
+                        className="w-full p-3 rounded-lg bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors"
+                    >
+                        Create New Test
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const GeneratedMockTestPage: React.FC<{
+    grade: number;
+    chapterName: string;
+    questions: MockTestQuestion[];
+    onBack: () => void;
+}> = ({ grade, chapterName, questions, onBack }) => {
+    const [userAnswers, setUserAnswers] = useState<{ [key: number]: string }>({});
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [showResultPopup, setShowResultPopup] = useState(false);
+
+    const score = useMemo(() => {
+        if (!isSubmitted) return 0;
+        return questions.reduce((acc, question, index) => {
+            return userAnswers[index] === question.correct_answer ? acc + 1 : acc;
+        }, 0);
+    }, [isSubmitted, userAnswers, questions]);
+
+    const handleSelectAnswer = (questionIndex: number, answer: string) => {
+        if (isSubmitted) return;
+        setUserAnswers(prev => ({ ...prev, [questionIndex]: answer }));
+    };
+
+    const handleSubmit = () => {
+        if(Object.keys(userAnswers).length !== questions.length) {
+            alert("Please answer all questions before submitting.");
+            return;
+        }
+        setIsSubmitted(true);
+        setShowResultPopup(true);
+    };
+
+    const getOptionClass = (questionIndex: number, option: string) => {
+        if (!isSubmitted) {
+            return userAnswers[questionIndex] === option 
+                ? 'bg-indigo-200 dark:bg-indigo-900 ring-2 ring-indigo-500' 
+                : 'bg-slate-100 dark:bg-slate-700/50 hover:bg-slate-200 dark:hover:bg-slate-700';
+        }
+        const isCorrect = option === questions[questionIndex].correct_answer;
+        const isSelected = userAnswers[questionIndex] === option;
+        if(isCorrect) return 'bg-emerald-200 dark:bg-emerald-900 ring-2 ring-emerald-500';
+        if(isSelected && !isCorrect) return 'bg-red-200 dark:bg-red-900 ring-2 ring-red-500';
+        return 'bg-slate-100 dark:bg-slate-700/50 opacity-70';
+    };
+
+    return (
+        <>
+            <div className="p-4 bg-white dark:bg-slate-800 rounded-2xl shadow-lg space-y-6 animate-fade-in">
+                <div className="text-center">
+                    <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100">
+                        {isSubmitted ? 'Review Your Answers' : 'Mock Test'}
+                    </h2>
+                    <p className="text-slate-600 dark:text-slate-400">ધોરણ {grade} - {chapterName}</p>
+                </div>
+
+                <div className="space-y-8">
+                    {questions.map((q, index) => (
+                        <div key={index} className="border-t border-slate-200 dark:border-slate-700 pt-6">
+                            <p className="font-bold text-lg text-slate-800 dark:text-slate-100 mb-4">{index + 1}. {q.question}</p>
+                            <div className="space-y-3">
+                                {q.options.map((option, optionIndex) => (
+                                    <button
+                                        key={optionIndex}
+                                        onClick={() => handleSelectAnswer(index, option)}
+                                        disabled={isSubmitted}
+                                        className={`w-full text-left p-3 rounded-lg font-medium transition-all duration-200 ${getOptionClass(index, option)}`}
+                                    >
+                                        {option}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="pt-6 border-t border-slate-200 dark:border-slate-700">
+                    {isSubmitted ? (
+                        <button onClick={onBack} className="w-full flex items-center justify-center p-4 rounded-lg bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors">
+                            <ArrowPathIcon className="h-6 w-6 mr-2"/>
+                            Create New Test
+                        </button>
+                    ) : (
+                         <button onClick={handleSubmit} className="w-full flex items-center justify-center p-4 rounded-lg bg-emerald-600 text-white font-bold hover:bg-emerald-700 transition-colors">
+                            <ClipboardDocumentCheckIcon className="h-6 w-6 mr-2"/>
+                            Submit Test
+                        </button>
+                    )}
+                </div>
+            </div>
+            <MockTestResultPopup
+                isOpen={showResultPopup}
+                score={score}
+                totalQuestions={questions.length}
+                onClose={() => setShowResultPopup(false)}
+                onNewTest={onBack}
+            />
+        </>
+    );
+};
+
+
 // --- Main App Component (from App.tsx) ---
 const App: React.FC = () => {
     const [history, setHistory] = useState<ViewState[]>([{ page: 'home' }]);
@@ -992,7 +1327,6 @@ const App: React.FC = () => {
         if (navigator.share) { navigator.share(shareData).catch((error) => console.error('Error sharing:', error)); } else { navigator.clipboard.writeText(shareData.url).then(() => { alert('Link copied to clipboard! You can now share it.'); }).catch(err => { console.error('Failed to copy: ', err); alert('Share feature is not supported on this device or browser.'); }); }
     }, [currentView]);
     const handleGradeSelect = (grade: number) => navigate({ page: 'grade', grade });
-    const handleExampleSearchSelect = () => navigate({ page: 'example_search' });
     const handleTextbookSelect = () => { if (currentView.page === 'grade') { navigate({ page: 'resource', grade: currentView.grade, resource: 'books' }); } };
     const handleSolutionsSelect = () => { if (currentView.page === 'grade') { navigate({ page: 'subject', grade: currentView.grade }); } };
     const handleChapterSelect = (chapter: Chapter) => { if (currentView.page === 'subject') { navigate({ page: 'chapter', grade: currentView.grade, chapter }); } };
@@ -1029,13 +1363,15 @@ const App: React.FC = () => {
             case 'privacy': return { title: 'Privacy Policy', showBackButton: true };
             case 'disclaimer': return { title: 'Disclaimer', showBackButton: true };
             case 'example_search': return { title: 'દાખલો શોધો', showBackButton: true };
-            case 'google_form': return { title: 'Comment લખો', showBackButton: true };
+            case 'google_form': return { title: 'તમારા reviews જણાવો', showBackButton: true };
+            case 'ai_mock_test': return { title: 'Mock Test', showBackButton: true };
+            case 'generated_mock_test': return { title: 'Mock Test', showBackButton: true };
             default: return { title: 'Chalo ભણીએ !', showBackButton: false };
         }
     }, [currentView]);
     const renderContent = () => {
         switch(currentView.page) {
-            case 'home': return <HomePage onGradeSelect={handleGradeSelect} onExampleSearchSelect={handleExampleSearchSelect} onNavigate={navigate} />;
+            case 'home': return <HomePage onGradeSelect={handleGradeSelect} onNavigate={navigate} />;
             case 'grade': return <GradePage grade={currentView.grade} onTextbookSelect={handleTextbookSelect} onSolutionsSelect={handleSolutionsSelect} />;
             case 'subject': return <SubjectPage grade={currentView.grade} onChapterSelect={handleChapterSelect} />;
             case 'resource':
@@ -1043,7 +1379,7 @@ const App: React.FC = () => {
                     case 'books': return <BooksPage />;
                     case 'old_papers': return <OldPapersPage />;
                     case 'mock_tests': return <MockTestPage />;
-                    default: return <HomePage onGradeSelect={handleGradeSelect} onExampleSearchSelect={handleExampleSearchSelect} onNavigate={navigate} />;
+                    default: return <HomePage onGradeSelect={handleGradeSelect} onNavigate={navigate} />;
                 }
             case 'chapter': return <ChapterDetailPage grade={currentView.grade} chapter={currentView.chapter} expandedExercise={currentView.expandedExercise} />;
             case 'about': return <AboutPage />;
@@ -1052,7 +1388,9 @@ const App: React.FC = () => {
             case 'disclaimer': return <DisclaimerPage />;
             case 'example_search': return <ExampleSearchPage navigate={navigate} />;
             case 'google_form': return <GoogleFormPage />;
-            default: return <HomePage onGradeSelect={handleGradeSelect} onExampleSearchSelect={handleExampleSearchSelect} onNavigate={navigate} />;
+            case 'ai_mock_test': return <AiMockTestPage navigate={navigate} />;
+            case 'generated_mock_test': return <GeneratedMockTestPage grade={currentView.grade} chapterName={currentView.chapterName} questions={currentView.questions} onBack={goBack} />;
+            default: return <HomePage onGradeSelect={handleGradeSelect} onNavigate={navigate} />;
         }
     };
     const isFullWidthResourcePage = currentView.page === 'chapter' || currentView.page === 'google_form';
