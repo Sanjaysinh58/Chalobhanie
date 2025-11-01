@@ -413,15 +413,38 @@ const ChatBox: React.FC<{ isOpen: boolean; onClose: () => void; onNavigate: (vie
   const chatRef = useRef<Chat | null>(null);
   const messageIdCounter = useRef(1);
   useEffect(() => {
-    if (isOpen && !chatRef.current) {
-        try {
-            const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-            chatRef.current = ai.chats.create({ model: 'gemini-2.5-flash', config: { systemInstruction: systemInstruction } });
-        } catch (error) {
-            console.error("Failed to initialize Gemini Chat:", error);
-            setConversation(prev => [...prev, { id: messageIdCounter.current++, text: "માફ કરશો, ચેટ સેવા હાલમાં અનુપલબ્ધ છે.", sender: 'bot' }]);
+    const initializeChat = async () => {
+        if (isOpen && !chatRef.current) {
+            if ((window as any).aistudio && typeof (window as any).aistudio.hasSelectedApiKey === 'function' && typeof (window as any).aistudio.openSelectKey === 'function') {
+                const hasKey = await (window as any).aistudio.hasSelectedApiKey();
+                if (!hasKey) {
+                    await (window as any).aistudio.openSelectKey();
+                }
+            }
+
+            if (!process.env.API_KEY) {
+                setConversation(prev => [...prev, { id: messageIdCounter.current++, text: "ચેટ સુવિધા માટે API કી જરૂરી છે.", sender: 'bot' }]);
+                setIsTyping(false);
+                return;
+            }
+
+            try {
+                const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+                chatRef.current = ai.chats.create({ model: 'gemini-2.5-flash', config: { systemInstruction: systemInstruction } });
+            } catch (error) {
+                console.error("Failed to initialize Gemini Chat:", error);
+                setConversation(prev => [...prev, { id: messageIdCounter.current++, text: "માફ કરશો, ચેટ સેવા શરૂ કરવામાં ભૂલ આવી છે.", sender: 'bot' }]);
+            }
+        } else if (!isOpen) { 
+            chatRef.current = null; 
         }
-    } else if (!isOpen) { chatRef.current = null; }
+    };
+
+    if (isOpen) {
+        initializeChat();
+    } else {
+        chatRef.current = null;
+    }
   }, [isOpen]);
   const performClose = () => { setIsClosing(true); setTimeout(() => { onClose(); setIsClosing(false); setConversation([initialMessage]); messageIdCounter.current = 1; }, 300); };
   const handleClose = () => { performClose(); };
@@ -450,7 +473,11 @@ const ChatBox: React.FC<{ isOpen: boolean; onClose: () => void; onNavigate: (vie
         }
     } catch (error) {
         console.error("Gemini API error:", error);
-        const errorReply: Message = { id: messageIdCounter.current++, text: "માફ કરશો, મને અત્યારે કનેક્ટ કરવામાં મુશ્કેલી પડી રહી છે. કૃપા કરીને પછીથી ફરી પ્રયાસ કરો.", sender: 'bot' };
+        let errorMessage = "માફ કરશો, મને અત્યારે કનેક્ટ કરવામાં મુશ્કેલી પડી રહી છે. કૃપા કરીને પછીથી ફરી પ્રયાસ કરો.";
+        if (error instanceof Error && (error.message.includes('API key not valid') || error.message.includes('permission to access'))) {
+             errorMessage = "તમે પસંદ કરેલી API કી માન્ય નથી. કૃપા કરીને ચેટ બંધ કરો, ફરીથી ખોલો અને બીજી કી પસંદ કરો.";
+        }
+        const errorReply: Message = { id: messageIdCounter.current++, text: errorMessage, sender: 'bot' };
         setConversation(prev => [...prev, errorReply]);
     } finally { setIsTyping(false); }
   };
@@ -1060,6 +1087,14 @@ const AiMockTestPage: React.FC<{ navigate: (view: ViewState) => void; }> = ({ na
 
     const handleGenerateTest = async () => {
         if (!selectedGrade || !selectedChapterName) return;
+
+        if ((window as any).aistudio && typeof (window as any).aistudio.hasSelectedApiKey === 'function' && typeof (window as any).aistudio.openSelectKey === 'function') {
+            const hasKey = await (window as any).aistudio.hasSelectedApiKey();
+            if (!hasKey) {
+                await (window as any).aistudio.openSelectKey();
+            }
+        }
+
         setIsLoading(true);
         setError(null);
         try {
@@ -1071,7 +1106,17 @@ const AiMockTestPage: React.FC<{ navigate: (view: ViewState) => void; }> = ({ na
             }
         } catch (err) {
             console.error("Error generating mock test:", err);
-            setError("An error occurred while generating the test. Please check your connection and try again.");
+            let errorMessage = "An error occurred while generating the test. Please check your connection and try again.";
+            if (err instanceof Error) {
+                if (err.message.includes('API key not valid') || err.message.includes('permission to access')) {
+                    errorMessage = "The selected API key is not valid. Please click 'Generate Test' again to select a different key.";
+                } else if (err.message === 'API key is not configured.') {
+                    errorMessage = "An API key is required for this feature. Please click 'Generate Test' again to select a key.";
+                } else if (err.message.includes("Requested entity was not found.")) {
+                    errorMessage = "The resource was not found. This can happen with an invalid API key. Please click 'Generate Test' again to select a different key.";
+                }
+            }
+            setError(errorMessage);
         } finally {
             setIsLoading(false);
         }
