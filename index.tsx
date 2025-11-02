@@ -1,3 +1,4 @@
+
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom/client';
 import { GoogleGenAI, Chat, Type } from '@google/genai';
@@ -82,7 +83,34 @@ const swaadhyayData: { [grade: number]: { [chapter: number]: SwaadhyayExercise[]
       { name: 'સ્વાધ્યાય 1.3', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2020/12/standard-9-sankhya-paddhati-svadhyay-1.3.html' }] },
       { name: 'સ્વાધ્યાય 1.4', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2020/12/standard-9-sankhya-paddhati-svadhyay-1.5.html' }] },
       { name: 'સ્વાધ્યાય 1.5', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2020/12/standard-9-sankhya-paddhati-svadhyay-1.6.html' }] },
-    ], 2: createSwaadhyayChapterExercises(['સ્વાધ્યાય 2.1', 'સ્વાધ્યાય 2.2', 'સ્વાધ્યાય 2.3', 'સ્વાધ્યાય 2.4', 'સ્વાધ્યાય 2.5'], 9, 2), 3: createSwaadhyayChapterExercises(['સ્વાધ્યાય 3.1', 'સ્વાધ્યાય 3.2', 'સ્વાધ્યાય 3.3'], 9, 3), 4: createSwaadhyayChapterExercises(['સ્વાધ્યાય 4.1', 'સ્વાધ્યાય 4.2', 'સ્વાધ્યાય 4.3', 'સ્વાધ્યાય 4.4'], 9, 4), 5: createSwaadhyayChapterExercises(['સ્વાધ્યાય 5.1', 'સ્વાધ્યાય 5.2'], 9, 5), 6: createSwaadhyayChapterExercises(['સ્વાધ્યાય 6.1', 'સ્વાધ્યાય 6.2', 'સ્વાધ્યાય 6.3'], 9, 6), 7: createSwaadhyayChapterExercises(['સ્વાધ્યાય 7.1', 'સ્વાધ્યાય 7.2', 'સ્વાધ્યાય 7.3', 'સ્વાધ્યાય 7.4', 'સ્વાધ્યાય 7.5'], 9, 7), 8: createSwaadhyayChapterExercises(['સ્વાધ્યાય 8.1', 'સ્વાધ્યાય 8.2'], 9, 8), 9: createSwaadhyayChapterExercises(['સ્વાધ્યાય 9.1', 'સ્વાધ્યાય 9.2', 'સ્વાધ્યાય 9.3', 'સ્વાધ્યાય 9.4'], 9, 9), 10: createSwaadhyayChapterExercises(['સ્વાધ્યાય 10.1', 'સ્વાધ્યાય 10.2', 'સ્વાધ્યાય 10.3', 'સ્વાધ્યાય 10.4', 'સ્વાધ્યાય 10.5', 'સ્વાધ્યાય 10.6'], 9, 10), 11: createSwaadhyayChapterExercises(['સ્વાધ્યાય 11.1', 'સ્વાધ્યાય 11.2'], 9, 11), 12: createSwaadhyayChapterExercises(['સ્વાધ્યાય 12.1', 'સ્વાધ્યાય 12.2'], 9, 12),
+    ],
+    2: [
+      { name: 'સ્વાધ્યાય 2.1', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2020/12/standard-9-bahupadio-svadhyay-2.1.html' }] },
+      { name: 'સ્વાધ્યાય 2.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2020/12/standard-9-bahupadio-svadhyay-2.2.html' }] },
+      { name: 'સ્વાધ્યાય 2.3', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2020/12/standard-9-bahupadio-svadhyay-2.4.html' }] },
+      { name: 'સ્વાધ્યાય 2.4', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2020/12/standard-9-bahupadio-svadhyay-2.5.html' }] },
+    ],
+    3: [
+        { name: 'સ્વાધ્યાય 3.1', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2020/12/standard-9-yaam-bhumiti-svadhyay-3.1.html' }] },
+        { name: 'સ્વાધ્યાય 3.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2020/12/standard-9-yaam-bhumiti-svadhyay-3.2.html' }] },
+    ],
+    4: [
+        { name: 'સ્વાધ્યાય 4.1', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2023/10/Std9-dvichal-surekh-samikaran-svadhyay.html' }] },
+        { name: 'સ્વાધ્યાય 4.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2021/01/standard-9-dvichal-surekh-samikaran-svadhyay-4.2.html' }] },
+    ],
+    5: [
+        { name: 'સ્વાધ્યાય 5.1', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2021/01/standard-9-yuklidni-bhumitino-parichay-svadhyay-5.1.html' }] },
+    ],
+    6: [
+        { name: 'સ્વાધ્યાય 6.1', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2023/10/blog-post.html' }] },
+        { name: 'સ્વાધ્યાય 6.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2023/10/std9-rekhao-ane-khunao-svadhyay-6.2.html' }] },
+    ],
+    7: [
+        { name: 'સ્વાધ્યાય 7.1', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2020/12/standard-9-trikon-svadhyay-7.1.html' }] },
+        { name: 'સ્વાધ્યાય 7.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2020/12/standard-9-trikon-svadhyay-7.2.html' }] },
+        { name: 'સ્વાધ્યાય 7.3', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2020/12/standard-9-trikon-svadhyay-7.3.html' }] },
+    ],
+    8: createSwaadhyayChapterExercises(['સ્વાધ્યાય 8.1', 'સ્વાધ્યાય 8.2'], 9, 8), 9: createSwaadhyayChapterExercises(['સ્વાધ્યાય 9.1', 'સ્વાધ્યાય 9.2', 'સ્વાધ્યાય 9.3'], 9, 9), 10: createSwaadhyayChapterExercises(['સ્વાધ્યાય 10.1'], 9, 10), 11: createSwaadhyayChapterExercises(['સ્વાધ્યાય 11.1', 'સ્વાધ્યાય 11.2', 'સ્વાધ્યાય 11.3', 'સ્વાધ્યાય 11.4'], 9, 11), 12: createSwaadhyayChapterExercises(['સ્વાધ્યાય 12.1'], 9, 12),
   },
   10: {
     1: createSwaadhyayChapterExercises(['સ્વાધ્યાય 1.1', 'સ્વાધ્યાય 1.2', 'સ્વાધ્યાય 1.3', 'સ્વાધ્યાય 1.4'], 10, 1), 2: createSwaadhyayChapterExercises(['સ્વાધ્યાય 2.1', 'સ્વાધ્યાય 2.2', 'સ્વાધ્યાય 2.3'], 10, 2), 3: createSwaadhyayChapterExercises(['સ્વાધ્યાય 3.1', 'સ્વાધ્યાય 3.2', 'સ્વાધ્યાય 3.3', 'સ્વાધ્યાય 3.4', 'સ્વાધ્યાય 3.5', 'સ્વાધ્યાય 3.6'], 10, 3), 4: createSwaadhyayChapterExercises(['સ્વાધ્યાય 4.1', 'સ્વાધ્યાય 4.2', 'સ્વાધ્યાય 4.3', 'સ્વાધ્યાય 4.4'], 10, 4), 5: createSwaadhyayChapterExercises(['સ્વાધ્યાય 5.1', 'સ્વાધ્યાય 5.2', 'સ્વાધ્યાય 5.3', 'સ્વાધ્યાય 5.4'], 10, 5), 6: createSwaadhyayChapterExercises(['સ્વાધ્યાય 6.1', 'સ્વાધ્યાય 6.2', 'સ્વાધ્યાય 6.3', 'સ્વાધ્યાય 6.4', 'સ્વાધ્યાય 6.5'], 10, 6), 7: createSwaadhyayChapterExercises(['સ્વાધ્યાય 7.1', 'સ્વાધ્યાય 7.2', 'સ્વાધ્યાય 7.3', 'સ્વાધ્યાય 7.4'], 10, 7), 8: createSwaadhyayChapterExercises(['સ્વાધ્યાય 8.1', 'સ્વાધ્યાય 8.2', 'સ્વાધ્યાય 8.3', 'સ્વાધ્યાય 8.4'], 10, 8), 9: createSwaadhyayChapterExercises(['સ્વાધ્યાય 9.1', 'સ્વાધ્યાય 9.2'], 10, 9), 10: createSwaadhyayChapterExercises(['સ્વાધ્યાય 10.1', 'સ્વાધ્યાય 10.2'], 10, 10), 11: createSwaadhyayChapterExercises(['સ્વાધ્યાય 11.1', 'સ્વાધ્યાય 11.2', 'સ્વાધ્યાય 11.3'], 10, 11), 12: createSwaadhyayChapterExercises(['સ્વાધ્યાય 12.1', 'સ્વાધ્યાય 12.2', 'સ્વાધ્યાય 12.3', 'સ્વાધ્યાય 12.4', 'સ્વાધ્યાય 12.5'], 10, 12), 13: createSwaadhyayChapterExercises(['સ્વાધ્યાય 13.1', 'સ્વાધ્યાય 13.2', 'સ્વાધ્યાય 13.3', 'સ્વાધ્યાય 13.4'], 10, 13), 14: createSwaadhyayChapterExercises(['સ્વાધ્યાય 14.1', 'સ્વાધ્યાય 14.2'], 10, 14),
@@ -93,7 +121,18 @@ const swaadhyayData: { [grade: number]: { [chapter: number]: SwaadhyayExercise[]
 interface Video { name: string; youtubeUrl: string; }
 interface Exercise { name: string; videos: Video[]; }
 const std9Chapter1Exercises: Exercise[] = [
-  { name: 'સ્વાધ્યાય 1.1', videos: [{ name: 'સંપૂર્ણ સ્વાધ્યાય', youtubeUrl: 'https://youtu.be/yuzpwMpdlFo?si=6c0qk_92mmzilbT1' }] }, { name: 'સ્વાધ્યાય 1.2', videos: [{ name: 'પ્રશ્ન 1-4 (संपूर्ण स्वाध्याय)', youtubeUrl: 'https://www.youtube.com/watch?v=videoseries' }] }, { name: 'સ્વાધ્યાય 1.3', videos: [{ name: 'પ્રશ્ન 1-9 (संपूर्ण स्वाध्याय)', youtubeUrl: 'https://www.youtube.com/watch?v=s7_a-iL3_eE' }] }, { name: 'સ્વાધ્યાય 1.4', videos: [{ name: 'પ્રશ્ન 1-2 (संपूर्ण स्वाध्याय)', youtubeUrl: 'https://www.youtube.com/watch?v=videoseries' }] }, { name: 'સ્વાધ્યાય 1.5', videos: [{ name: 'પ્રશ્ન 1-5 (संपूर्ण स्वाध्याय)', youtubeUrl: 'https://www.youtube.com/watch?v=rEx_y8iBStQ' }] },
+  { name: 'સ્વાધ્યાય 1.1', videos: [{ name: 'સંપૂર્ણ સ્વાધ્યાય', youtubeUrl: 'https://youtu.be/yuzpwMpdlFo' }] }, 
+  { 
+    name: 'સ્વાધ્યાય 1.2', 
+    videos: [
+        { name: 'સંપૂર્ણ સ્વાધ્યાય', youtubeUrl: 'https://youtu.be/DuZkRhBXj1E' },
+        { name: 'દા. નં. - 1, 2', youtubeUrl: 'https://youtu.be/6qrUTJsIvUM' },
+        { name: 'દા. નં - 5', youtubeUrl: 'https://youtu.be/FtKHvbnuWbU' }
+    ] 
+  }, 
+  { name: 'સ્વાધ્યાય 1.3', videos: [{ name: 'પ્રશ્ન 1-9 (संपूर्ण स्वाध्याय)', youtubeUrl: 'https://www.youtube.com/watch?v=s7_a-iL3_eE' }] }, 
+  { name: 'સ્વાધ્યાય 1.4', videos: [{ name: 'પ્રશ્ન 1-2 (संपूर्ण स्वाध्याय)', youtubeUrl: 'https://www.youtube.com/watch?v=videoseries' }] }, 
+  { name: 'સ્વાધ્યાય 1.5', videos: [{ name: 'પ્રશ્ન 1-5 (संपूर्ण स्वाध्याय)', youtubeUrl: 'https://www.youtube.com/watch?v=rEx_y8iBStQ' }] },
 ];
 const std9Chapter2Exercises: Exercise[] = [ { name: 'સ્વાધ્યાય 2.1', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=3S-a_gJA8-c' }] }, { name: 'સ્વાધ્યાય 2.2', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=s7_a-iL3_eE' }] }];
 const std9Chapter3Exercises: Exercise[] = [ { name: 'સ્વાધ્યાય 3.1', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=rEx_y8iBStQ' }] }, { name: 'સ્વાધ્યાય 3.2', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=videoseries' }] }];
@@ -1053,7 +1092,6 @@ const ChapterDetailPage: React.FC<{ grade: number; chapter: Chapter; expandedExe
   const [viewingExternalUrl, setViewingExternalUrl] = useState<{ url: string; title: string } | null>(null);
   
   interface UnifiedExercise { name: string; videos: Video[]; solutions: SolutionResource[]; }
-  const getYouTubeId = (url: string): string | null => { const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/; const match = url.match(regExp); return (match && match[2].length === 11) ? match[2] : null; };
   const unifiedExercises = useMemo((): UnifiedExercise[] => {
     const videoExercises = videoData[grade]?.[chapter.number] || [];
     const swaadhyayExercises = swaadhyayData[grade]?.[chapter.number] || [];
@@ -1096,7 +1134,37 @@ const ChapterDetailPage: React.FC<{ grade: number; chapter: Chapter; expandedExe
                       )}
                     </div>
                   </div>
-                  {currentContent === 'videos' && (<div className="space-y-4 animate-fade-in">{exercise.videos.length > 0 ? exercise.videos.map(video => { const isPlaying = playingVideoUrl === video.youtubeUrl; if (isPlaying) { return <div key={video.name} className="bg-white dark:bg-slate-800"><div className="p-3"><p className="font-semibold text-slate-800 dark:text-slate-100 leading-tight">{video.name}</p></div><VideoSolution youtubeUrl={video.youtubeUrl} /></div> } const videoId = getYouTubeId(video.youtubeUrl); const thumbnailUrl = videoId ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg` : ''; return <button key={video.name} onClick={() => setPlayingVideoUrl(video.youtubeUrl)} className="group w-full text-left bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors duration-200 block focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800"><div className="p-3"><p className="font-semibold text-slate-800 dark:text-slate-100 leading-tight">{video.name}</p></div><div className="relative w-full aspect-video bg-slate-300 dark:bg-slate-700">{thumbnailUrl ? <img src={thumbnailUrl} alt={video.name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" /> : <div className="w-full h-full flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 text-slate-400"><path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" /></svg></div>}<div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"><div className="w-14 h-14 bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-8 h-8 text-white"><path d="M6.3 2.84A1.5 1.5 0 0 0 4 4.11v11.78a1.5 1.5 0 0 0 2.3 1.27l9.344-5.89a1.5 1.5 0 0 0 0-2.54L6.3 2.84Z" /></svg></div></div></div></button> }) : <p className="text-center text-slate-500 dark:text-slate-400 p-4">No videos available for this exercise.</p>}</div>)}
+                  {currentContent === 'videos' && (
+                    <div className="px-4 animate-fade-in">
+                        {exercise.videos.length > 0 ? (
+                        <div className="space-y-4">
+                            <select
+                                value={playingVideoUrl || ''}
+                                onChange={(e) => setPlayingVideoUrl(e.target.value || null)}
+                                className="w-full p-3 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                                aria-label="Select a video"
+                            >
+                            <option value="">-- વિડિઓ પસંદ કરો --</option>
+                            {exercise.videos.map((video, index) => (
+                                <option key={`${video.youtubeUrl}-${index}`} value={video.youtubeUrl}>
+                                    {video.name}
+                                </option>
+                            ))}
+                            </select>
+                            
+                            {playingVideoUrl && (
+                                <div className="mt-4 rounded-lg overflow-hidden shadow-lg">
+                                    <VideoSolution youtubeUrl={playingVideoUrl} />
+                                </div>
+                            )}
+                        </div>
+                        ) : (
+                        <p className="text-center text-slate-500 dark:text-slate-400 py-4">
+                            No videos available for this exercise.
+                        </p>
+                        )}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
