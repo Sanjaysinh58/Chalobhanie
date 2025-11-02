@@ -113,7 +113,39 @@ const swaadhyayData: { [grade: number]: { [chapter: number]: SwaadhyayExercise[]
     8: createSwaadhyayChapterExercises(['સ્વાધ્યાય 8.1', 'સ્વાધ્યાય 8.2'], 9, 8), 9: createSwaadhyayChapterExercises(['સ્વાધ્યાય 9.1', 'સ્વાધ્યાય 9.2', 'સ્વાધ્યાય 9.3'], 9, 9), 10: createSwaadhyayChapterExercises(['સ્વાધ્યાય 10.1'], 9, 10), 11: createSwaadhyayChapterExercises(['સ્વાધ્યાય 11.1', 'સ્વાધ્યાય 11.2', 'સ્વાધ્યાય 11.3', 'સ્વાધ્યાય 11.4'], 9, 11), 12: createSwaadhyayChapterExercises(['સ્વાધ્યાય 12.1'], 9, 12),
   },
   10: {
-    1: createSwaadhyayChapterExercises(['સ્વાધ્યાય 1.1', 'સ્વાધ્યાય 1.2', 'સ્વાધ્યાય 1.3', 'સ્વાધ્યાય 1.4'], 10, 1), 2: createSwaadhyayChapterExercises(['સ્વાધ્યાય 2.1', 'સ્વાધ્યાય 2.2', 'સ્વાધ્યાય 2.3'], 10, 2), 3: createSwaadhyayChapterExercises(['સ્વાધ્યાય 3.1', 'સ્વાધ્યાય 3.2', 'સ્વાધ્યાય 3.3', 'સ્વાધ્યાય 3.4', 'સ્વાધ્યાય 3.5', 'સ્વાધ્યાય 3.6'], 10, 3), 4: createSwaadhyayChapterExercises(['સ્વાધ્યાય 4.1', 'સ્વાધ્યાય 4.2', 'સ્વાધ્યાય 4.3', 'સ્વાધ્યાય 4.4'], 10, 4), 5: createSwaadhyayChapterExercises(['સ્વાધ્યાય 5.1', 'સ્વાધ્યાય 5.2', 'સ્વાધ્યાય 5.3', 'સ્વાધ્યાય 5.4'], 10, 5), 6: createSwaadhyayChapterExercises(['સ્વાધ્યાય 6.1', 'સ્વાધ્યાય 6.2', 'સ્વાધ્યાય 6.3', 'સ્વાધ્યાય 6.4', 'સ્વાધ્યાય 6.5'], 10, 6), 7: createSwaadhyayChapterExercises(['સ્વાધ્યાય 7.1', 'સ્વાધ્યાય 7.2', 'સ્વાધ્યાય 7.3', 'સ્વાધ્યાય 7.4'], 10, 7), 8: createSwaadhyayChapterExercises(['સ્વાધ્યાય 8.1', 'સ્વાધ્યાય 8.2', 'સ્વાધ્યાય 8.3', 'સ્વાધ્યાય 8.4'], 10, 8), 9: createSwaadhyayChapterExercises(['સ્વાધ્યાય 9.1', 'સ્વાધ્યાય 9.2'], 10, 9), 10: createSwaadhyayChapterExercises(['સ્વાધ્યાય 10.1', 'સ્વાધ્યાય 10.2'], 10, 10), 11: createSwaadhyayChapterExercises(['સ્વાધ્યાય 11.1', 'સ્વાધ્યાય 11.2', 'સ્વાધ્યાય 11.3'], 10, 11), 12: createSwaadhyayChapterExercises(['સ્વાધ્યાય 12.1', 'સ્વાધ્યાય 12.2', 'સ્વાધ્યાય 12.3', 'સ્વાધ્યાય 12.4', 'સ્વાધ્યાય 12.5'], 10, 12), 13: createSwaadhyayChapterExercises(['સ્વાધ્યાય 13.1', 'સ્વાધ્યાય 13.2', 'સ્વાધ્યાય 13.3', 'સ્વાધ્યાય 13.4'], 10, 13), 14: createSwaadhyayChapterExercises(['સ્વાધ્યાય 14.1', 'સ્વાધ્યાય 14.2'], 10, 14),
+    1: [
+        { name: 'સ્વાધ્યાય 1.1', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2023/10/Std10-vastaviksankhyao-svadhyay1.1.html' }] },
+        { name: 'સ્વાધ્યાય 1.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2023/10/Std10-vastaviksankhyao-svadhyay1.2.html' }] }
+    ],
+    2: [
+        { name: 'સ્વાધ્યાય 2.1', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2023/10/Std10-bahupadio-svadhyay-2.1.html' }] },
+        { name: 'સ્વાધ્યાય 2.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2023/10/Std10-bahupadio-svadhyay-2.2.html' }] }
+    ],
+    3: [
+        { name: 'સ્વાધ્યાય 3.1', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/09/Std10chap3.1.html' }] },
+        { name: 'સ્વાધ્યાય 3.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/09/Std10chap3.2.html' }] },
+        { name: 'સ્વાધ્યાય 3.3', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/09/Std10chap3.3.html' }] }
+    ],
+    4: createSwaadhyayChapterExercises(['સ્વાધ્યાય 4.1', 'સ્વાધ્યાય 4.2', 'સ્વાધ્યાય 4.3'], 10, 4),
+    5: createSwaadhyayChapterExercises(['સ્વાધ્યાય 5.1', 'સ્વાધ્યાય 5.2', 'સ્વાધ્યાય 5.3', 'સ્વાધ્યાય 5.4'], 10, 5),
+    6: createSwaadhyayChapterExercises(['સ્વાધ્યાય 6.1', 'સ્વાધ્યાય 6.2', 'સ્વાધ્યાય 6.3'], 10, 6),
+    7: [
+        { name: 'સ્વાધ્યાય 7.1', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/09/Std10chap7.1.html' }] },
+        { name: 'સ્વાધ્યાય 7.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/09/Std10chap7.2.html' }] }
+    ],
+    8: createSwaadhyayChapterExercises(['સ્વાધ્યાય 8.1', 'સ્વાધ્યાય 8.2', 'સ્વાધ્યાય 8.3'], 10, 8),
+    9: createSwaadhyayChapterExercises(['સ્વાધ્યાય 9.1'], 10, 9),
+    10: createSwaadhyayChapterExercises(['સ્વાધ્યાય 10.1', 'સ્વાધ્યાય 10.2'], 10, 10),
+    11: createSwaadhyayChapterExercises(['સ્વાધ્યાય 11.1'], 10, 11),
+    12: createSwaadhyayChapterExercises(['સ્વાધ્યાય 12.1', 'સ્વાધ્યાય 12.2'], 10, 12),
+    13: [
+        { name: 'સ્વાધ્યાય 13.1', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/09/Std10chap13.1.html' }] },
+        { name: 'સ્વાધ્યાય 13.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/09/Std10chap13.2.html' }] },
+        { name: 'સ્વાધ્યાય 13.3', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/09/Std10chap13.3.html' }] }
+    ],
+    14: [
+      { name: 'સ્વાધ્યાય 14.1', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/09/Std10chap14.1.html' }] }
+    ],
   }
 };
 
@@ -125,26 +157,244 @@ const std9Chapter1Exercises: Exercise[] = [
   { 
     name: 'સ્વાધ્યાય 1.2', 
     videos: [
-        { name: 'સંપૂર્ણ સ્વાધ્યાય', youtubeUrl: 'https://youtu.be/DuZkRhBXj1E' },
-        { name: 'દા. નં. - 1, 2', youtubeUrl: 'https://youtu.be/6qrUTJsIvUM' },
-        { name: 'દા. નં - 5', youtubeUrl: 'https://youtu.be/FtKHvbnuWbU' }
+        { name: 'સંપૂર્ણ સ્વાધ્યાય', youtubeUrl: 'https://youtu.be/DuZkRhBXj1E' }
     ] 
   }, 
-  { name: 'સ્વાધ્યાય 1.3', videos: [{ name: 'પ્રશ્ન 1-9 (संपूर्ण स्वाध्याय)', youtubeUrl: 'https://www.youtube.com/watch?v=s7_a-iL3_eE' }] }, 
-  { name: 'સ્વાધ્યાય 1.4', videos: [{ name: 'પ્રશ્ન 1-2 (संपूर्ण स्वाध्याय)', youtubeUrl: 'https://www.youtube.com/watch?v=videoseries' }] }, 
-  { name: 'સ્વાધ્યાય 1.5', videos: [{ name: 'પ્રશ્ન 1-5 (संपूर्ण स्वाध्याय)', youtubeUrl: 'https://www.youtube.com/watch?v=rEx_y8iBStQ' }] },
+  { name: 'સ્વાધ્યાય 1.3', videos: [{ name: 'સંપૂર્ણ સ્વાધ્યાય', youtubeUrl: 'https://www.youtube.com/watch?v=s7_a-iL3_eE' }] }, 
+  { 
+    name: 'સ્વાધ્યાય 1.4', 
+    videos: [
+      { name: 'દા. નં - 1, 2', youtubeUrl: 'https://youtu.be/6qrUTJsIvUM?si=-_ODmFxWVmYzb2N9' },
+      { name: 'દા. નં - 5', youtubeUrl: 'https://youtu.be/FtKHvbnuWbU?si=n0GBfK_BFDMVE_XH' }
+    ] 
+  }, 
+  { name: 'સ્વાધ્યાય 1.5', videos: [{ name: 'સંપૂર્ણ સ્વાધ્યાય', youtubeUrl: 'https://youtu.be/qhu6wEE9Iwo?si=gDuR2AbQyEWOovM2' }] },
 ];
-const std9Chapter2Exercises: Exercise[] = [ { name: 'સ્વાધ્યાય 2.1', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=3S-a_gJA8-c' }] }, { name: 'સ્વાધ્યાય 2.2', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=s7_a-iL3_eE' }] }];
-const std9Chapter3Exercises: Exercise[] = [ { name: 'સ્વાધ્યાય 3.1', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=rEx_y8iBStQ' }] }, { name: 'સ્વાધ્યાય 3.2', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=videoseries' }] }];
-const std9Chapter4Exercises: Exercise[] = [ { name: 'સ્વાધ્યાય 4.1', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=3S-a_gJA8-c' }] }, { name: 'સ્વાધ્યાય 4.2', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=s7_a-iL3_eE' }] }];
-const std9Chapter5Exercises: Exercise[] = [ { name: 'સ્વાધ્યાય 5.1', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=rEx_y8iBStQ' }] }];
-const std9Chapter6Exercises: Exercise[] = [ { name: 'સ્વાધ્યાય 6.1', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=videoseries' }] }, { name: 'સ્વાધ્યાય 6.2', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=3S-a_gJA8-c' }] }];
+const std9Chapter2Exercises: Exercise[] = [
+    { name: 'સ્વાધ્યાય 2.1', videos: [{ name: 'સંપૂર્ણ સ્વાધ્યાય', youtubeUrl: 'https://youtu.be/uNexOIbVE3c?si=mvqGYYU025xi9y9F' }] },
+    { name: 'સ્વાધ્યાય 2.2', videos: [{ name: 'સંપૂર્ણ સ્વાધ્યાય', youtubeUrl: 'https://youtu.be/2JKZIBLM7JE' }] },
+    {
+        name: 'સ્વાધ્યાય 2.3',
+        videos: [
+            { name: 'દા. નં. - 1', youtubeUrl: 'https://youtu.be/LBKGiMf5jTo' },
+            { name: 'દા. નં. - 2', youtubeUrl: 'https://youtu.be/lTL2OzH-iDU' },
+            { name: 'દા. નં. - 3', youtubeUrl: 'https://youtu.be/cbi2PMVCJbA' },
+            { name: 'દા. નં. - 4', youtubeUrl: 'https://youtu.be/saLsCCX1gbI' },
+            { name: 'દા. નં. - 5', youtubeUrl: 'https://youtu.be/Ko8L_HuVL8Q' },
+        ]
+    },
+    {
+        name: 'સ્વાધ્યાય 2.4',
+        videos: [
+            { name: 'દા. નં.- 1', youtubeUrl: 'https://youtu.be/oLtzwMZopjM' },
+            { name: 'દા. નં.- 2', youtubeUrl: 'https://youtu.be/oLtzwMZopjM' },
+            { name: 'દા. નં.- 3', youtubeUrl: 'https://youtu.be/_Gial0Ifxw8' },
+            { name: 'દા. નં.- 4', youtubeUrl: 'https://youtu.be/INrBf7JaaCY' },
+            { name: 'દા. નં.- 5', youtubeUrl: 'https://youtu.be/HH0vtTItS5I' },
+            { name: 'દા. નં.- 6', youtubeUrl: 'https://youtu.be/KOSzCg0sMtA' },
+            { name: 'દા. નં.- 7', youtubeUrl: 'https://youtu.be/RFS4G8KLEK8' },
+            { name: 'દા. નં.- 8', youtubeUrl: 'https://youtu.be/gjnM9-kEhNs' },
+            { name: 'દા. નં.- 9', youtubeUrl: 'https://youtu.be/7EfCG8-Mbt4' },
+            { name: 'દા. નં.- 10', youtubeUrl: 'https://youtu.be/1pcSaOa0gEA' },
+            { name: 'દા. નં.- 11, 12', youtubeUrl: 'https://youtu.be/os8ST6vgXsA' },
+            { name: 'દા. નં.- 13, 14', youtubeUrl: 'https://youtu.be/vY487sZFHd0' },
+            { name: 'દા. નં.- 15, 16', youtubeUrl: 'https://youtu.be/U53gq0Cer9w' },
+        ]
+    }
+];
+const std9Chapter3Exercises: Exercise[] = [
+    { name: 'સ્વાધ્યાય 3.1', videos: [{ name: 'સંપૂર્ણ સ્વાધ્યાય', youtubeUrl: 'https://youtu.be/DfBLP9GXAnE' }] },
+    { name: 'સ્વાધ્યાય 3.2', videos: [{ name: 'સંપૂર્ણ સ્વાધ્યાય', youtubeUrl: 'https://youtu.be/-oIZviyiY6o' }] }
+];
+const std9Chapter4Exercises: Exercise[] = [
+    { name: 'સ્વાધ્યાય 4.1', videos: [{ name: 'સંપૂર્ણ સ્વાધ્યાય', youtubeUrl: 'https://youtu.be/GSWPJ6ZtM14' }] },
+    { 
+        name: 'સ્વાધ્યાય 4.2', 
+        videos: [
+            { name: 'દા. નં. - 1, 2', youtubeUrl: 'https://youtu.be/258bhW0wZ7Y' },
+            { name: 'દા. નં. - 3, 4', youtubeUrl: 'https://youtu.be/Xw8VQML0NhI' }
+        ] 
+    }
+];
+const std9Chapter5Exercises: Exercise[] = [
+    { 
+        name: 'સ્વાધ્યાય 5.1', 
+        videos: [
+            { name: 'દા. નં. - 1, 2', youtubeUrl: 'https://youtu.be/gV2GG5zfbfg?si=90ixEWap6o-R7hWP' },
+            { name: 'દા. નં. - 3 થી 7', youtubeUrl: 'https://youtu.be/rg-O802v7Ow?si=7U6UjzpiZrDPzK7l' },
+            { name: 'દા. નં. - 4, 5, 6', youtubeUrl: 'https://youtu.be/ssAwzMf4Lr0?si=AcV4e9Nq9JEBJggM' }
+        ] 
+    }
+];
+const std9Chapter6Exercises: Exercise[] = [
+    { 
+        name: 'સ્વાધ્યાય 6.1', 
+        videos: [
+            { name: 'દા. નં. - 1', youtubeUrl: 'https://youtu.be/XPdPOsI8BNI?si=xwG5yRwRi2OyBlsF' },
+            { name: 'દા. નં. - 2', youtubeUrl: 'https://youtu.be/DO3hD4Qmw5w?si=ih099T5QLGinio3M' },
+            { name: 'દા. નં. - 3', youtubeUrl: 'https://youtu.be/wIGllo_vX7A?si=z8PHQ7E3nFYXVIFL' },
+            { name: 'દા. નં. - 4', youtubeUrl: 'https://youtu.be/vWe4BgJ0V-s?si=T5ot8a8u4QfJeW01' },
+            { name: 'દા. નં. - 5', youtubeUrl: 'https://youtu.be/P6HJSb9Pf6I?si=gnQk8EynPXnAheRs' },
+            { name: 'દા. નં. - 6', youtubeUrl: 'https://youtu.be/7FB5Rn9tDFs?si=YB-WV0WeIzCKwRsr' }
+        ] 
+    }, 
+    { 
+        name: 'સ્વાધ્યાય 6.2', 
+        videos: [
+            { name: 'દા. નં. - 1', youtubeUrl: 'https://youtu.be/BKcBegDDDQM?si=5rbhrAGAZuAiIi82' },
+            { name: 'દા. નં. - 2', youtubeUrl: 'https://youtu.be/pdpBZvTlBcA?si=53-tFJPnxF102KZH' },
+            { name: 'દા. નં. - 3', youtubeUrl: 'https://youtu.be/IGZPTH6hFF8?si=ElUO5tJGd_U0eXTQ' },
+            { name: 'દા. નં. - 4', youtubeUrl: 'https://youtu.be/ukNxkdGNjXY?si=pxy085Jh2pmN2RC3' },
+            { name: 'દા. નં. - 5', youtubeUrl: 'https://youtu.be/ev4MSU90d2c?si=FzokX13xqwSyJGHf' }
+        ] 
+    }
+];
 const std9Chapter7Exercises: Exercise[] = [ { name: 'સ્વાધ્યાય 7.1', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=s7_a-iL3_eE' }] }, { name: 'સ્વાધ્યાય 7.2', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=rEx_y8iBStQ' }] }];
 const std9Chapter8Exercises: Exercise[] = [ { name: 'સ્વાધ્યાય 8.1', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=videoseries' }] }];
 const std9Chapter9Exercises: Exercise[] = [ { name: 'સ્વાધ્યાય 9.1', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=3S-a_gJA8-c' }] }, { name: 'સ્વાધ્યાય 9.2', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=s7_a-iL3_eE' }] }];
 const std9Chapter10Exercises: Exercise[] = [ { name: 'સ્વાધ્યાય 10.1', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=rEx_y8iBStQ' }] }];
 const std9Chapter11Exercises: Exercise[] = [ { name: 'સ્વાધ્યાય 11.1', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=videoseries' }] }];
 const std9Chapter12Exercises: Exercise[] = [ { name: 'સ્વાધ્યાય 12.1', videos: [{ name: 'संपूर्ण स्वाध्याय', youtubeUrl: 'https://www.youtube.com/watch?v=3S-a_gJA8-c' }] }];
+
+const std10Chapter1Exercises: Exercise[] = [
+    { name: 'સ્વાધ્યાય 1.1', videos: [
+        { name: 'દા. નં. - 1, 2, 3', youtubeUrl: 'https://youtu.be/UUXZSXW1Ulw' },
+        { name: 'દા. નં. - 4, 5, 6, 7', youtubeUrl: 'https://youtu.be/3zIAtpcPQow' }
+    ] },
+    { name: 'સ્વાધ્યાય 1.2', videos: [{ name: 'સંપૂર્ણ સ્વાધ્યાય', youtubeUrl: 'https://youtu.be/ynPdbczs9JY' }] },
+];
+
+const std10Chapter2Exercises: Exercise[] = [
+    { name: 'સ્વાધ્યાય 2.1', videos: [{ name: 'સંપૂર્ણ સ્વાધ્યાય', youtubeUrl: 'https://youtu.be/Mvl8qwWvql4?si=vxuEsHBKz1s6CHYj' }] },
+    { name: 'સ્વાધ્યાય 2.2', videos: [
+        { name: 'દા. નં. - 1 (i, ii)', youtubeUrl: 'https://youtu.be/vLeEH1JIN6s?si=nDDRIPtdyALG6Xtl' },
+        { name: 'દા. નં. - 1 (iii, iv, v, vi)', youtubeUrl: 'https://youtu.be/fLuCQGBcSDI?si=CmddAtNNVxSTRSq5' },
+        { name: 'દા. નં. - 2', youtubeUrl: 'https://youtu.be/FcIKg7-26-I?si=wiyfo6wBkYROOCkh' }
+    ] },
+];
+
+const std10Chapter3Exercises: Exercise[] = [
+    {
+        name: 'સ્વાધ્યાય 3.1',
+        videos: [
+            { name: 'દા. નં. - 3 (i)', youtubeUrl: 'https://youtu.be/K3DoZBVQ3CQ' },
+            { name: 'દા. નં. - 3 (ii)', youtubeUrl: 'https://youtu.be/AxmG8Fpp3n8' },
+            { name: 'દા. નં. - 2', youtubeUrl: 'https://youtu.be/W-Fu3B4Js7Y' },
+            { name: 'દા. નં. - 3 (i, ii, iii)', youtubeUrl: 'https://youtu.be/V7vaLh_T30Q' },
+            { name: 'દા. નં. - 3 (iv, v)', youtubeUrl: 'https://youtu.be/ciKzQBuX9wU' },
+            { name: 'દા. નં. - 4 (i)', youtubeUrl: 'https://youtu.be/opwIoRjsUhA' },
+            { name: 'દા. નં. - 4 (ii)', youtubeUrl: 'https://youtu.be/jxXVY8Eyu-o' },
+            { name: 'દા. નં. - 4 (iii)', youtubeUrl: 'https://youtu.be/hAy0zfZanWw' },
+            { name: 'દા. નં. - 4 (iv)', youtubeUrl: 'https://youtu.be/t7wRV4wZ-KM' },
+            { name: 'દા. નં. - 5', youtubeUrl: 'https://youtu.be/t70zmKptHI4' },
+            { name: 'દા. નં. - 6', youtubeUrl: 'https://youtu.be/TIlcIVokNr8' },
+            { name: 'દા. નં. - 7', youtubeUrl: 'https://youtu.be/mOlNXHZ0Ewg' }
+        ]
+    },
+    {
+        name: 'સ્વાધ્યાય 3.2',
+        videos: [
+            { name: 'દા. નં. - 1 (i)', youtubeUrl: 'https://youtu.be/JTPaIHcKCqo' },
+            { name: 'દા. નં. - 1 (ii)', youtubeUrl: 'https://youtu.be/epyNzcqqrog' },
+            { name: 'દા. નં. - 1 (iii)', youtubeUrl: 'https://youtu.be/ddWnlBKSEvQ' },
+            { name: 'દા. નં. - 1 (iv)', youtubeUrl: 'https://youtu.be/wPSEMlrG5Mo' },
+            { name: 'દા. નં. - 1 (v)', youtubeUrl: 'https://youtu.be/uTplL1uqbuA' },
+            { name: 'દા. નં. - 1 (vi)', youtubeUrl: 'https://youtu.be/2Ra8Ln6bVvQ' },
+            { name: 'દા. નં. - 2', youtubeUrl: 'https://youtu.be/JVjTP4bszXQ' },
+            { name: 'દા. નં. - 3 (i)', youtubeUrl: 'https://youtu.be/j9JUaJsZkTs' },
+            { name: 'દા. નં. - 3 (ii)', youtubeUrl: 'https://youtu.be/fMjTVTcickM' },
+            { name: 'દા. નં. - 3 (iii)', youtubeUrl: 'https://youtu.be/chgouX48esc' },
+            { name: 'દા. નં. - 3 (iv)', youtubeUrl: 'https://youtu.be/RkGE84Sx8kw' },
+            { name: 'દા. નં. - 3 (v)', youtubeUrl: 'https://youtu.be/rjQurc-eUtI' },
+            { name: 'દા. નં. - 3 (vi)', youtubeUrl: 'https://youtu.be/nNrG_AYaVnE' }
+        ]
+    },
+    {
+        name: 'સ્વાધ્યાય 3.3',
+        videos: [
+            { name: 'દા. નં. - 1 (i, ii)', youtubeUrl: 'https://youtu.be/948Qi4mBuXg' },
+            { name: 'દા. નં. - 1 (iii, iv)', youtubeUrl: 'https://youtu.be/xi-9mUtnxH4' },
+            { name: 'દા. નં. - 2 (i)', youtubeUrl: 'https://youtu.be/-dwvf_5QoNA' },
+            { name: 'દા. નં. - 2 (ii)', youtubeUrl: 'https://youtu.be/M58lUysnsWw' },
+            { name: 'દા. નં. - 2 (iii)', youtubeUrl: 'https://youtu.be/CKqnCfdIxxw' },
+            { name: 'દા. નં. - 2 (iv)', youtubeUrl: 'https://youtu.be/K-k3aFZmYLk' },
+            { name: 'દા. નં. - 2 (v)', youtubeUrl: 'https://youtu.be/Fibo3hIcOKw' }
+        ]
+    }
+];
+
+const std10Chapter7Exercises: Exercise[] = [
+    {
+        name: 'સ્વાધ્યાય 7.1',
+        videos: [
+            { name: 'દા. નં. - 1', youtubeUrl: 'https://youtu.be/wTpmtIE0eV0' },
+            { name: 'દા. નં. - 2', youtubeUrl: 'https://youtu.be/xE8Q2IEoe_A' },
+            { name: 'દા. નં. - 3, 4', youtubeUrl: 'https://youtu.be/1AN5b3_MaV4' },
+            { name: 'દા. નં. - 5', youtubeUrl: 'https://youtu.be/jT6bX8Drfi8' },
+            { name: 'દા. નં. - 6 (i)', youtubeUrl: 'https://youtu.be/zmNtkk95LJk' },
+            { name: 'દા. નં. - 6 (ii)', youtubeUrl: 'https://youtu.be/p7zcVvv-bnc' },
+            { name: 'દા. નં. - 6 (iii)', youtubeUrl: 'https://youtu.be/x4-Pwt_ikVw' },
+            { name: 'દા. નં. - 7, 8, 9, 10', youtubeUrl: 'https://youtu.be/6iyeUgtqAEM' }
+        ]
+    },
+    {
+        name: 'સ્વાધ્યાય 7.2',
+        videos: [
+            { name: 'દા. નં. - 1, 2', youtubeUrl: 'https://youtu.be/y9w2SEOsKWY' },
+            { name: 'દા. નં. - 3', youtubeUrl: 'https://youtu.be/C8mhUHlLxWY' },
+            { name: 'દા. નં. - 4, 5', youtubeUrl: 'https://youtu.be/9HaY7badzfg' },
+            { name: 'દા. નં. - 6, 7, 8', youtubeUrl: 'https://youtu.be/3KFst3kD2V0' },
+            { name: 'દા. નં. - 9, 10', youtubeUrl: 'https://youtu.be/47KtQ5RhEhk' }
+        ]
+    }
+];
+
+const std10Chapter13Exercises: Exercise[] = [
+    {
+        name: 'સ્વાધ્યાય 13.1',
+        videos: [
+            { name: 'દા. નં. - 1, 2', youtubeUrl: 'https://youtu.be/f87aJXi_8iA' },
+            { name: 'દા. નં. - 3, 4', youtubeUrl: 'https://youtu.be/lAnLKg2bTlY' },
+            { name: 'દા. નં. - 5, 6', youtubeUrl: 'https://youtu.be/K3tLhAM6POc' },
+            { name: 'દા. નં. - 7, 8, 9', youtubeUrl: 'https://youtu.be/tRZxGdRWvKA' }
+        ]
+    },
+    {
+        name: 'સ્વાધ્યાય 13.2',
+        videos: [
+            { name: 'દા. નં. - 1, 2, 3', youtubeUrl: 'https://youtu.be/kohj-6iJXsg' },
+            { name: 'દા. નં. - 4, 5, 6', youtubeUrl: 'https://youtu.be/87zxkniJ6Vs' }
+        ]
+    },
+    {
+        name: 'સ્વાધ્યાય 13.3',
+        videos: [
+            { name: 'દા. નં. - 1, 2', youtubeUrl: 'https://youtu.be/3sb68CeI5DM' },
+            { name: 'દા. નં. - 3', youtubeUrl: 'https://youtu.be/mh197CbtyFw' },
+            { name: 'દા. નં. - 4, 5', youtubeUrl: 'https://youtu.be/Q14H1MP2sRY' },
+            { name: 'દા. નં. - 6, 7', youtubeUrl: 'https://youtu.be/siB1CalT-eo' }
+        ]
+    }
+];
+
+const std10Chapter14Exercises: Exercise[] = [
+    {
+        name: 'સ્વાધ્યાય 14.1',
+        videos: [
+            { name: 'દા. નં. - 1, 2, 3', youtubeUrl: 'https://youtu.be/YIW5-Fyw-6k?si=1z6u6D-t50VWkNoM' },
+            { name: 'દા. નં. - 4, 5, 6', youtubeUrl: 'https://youtu.be/ATRbgW69kvY?si=JGw656U3fpXlWvd5' },
+            { name: 'દા. નં. - 7, 8, 9', youtubeUrl: 'https://youtu.be/TKwqasGUah4?si=ttLJFtrasM7_aqfH' },
+            { name: 'દા. નં. - 10, 11', youtubeUrl: 'https://youtu.be/ZSSCA7aCS8E?si=MpPtG6BJ7bEvQ5Gq' },
+            { name: 'દા. નં. - 12, 13', youtubeUrl: 'https://youtu.be/Xj5a2kbvaJQ?si=IL8ksSeV6e6jPfOb' },
+            { name: 'દા. નં. - 14', youtubeUrl: 'https://youtu.be/GnBn7TTZnlw?si=PJchDicoMzc4FyNc' },
+            { name: 'દા. નં. - 15, 16', youtubeUrl: 'https://youtu.be/cp6dSBfqQ4g?si=ExSu9w0P0RcEKDBK' },
+            { name: 'દા. નં. - 17, 18, 19', youtubeUrl: 'https://youtu.be/ABUHQ-WTiYQ?si=xKaas5_iHwbSmux2' },
+            { name: 'દા. નં. - 21, 22', youtubeUrl: 'https://youtu.be/F3I3vGG0HGE?si=R10Wq2uZxFAUCpml' },
+            { name: 'દા. નં. - 23, 24, 25', youtubeUrl: 'https://youtu.be/jDZkqyhxcjk?si=CE6YlkD4KlPA97C8' }
+        ]
+    }
+];
+
 const createVideoExercises = (exerciseNames: string[]): Exercise[] => {
   return exerciseNames.map(name => ({
     name, videos: [{ name: 'સંપૂર્ણ સ્વાધ્યાય', youtubeUrl: 'https://www.youtube.com/watch?v=videoseries' }]
@@ -155,7 +405,20 @@ const videoData: { [grade: number]: { [chapter: number]: Exercise[] } } = {
     1: std9Chapter1Exercises, 2: std9Chapter2Exercises, 3: std9Chapter3Exercises, 4: std9Chapter4Exercises, 5: std9Chapter5Exercises, 6: std9Chapter6Exercises, 7: std9Chapter7Exercises, 8: std9Chapter8Exercises, 9: std9Chapter9Exercises, 10: std9Chapter10Exercises, 11: std9Chapter11Exercises, 12: std9Chapter12Exercises,
   },
   10: {
-    1: createVideoExercises(['સ્વાધ્યાય 1.1', 'સ્વાધ્યાય 1.2', 'સ્વાધ્યાય 1.3', 'સ્વાધ્યાય 1.4']), 2: createVideoExercises(['સ્વાધ્યાય 2.1', 'સ્વાધ્યાય 2.2', 'સ્વાધ્યાય 2.3']), 3: createVideoExercises(['સ્વાધ્યાય 3.1', 'સ્વાધ્યાય 3.2', 'સ્વાધ્યાય 3.3', 'સ્વાધ્યાય 3.4', 'સ્વાધ્યાય 3.5', 'સ્વાધ્યાય 3.6']), 4: createVideoExercises(['સ્વાધ્યાય 4.1', 'સ્વાધ્યાય 4.2', 'સ્વાધ્યાય 4.3', 'સ્વાધ્યાય 4.4']), 5: createVideoExercises(['સ્વાધ્યાય 5.1', 'સ્વાધ્યાય 5.2', 'સ્વાધ્યાય 5.3', 'સ્વાધ્યાય 5.4']), 6: createVideoExercises(['સ્વાધ્યાય 6.1', 'સ્વાધ્યાય 6.2', 'સ્વાધ્યાય 6.3', 'સ્વાધ્યાય 6.4', 'સ્વાધ્યાય 6.5']), 7: createVideoExercises(['સ્વાધ્યાય 7.1', 'સ્વાધ્યાય 7.2', 'સ્વાધ્યાય 7.3', 'સ્વાધ્યાય 7.4']), 8: createVideoExercises(['સ્વાધ્યાય 8.1', 'સ્વાધ્યાય 8.2', 'સ્વાધ્યાય 8.3', 'સ્વાધ્યાય 8.4']), 9: createVideoExercises(['સ્વાધ્યાય 9.1', 'સ્વાધ્યાય 9.2']), 10: createVideoExercises(['સ્વાધ્યાય 10.1', 'સ્વાધ્યાય 10.2']), 11: createVideoExercises(['સ્વાધ્યાય 11.1', 'સ્વાધ્યાય 11.2', 'સ્વાધ્યાય 11.3']), 12: createVideoExercises(['સ્વાધ્યાય 12.1', 'સ્વાધ્યાય 12.2', 'સ્વાધ્યાય 12.3', 'સ્વાધ્યાય 12.4', 'સ્વાધ્યાય 12.5']), 13: createVideoExercises(['સ્વાધ્યાય 13.1', 'સ્વાધ્યાય 13.2', 'સ્વાધ્યાય 13.3', 'સ્વાધ્યાય 13.4']), 14: createVideoExercises(['સ્વાધ્યાય 14.1', 'સ્વાધ્યાય 14.2']),
+    1: std10Chapter1Exercises,
+    2: std10Chapter2Exercises,
+    3: std10Chapter3Exercises,
+    4: createVideoExercises(['સ્વાધ્યાય 4.1', 'સ્વાધ્યાય 4.2', 'સ્વાધ્યાય 4.3']),
+    5: createVideoExercises(['સ્વાધ્યાય 5.1', 'સ્વાધ્યાય 5.2', 'સ્વાધ્યાય 5.3', 'સ્વાધ્યાય 5.4']),
+    6: createVideoExercises(['સ્વાધ્યાય 6.1', 'સ્વાધ્યાય 6.2', 'સ્વાધ્યાય 6.3']),
+    7: std10Chapter7Exercises,
+    8: createVideoExercises(['સ્વાધ્યાય 8.1', 'સ્વાધ્યાય 8.2', 'સ્વાધ્યાય 8.3']),
+    9: createVideoExercises(['સ્વાધ્યાય 9.1']),
+    10: createVideoExercises(['સ્વાધ્યાય 10.1', 'સ્વાધ્યાય 10.2']),
+    11: createVideoExercises(['સ્વાધ્યાય 11.1']),
+    12: createVideoExercises(['સ્વાધ્યાય 12.1', 'સ્વાધ્યાય 12.2']),
+    13: std10Chapter13Exercises,
+    14: std10Chapter14Exercises,
   }
 };
 
