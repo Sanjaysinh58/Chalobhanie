@@ -63,20 +63,29 @@ const std10MathChapters: Chapter[] = [
 ];
 
 // From: data/swaadhyayData.ts
-interface SolutionResource { name: string; pdfUrl: string; }
+interface SolutionResource { name: string; url: string; }
 interface SwaadhyayExercise { name: string; solutions: SolutionResource[]; }
-const createSwaadhyayChapterExercises = (exerciseNames: string[]): SwaadhyayExercise[] => {
-  return exerciseNames.map(name => ({
-    name,
-    solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', pdfUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' }]
-  }));
+const createSwaadhyayChapterExercises = (exerciseNames: string[], grade: number, chapterNum: number): SwaadhyayExercise[] => {
+  return exerciseNames.map(name => {
+    const exerciseId = name.replace('સ્વાધ્યાય ', '').replace('.', '-');
+    return {
+      name,
+      solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: `https://gseb-solutions-guide.com/std-${grade}-maths-chapter-${chapterNum}-exercise-${exerciseId}-solutions/` }]
+    };
+  });
 };
 const swaadhyayData: { [grade: number]: { [chapter: number]: SwaadhyayExercise[] } } = {
   9: {
-    1: createSwaadhyayChapterExercises(['સ્વાધ્યાય 1.1', 'સ્વાધ્યાય 1.2', 'સ્વાધ્યાય 1.3', 'સ્વાધ્યાય 1.4', 'સ્વાધ્યાય 1.5']), 2: createSwaadhyayChapterExercises(['સ્વાધ્યાય 2.1', 'સ્વાધ્યાય 2.2', 'સ્વાધ્યાય 2.3', 'સ્વાધ્યાય 2.4', 'સ્વાધ્યાય 2.5']), 3: createSwaadhyayChapterExercises(['સ્વાધ્યાય 3.1', 'સ્વાધ્યાય 3.2', 'સ્વાધ્યાય 3.3']), 4: createSwaadhyayChapterExercises(['સ્વાધ્યાય 4.1', 'સ્વાધ્યાય 4.2', 'સ્વાધ્યાય 4.3', 'સ્વાધ્યાય 4.4']), 5: createSwaadhyayChapterExercises(['સ્વાધ્યાય 5.1', 'સ્વાધ્યાય 5.2']), 6: createSwaadhyayChapterExercises(['સ્વાધ્યાય 6.1', 'સ્વાધ્યાય 6.2', 'સ્વાધ્યાય 6.3']), 7: createSwaadhyayChapterExercises(['સ્વાધ્યાય 7.1', 'સ્વાધ્યાય 7.2', 'સ્વાધ્યાય 7.3', 'સ્વાધ્યાય 7.4', 'સ્વાધ્યાય 7.5']), 8: createSwaadhyayChapterExercises(['સ્વાધ્યાય 8.1', 'સ્વાધ્યાય 8.2']), 9: createSwaadhyayChapterExercises(['સ્વાધ્યાય 9.1', 'સ્વાધ્યાય 9.2', 'સ્વાધ્યાય 9.3', 'સ્વાધ્યાય 9.4']), 10: createSwaadhyayChapterExercises(['સ્વાધ્યાય 10.1', 'સ્વાધ્યાય 10.2', 'સ્વાધ્યાય 10.3', 'સ્વાધ્યાય 10.4', 'સ્વાધ્યાય 10.5', 'સ્વાધ્યાય 10.6']), 11: createSwaadhyayChapterExercises(['સ્વાધ્યાય 11.1', 'સ્વાધ્યાય 11.2']), 12: createSwaadhyayChapterExercises(['સ્વાધ્યાય 12.1', 'સ્વાધ્યાય 12.2']),
+    1: [
+      { name: 'સ્વાધ્યાય 1.1', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2023/10/std9-sankhyapaddhati-svadhyay-1.1.html' }] },
+      { name: 'સ્વાધ્યાય 1.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2020/12/standard-9-sankhya-paddhati-svadhyay-1.2.html' }] },
+      { name: 'સ્વાધ્યાય 1.3', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2020/12/standard-9-sankhya-paddhati-svadhyay-1.3.html' }] },
+      { name: 'સ્વાધ્યાય 1.4', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2020/12/standard-9-sankhya-paddhati-svadhyay-1.5.html' }] },
+      { name: 'સ્વાધ્યાય 1.5', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2020/12/standard-9-sankhya-paddhati-svadhyay-1.6.html' }] },
+    ], 2: createSwaadhyayChapterExercises(['સ્વાધ્યાય 2.1', 'સ્વાધ્યાય 2.2', 'સ્વાધ્યાય 2.3', 'સ્વાધ્યાય 2.4', 'સ્વાધ્યાય 2.5'], 9, 2), 3: createSwaadhyayChapterExercises(['સ્વાધ્યાય 3.1', 'સ્વાધ્યાય 3.2', 'સ્વાધ્યાય 3.3'], 9, 3), 4: createSwaadhyayChapterExercises(['સ્વાધ્યાય 4.1', 'સ્વાધ્યાય 4.2', 'સ્વાધ્યાય 4.3', 'સ્વાધ્યાય 4.4'], 9, 4), 5: createSwaadhyayChapterExercises(['સ્વાધ્યાય 5.1', 'સ્વાધ્યાય 5.2'], 9, 5), 6: createSwaadhyayChapterExercises(['સ્વાધ્યાય 6.1', 'સ્વાધ્યાય 6.2', 'સ્વાધ્યાય 6.3'], 9, 6), 7: createSwaadhyayChapterExercises(['સ્વાધ્યાય 7.1', 'સ્વાધ્યાય 7.2', 'સ્વાધ્યાય 7.3', 'સ્વાધ્યાય 7.4', 'સ્વાધ્યાય 7.5'], 9, 7), 8: createSwaadhyayChapterExercises(['સ્વાધ્યાય 8.1', 'સ્વાધ્યાય 8.2'], 9, 8), 9: createSwaadhyayChapterExercises(['સ્વાધ્યાય 9.1', 'સ્વાધ્યાય 9.2', 'સ્વાધ્યાય 9.3', 'સ્વાધ્યાય 9.4'], 9, 9), 10: createSwaadhyayChapterExercises(['સ્વાધ્યાય 10.1', 'સ્વાધ્યાય 10.2', 'સ્વાધ્યાય 10.3', 'સ્વાધ્યાય 10.4', 'સ્વાધ્યાય 10.5', 'સ્વાધ્યાય 10.6'], 9, 10), 11: createSwaadhyayChapterExercises(['સ્વાધ્યાય 11.1', 'સ્વાધ્યાય 11.2'], 9, 11), 12: createSwaadhyayChapterExercises(['સ્વાધ્યાય 12.1', 'સ્વાધ્યાય 12.2'], 9, 12),
   },
   10: {
-    1: createSwaadhyayChapterExercises(['સ્વાધ્યાય 1.1', 'સ્વાધ્યાય 1.2', 'સ્વાધ્યાય 1.3', 'સ્વાધ્યાય 1.4']), 2: createSwaadhyayChapterExercises(['સ્વાધ્યાય 2.1', 'સ્વાધ્યાય 2.2', 'સ્વાધ્યાય 2.3']), 3: createSwaadhyayChapterExercises(['સ્વાધ્યાય 3.1', 'સ્વાધ્યાય 3.2', 'સ્વાધ્યાય 3.3', 'સ્વાધ્યાય 3.4', 'સ્વાધ્યાય 3.5', 'સ્વાધ્યાય 3.6']), 4: createSwaadhyayChapterExercises(['સ્વાધ્યાય 4.1', 'સ્વાધ્યાય 4.2', 'સ્વાધ્યાય 4.3', 'સ્વાધ્યાય 4.4']), 5: createSwaadhyayChapterExercises(['સ્વાધ્યાય 5.1', 'સ્વાધ્યાય 5.2', 'સ્વાધ્યાય 5.3', 'સ્વાધ્યાય 5.4']), 6: createSwaadhyayChapterExercises(['સ્વાધ્યાય 6.1', 'સ્વાધ્યાય 6.2', 'સ્વાધ્યાય 6.3', 'સ્વાધ્યાય 6.4', 'સ્વાધ્યાય 6.5']), 7: createSwaadhyayChapterExercises(['સ્વાધ્યાય 7.1', 'સ્વાધ્યાય 7.2', 'સ્વાધ્યાય 7.3', 'સ્વાધ્યાય 7.4']), 8: createSwaadhyayChapterExercises(['સ્વાધ્યાય 8.1', 'સ્વાધ્યાય 8.2', 'સ્વાધ્યાય 8.3', 'સ્વાધ્યાય 8.4']), 9: createSwaadhyayChapterExercises(['સ્વાધ્યાય 9.1', 'સ્વાધ્યાય 9.2']), 10: createSwaadhyayChapterExercises(['સ્વાધ્યાય 10.1', 'સ્વાધ્યાય 10.2']), 11: createSwaadhyayChapterExercises(['સ્વાધ્યાય 11.1', 'સ્વાધ્યાય 11.2', 'સ્વાધ્યાય 11.3']), 12: createSwaadhyayChapterExercises(['સ્વાધ્યાય 12.1', 'સ્વાધ્યાય 12.2', 'સ્વાધ્યાય 12.3', 'સ્વાધ્યાય 12.4', 'સ્વાધ્યાય 12.5']), 13: createSwaadhyayChapterExercises(['સ્વાધ્યાય 13.1', 'સ્વાધ્યાય 13.2', 'સ્વાધ્યાય 13.3', 'સ્વાધ્યાય 13.4']), 14: createSwaadhyayChapterExercises(['સ્વાધ્યાય 14.1', 'સ્વાધ્યાય 14.2']),
+    1: createSwaadhyayChapterExercises(['સ્વાધ્યાય 1.1', 'સ્વાધ્યાય 1.2', 'સ્વાધ્યાય 1.3', 'સ્વાધ્યાય 1.4'], 10, 1), 2: createSwaadhyayChapterExercises(['સ્વાધ્યાય 2.1', 'સ્વાધ્યાય 2.2', 'સ્વાધ્યાય 2.3'], 10, 2), 3: createSwaadhyayChapterExercises(['સ્વાધ્યાય 3.1', 'સ્વાધ્યાય 3.2', 'સ્વાધ્યાય 3.3', 'સ્વાધ્યાય 3.4', 'સ્વાધ્યાય 3.5', 'સ્વાધ્યાય 3.6'], 10, 3), 4: createSwaadhyayChapterExercises(['સ્વાધ્યાય 4.1', 'સ્વાધ્યાય 4.2', 'સ્વાધ્યાય 4.3', 'સ્વાધ્યાય 4.4'], 10, 4), 5: createSwaadhyayChapterExercises(['સ્વાધ્યાય 5.1', 'સ્વાધ્યાય 5.2', 'સ્વાધ્યાય 5.3', 'સ્વાધ્યાય 5.4'], 10, 5), 6: createSwaadhyayChapterExercises(['સ્વાધ્યાય 6.1', 'સ્વાધ્યાય 6.2', 'સ્વાધ્યાય 6.3', 'સ્વાધ્યાય 6.4', 'સ્વાધ્યાય 6.5'], 10, 6), 7: createSwaadhyayChapterExercises(['સ્વાધ્યાય 7.1', 'સ્વાધ્યાય 7.2', 'સ્વાધ્યાય 7.3', 'સ્વાધ્યાય 7.4'], 10, 7), 8: createSwaadhyayChapterExercises(['સ્વાધ્યાય 8.1', 'સ્વાધ્યાય 8.2', 'સ્વાધ્યાય 8.3', 'સ્વાધ્યાય 8.4'], 10, 8), 9: createSwaadhyayChapterExercises(['સ્વાધ્યાય 9.1', 'સ્વાધ્યાય 9.2'], 10, 9), 10: createSwaadhyayChapterExercises(['સ્વાધ્યાય 10.1', 'સ્વાધ્યાય 10.2'], 10, 10), 11: createSwaadhyayChapterExercises(['સ્વાધ્યાય 11.1', 'સ્વાધ્યાય 11.2', 'સ્વાધ્યાય 11.3'], 10, 11), 12: createSwaadhyayChapterExercises(['સ્વાધ્યાય 12.1', 'સ્વાધ્યાય 12.2', 'સ્વાધ્યાય 12.3', 'સ્વાધ્યાય 12.4', 'સ્વાધ્યાય 12.5'], 10, 12), 13: createSwaadhyayChapterExercises(['સ્વાધ્યાય 13.1', 'સ્વાધ્યાય 13.2', 'સ્વાધ્યાય 13.3', 'સ્વાધ્યાય 13.4'], 10, 13), 14: createSwaadhyayChapterExercises(['સ્વાધ્યાય 14.1', 'સ્વાધ્યાય 14.2'], 10, 14),
   }
 };
 
@@ -405,47 +414,51 @@ const ChatBox: React.FC<{ isOpen: boolean; onClose: () => void; onNavigate: (vie
   const [message, setMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   interface Message { id: number; text: string; sender: 'user' | 'bot'; quickReplies?: string[]; }
-  const systemInstruction = `You are a friendly and helpful AI assistant for an educational app named 'Chalo ભણીએ !'. Your purpose is to help students navigate and use the app. You must only answer questions based on the information provided below. **App Content and Features:** 1. **Supported Standards (Grades):** Standard 9, Standard 10. 2. **Supported Subject:** Math. 3. **Available Resources for Math (for each chapter):** Video Solutions, Written PDF Solutions, Textbooks. 4. **Other App Features:** Old Papers (Coming Soon), Mock Tests (Coming Soon), Search Example (દાખલો શોધો). **List of Math Chapters:** *   **Standard 9 Chapters:** 1. સંખ્યા પદ્ધતિ, 2. બહુપદીઓ, 3. યામ ભૂમિતિ, 4. દ્વિચલ સુરેખ સમીકરણો, 5. યુક્લિડની ભૂમિતિનો પરિચય, 6. રેખાઓ અને ખૂણાઓ, 7. ત્રિકોણ, 8. ચતુષ્કોણ, 9. વર્તુળ, 10. હેરોનનું સૂત્ર, 11. પૃષ્ઠફળ અને ઘનફળ, 12. આંકડાશાસ્ત્ર. *   **Standard 10 Chapters:** 1. વાસ્તવિક સંખ્યાઓ, 2. બહુપદીઓ, 3. દ્વિચલ સુરેખ સમીકરણયુગ્મ, 4. દ્વિઘાત સમીકરણ, 5. સમાંતર શ્રેણી, 6. ત્રિકોણ, 7. યામ ભૂમિતિ, 8. ત્રિકોણમિતિનો પરિચય, 9. ત્રિકોણમિતિના ઉપયોગો, 10. વર્તુળ, 11. વર્તુળ સંબંધિત ક્ષેત્રફળ, 12. પૃષ્ઠફળ અને ઘનફળ, 13. આંકડાશાસ્ત્ર, 14. સંભાવના. **Your Behavior:** *   **Stick to the Information:** Do not invent features. *   **Handle Out-of-Scope Questions:** Politely state that it's not currently available. For example: "હાલમાં, અમારી પાસે ફક્ત ધોરણ 9 અને 10 માટે ગણિત વિષય જ ઉપલબ્ધ છે. અમે ટૂંક સમયમાં વધુ વિષયો અને ધોરણો ઉમેરવા માટે કામ કરી રહ્યા છીએ!". *   **Be Concise and Helpful.** *   **Language:** Communicate primarily in Gujarati. *   **Do not provide URLs or links.** Guide the user on how to navigate within the app. *   **Quick Replies:** Provide clickable suggestions. Format: QUICK_REPLIES:[Option 1],[Option 2]. *   **Navigation:** When a user wants to see a solution, first ask for confirmation. e.g., "મારી પાસે [Standard], [Chapter], [Exercise] માટે ઉકેલ છે. શું તમે ત્યાં જવા માંગો છો? QUICK_REPLIES:[હા],[ના]". Navigate ONLY if the user says "Yes" ("હા") using this exact format: \`NAVIGATE:{"page":"chapter","grade":<GRADE_NUMBER>,"chapterNumber":<CHAPTER_NUMBER>,"chapterName":"<CHAPTER_NAME_GUJARATI>","exercise":"<EXERCISE_NAME_GUJARATI>"}\`.`;
+  const systemInstruction = `You are a friendly and helpful AI assistant for an educational app named 'Chalo ભણીએ !'. Your purpose is to help students navigate and use the app. You must only answer questions based on the information provided below. **App Content and Features:** 1. **Supported Standards (Grades):** Standard 9, Standard 10. 2. **Supported Subject:** Math. 3. **Available Resources for Math (for each chapter):** Video Solutions, Written PDF Solutions, Textbooks. 4. **Other App Features:** Old Papers (Coming Soon), Mock Tests (Coming Soon), Search Example (દાખલો શોધો). **List of Math Chapters:** *   **Standard 9 Chapters:** 1. સંખ્યા પદ્ધતિ, 2. બહુપદીઓ, 3. યામ ભૂમિતિ, 4. દ્વિચલ સુરેખ સમੀકરણો, 5. યુક્લિડની ભૂમિતિનો પરિચય, 6. રેખાઓ અને ખૂણાઓ, 7. ત્રિકોણ, 8. ચતુષ્કોણ, 9. વર્તુળ, 10. હેરોનનું સૂત્ર, 11. પૃષ્ઠફળ અને ઘનફળ, 12. આંકડાશાસ્ત્ર. *   **Standard 10 Chapters:** 1. વાસ્તવિક સંખ્યાઓ, 2. બહુપદીઓ, 3. દ્વિચલ સુરેખ સમીકરણયુગ્મ, 4. દ્વિઘાત સમીકરણ, 5. સમાંતર શ્રેણી, 6. ત્રિકોણ, 7. યામ ભૂમિતિ, 8. ત્રિકોણમિતિનો પરિચય, 9. ત્રિકોણમિતિના ઉપયોગો, 10. વર્તુળ, 11. વર્તુળ સંબંધિત ક્ષેત્રફળ, 12. પૃષ્ઠફળ અને ઘનફળ, 13. આંકડાશાસ્ત્ર, 14. સંભાવના. **Your Behavior:** *   **Stick to the Information:** Do not invent features. *   **Handle Out-of-Scope Questions:** Politely state that it's not currently available. For example: "હાલમાં, અમારી પાસે ફક્ત ધોરણ 9 અને 10 માટે ગણિત વિષય જ ઉપલબ્ધ છે. અમે ટૂંક સમયમાં વધુ વિષયો અને ધોરણો ઉમેરવા માટે કામ કરી રહ્યા છીએ!". *   **Be Concise and Helpful.** *   **Language:** Communicate primarily in Gujarati. *   **Do not provide URLs or links.** Guide the user on how to navigate within the app. *   **Quick Replies:** Provide clickable suggestions. Format: QUICK_REPLIES:[Option 1],[Option 2]. *   **Navigation:** When a user wants to see a solution, first ask for confirmation. e.g., "મારી પાસે [Standard], [Chapter], [Exercise] માટે ઉકેલ છે. શું તમે ત્યાં જવા માંગો છો? QUICK_REPLIES:[હા],[ના]". Navigate ONLY if the user says "Yes" ("હા") using this exact format: \`NAVIGATE:{"page":"chapter","grade":<GRADE_NUMBER>,"chapterNumber":<CHAPTER_NUMBER>,"chapterName":"<CHAPTER_NAME_GUJARATI>","exercise":"<EXERCISE_NAME_GUJARATI>"}\`.`;
   const TypingIndicator: React.FC = () => (<div className="flex justify-start"><div className="max-w-xs lg:max-w-md px-4 py-3 rounded-2xl rounded-bl-none bg-slate-200 dark:bg-slate-700"><div className="flex items-center justify-center space-x-1"><div className="w-2 h-2 bg-slate-500 rounded-full animate-bounce-dot bounce-1"></div><div className="w-2 h-2 bg-slate-500 rounded-full animate-bounce-dot bounce-2"></div><div className="w-2 h-2 bg-slate-500 rounded-full animate-bounce-dot bounce-3"></div></div></div></div>);
   const initialMessage: Message = { id: 0, text: "નમસ્કાર! હું 'Chalo ભણીએ !' એપ માટે AI સહાયક છું. તમને શું શોધવામાં મદદ કરી શકું?", sender: 'bot', quickReplies: ["ધોરણ 9", "ધોરણ 10", "દાખલો શોધો"] };
   const [conversation, setConversation] = useState<Message[]>([initialMessage]);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const chatRef = useRef<Chat | null>(null);
   const messageIdCounter = useRef(1);
-  useEffect(() => {
-    const initializeChat = async () => {
-        if (isOpen && !chatRef.current) {
-            if ((window as any).aistudio && typeof (window as any).aistudio.hasSelectedApiKey === 'function' && typeof (window as any).aistudio.openSelectKey === 'function') {
-                const hasKey = await (window as any).aistudio.hasSelectedApiKey();
-                if (!hasKey) {
-                    await (window as any).aistudio.openSelectKey();
+    useEffect(() => {
+        const initializeChat = async () => {
+            if (isOpen && !chatRef.current) {
+                try {
+                    if ((window as any).aistudio?.hasSelectedApiKey) {
+                        const hasKey = await (window as any).aistudio.hasSelectedApiKey();
+                        if (!hasKey) {
+                            await (window as any).aistudio.openSelectKey();
+                        }
+                    }
+
+                    if (!process.env.API_KEY) {
+                        throw new Error("API key is not configured.");
+                    }
+
+                    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+                    chatRef.current = ai.chats.create({ model: 'gemini-2.5-flash', config: { systemInstruction: systemInstruction } });
+                } catch (error) {
+                    console.error("Failed to initialize Gemini Chat:", error);
+                    const message = error instanceof Error ? error.message : String(error);
+                    let errorMessage = "માફ કરશો, ચેટ સેવા શરૂ કરવામાં ભૂલ આવી છે.";
+
+                    if (message.includes('API key is not configured')) {
+                        errorMessage = "ચેટ સુવિધા માટે API કી જરૂરી છે. કૃપા કરીને ચેટ બંધ કરો અને ફરીથી ખોલો.";
+                    } else if (message.includes('API key not valid') || message.includes('permission to access') || message.includes("Requested entity was not found")) {
+                        errorMessage = "તમે પસંદ કરેલી API કી માન્ય નથી. કૃપા કરીને ચેટ બંધ કરો, ફરીથી ખોલો અને બીજી કી પસંદ કરો.";
+                    }
+                    setConversation(prev => [...prev, { id: messageIdCounter.current++, text: errorMessage, sender: 'bot' }]);
                 }
             }
+        };
 
-            if (!process.env.API_KEY) {
-                setConversation(prev => [...prev, { id: messageIdCounter.current++, text: "ચેટ સુવિધા માટે API કી જરૂરી છે.", sender: 'bot' }]);
-                setIsTyping(false);
-                return;
-            }
-
-            try {
-                const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-                chatRef.current = ai.chats.create({ model: 'gemini-2.5-flash', config: { systemInstruction: systemInstruction } });
-            } catch (error) {
-                console.error("Failed to initialize Gemini Chat:", error);
-                setConversation(prev => [...prev, { id: messageIdCounter.current++, text: "માફ કરશો, ચેટ સેવા શરૂ કરવામાં ભૂલ આવી છે.", sender: 'bot' }]);
-            }
-        } else if (!isOpen) { 
-            chatRef.current = null; 
+        if (isOpen) {
+            initializeChat();
+        } else {
+            chatRef.current = null;
         }
-    };
-
-    if (isOpen) {
-        initializeChat();
-    } else {
-        chatRef.current = null;
-    }
-  }, [isOpen]);
+    }, [isOpen]);
   const performClose = () => { setIsClosing(true); setTimeout(() => { onClose(); setIsClosing(false); setConversation([initialMessage]); messageIdCounter.current = 1; }, 300); };
   const handleClose = () => { performClose(); };
   const parseResponse = (responseText: string): { text: string; quickReplies?: string[], navigation?: any } => {
@@ -456,31 +469,44 @@ const ChatBox: React.FC<{ isOpen: boolean; onClose: () => void; onNavigate: (vie
     if (replyMatch && replyMatch[1]) { text = text.replace(replyRegex, '').trim(); quickReplies = replyMatch[1].split(',').map(r => r.trim().replace(/^\[|\]$/g, '').trim()); }
     return { text, quickReplies, navigation };
   };
-  const sendMessage = async (textToSend: string) => {
-    if (textToSend.trim() === '' || !chatRef.current) return;
-    setConversation(prev => prev.map((msg, index) => index === prev.length - 1 ? { ...msg, quickReplies: undefined } : msg));
-    const userMessage: Message = { id: messageIdCounter.current++, text: textToSend, sender: 'user' };
-    setConversation(prev => [...prev, userMessage]); setMessage(''); setIsTyping(true);
-    try {
-        const response = await chatRef.current.sendMessage({ message: textToSend });
-        const { text, quickReplies, navigation } = parseResponse(response.text);
-        const botReply: Message = { id: messageIdCounter.current++, text: text || "તમને ત્યાં લઈ જાઉં છું...", sender: 'bot', quickReplies };
-        setConversation(prev => [...prev, botReply]);
-        if (navigation && onNavigate) {
-            const chapter: Chapter = { number: navigation.chapterNumber, name: navigation.chapterName };
-            const viewState: ViewState = { page: 'chapter', grade: navigation.grade, chapter: chapter, expandedExercise: navigation.exercise };
-            setTimeout(() => { onNavigate(viewState); handleClose(); }, 100);
+    const sendMessage = async (textToSend: string) => {
+        if (textToSend.trim() === '') return;
+
+        setConversation(prev => prev.map((msg, index) => index === prev.length - 1 ? { ...msg, quickReplies: undefined } : msg));
+        const userMessage: Message = { id: messageIdCounter.current++, text: textToSend, sender: 'user' };
+        setConversation(prev => [...prev, userMessage]); 
+        setMessage(''); 
+        setIsTyping(true);
+        
+        try {
+            if (!chatRef.current) {
+                throw new Error("Chat not initialized. Please close and reopen the chat.");
+            }
+            const response = await chatRef.current.sendMessage({ message: textToSend });
+            const { text, quickReplies, navigation } = parseResponse(response.text);
+            const botReply: Message = { id: messageIdCounter.current++, text: text || "તમને ત્યાં લઈ જાઉં છું...", sender: 'bot', quickReplies };
+            setConversation(prev => [...prev, botReply]);
+            if (navigation && onNavigate) {
+                const chapter: Chapter = { number: navigation.chapterNumber, name: navigation.chapterName };
+                const viewState: ViewState = { page: 'chapter', grade: navigation.grade, chapter: chapter, expandedExercise: navigation.exercise };
+                setTimeout(() => { onNavigate(viewState); handleClose(); }, 100);
+            }
+        } catch (error) {
+            console.error("Gemini API error:", error);
+            let errorMessage = "માફ કરશો, મને અત્યારે કનેક્ટ કરવામાં મુશ્કેલી પડી રહી છે. કૃપા કરીને પછીથી ફરી પ્રયાસ કરો.";
+            const message = error instanceof Error ? error.message : String(error);
+
+            if (message.includes('API key not valid') || message.includes('permission to access') || message.includes("Requested entity was not found")) {
+                 errorMessage = "તમે પસંદ કરેલી API કી માન્ય નથી. કૃપા કરીને ચેટ બંધ કરો, ફરીથી ખોલો અને બીજી કી પસંદ કરો.";
+            } else if (message.includes("Chat not initialized")) {
+                errorMessage = "ચેટ શરૂ કરી શકાઈ નથી. કૃપા કરીને ચેટ બંધ કરીને ફરીથી ખોલો.";
+            }
+            const errorReply: Message = { id: messageIdCounter.current++, text: errorMessage, sender: 'bot' };
+            setConversation(prev => [...prev, errorReply]);
+        } finally { 
+            setIsTyping(false); 
         }
-    } catch (error) {
-        console.error("Gemini API error:", error);
-        let errorMessage = "માફ કરશો, મને અત્યારે કનેક્ટ કરવામાં મુશ્કેલી પડી રહી છે. કૃપા કરીને પછીથી ફરી પ્રયાસ કરો.";
-        if (error instanceof Error && (error.message.includes('API key not valid') || error.message.includes('permission to access'))) {
-             errorMessage = "તમે પસંદ કરેલી API કી માન્ય નથી. કૃપા કરીને ચેટ બંધ કરો, ફરીથી ખોલો અને બીજી કી પસંદ કરો.";
-        }
-        const errorReply: Message = { id: messageIdCounter.current++, text: errorMessage, sender: 'bot' };
-        setConversation(prev => [...prev, errorReply]);
-    } finally { setIsTyping(false); }
-  };
+    };
   const handleSend = () => sendMessage(message);
   const handleQuickReplyClick = (replyText: string) => { sendMessage(replyText); };
   useEffect(() => { if (chatContainerRef.current) { chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight; } }, [conversation, isTyping]);
@@ -879,23 +905,18 @@ const Header: React.FC<{ title: string; showBackButton: boolean; onBack: () => v
 };
 
 const HomePage: React.FC<{ onGradeSelect: (grade: number) => void; onNavigate: (view: ViewState) => void; }> = ({ onGradeSelect, onNavigate }) => {
-  const [isChatOpen, setIsChatOpen] = useState(false);
   const menuItems: { grade: number; gradeText: string; gradeNumber: string; }[] = [ { grade: 9, gradeText: 'ધોરણ', gradeNumber: '9' }, { grade: 10, gradeText: 'ધોરણ', gradeNumber: '10' }];
   const actionButtonClass = "group w-full flex flex-col items-center justify-center p-4 sm:p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-indigo-600 dark:text-indigo-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-slate-100 dark:focus:ring-offset-slate-900";
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
         {menuItems.map(item => (<button key={item.grade} onClick={() => onGradeSelect(item.grade)} className="group flex flex-col items-center justify-center p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-indigo-600 dark:text-indigo-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-slate-100 dark:focus:ring-offset-slate-900"><div className="text-center font-bold text-slate-700 dark:text-slate-200"><span className="block text-xl -mb-1">{item.gradeText}</span><span className="block text-7xl font-extrabold leading-tight">{item.gradeNumber}</span></div></button>))}
-        <div className="sm:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+        <div className="sm:col-span-2 grid grid-cols-2 gap-4 sm:gap-6 md:gap-8">
            <button onClick={() => onNavigate({ page: 'example_search' })} className={actionButtonClass}>
                 <SearchIcon className="h-10 w-10 sm:h-12 sm:w-12 mb-2 sm:mb-3 text-indigo-500 transition-transform duration-300 group-hover:scale-110" />
                 <span className="text-center text-lg sm:text-2xl font-bold text-slate-700 dark:text-slate-200">દાખલો શોધો</span>
             </button>
-            <button onClick={() => onNavigate({ page: 'ai_mock_test' })} className={actionButtonClass}>
-                <ClipboardDocumentCheckIcon className="h-10 w-10 sm:h-12 sm:w-12 mb-2 sm:mb-3 text-indigo-500 transition-transform duration-300 group-hover:scale-110" />
-                <span className="text-center text-lg sm:text-2xl font-bold text-slate-700 dark:text-slate-200">Mock Test</span>
-            </button>
-          <button onClick={() => onNavigate({ page: 'google_form' })} className={`${actionButtonClass} col-span-2 sm:col-span-1`}>
+          <button onClick={() => onNavigate({ page: 'google_form' })} className={actionButtonClass}>
             <PencilIcon className="h-10 w-10 sm:h-12 sm:w-12 mb-2 sm:mb-3 text-indigo-500 transition-transform duration-300 group-hover:scale-110" />
             <span className="text-center text-lg sm:text-2xl font-bold text-slate-700 dark:text-slate-200">તમારા reviews જણાવો</span>
           </button>
@@ -921,8 +942,6 @@ const HomePage: React.FC<{ onGradeSelect: (grade: number) => void; onNavigate: (
           </a>
         </div>
       </div>
-      <button onClick={() => setIsChatOpen(true)} aria-label="Chat with us" className="fixed bottom-24 right-6 bg-indigo-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-slate-100 dark:focus:ring-offset-slate-900 transition-all duration-300 transform hover:scale-110"><ChatBubbleIcon className="w-8 h-8" /></button>
-      <ChatBox isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} onNavigate={onNavigate} />
     </>
   );
 };
@@ -993,12 +1012,46 @@ const PdfViewer: React.FC<{ pdfUrl: string; onClose: () => void; title: string; 
   );
 };
 
+const IframeViewer: React.FC<{ url: string; onClose: () => void; title: string; }> = ({ url, onClose, title }) => {
+  const [isClosing, setIsClosing] = useState(false);
+  const handleClose = () => { setIsClosing(true); setTimeout(() => onClose(), 300); };
+  
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key === 'Escape') { handleClose(); }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+        window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+  return (
+    <div className={`fixed inset-0 bg-black/80 z-50 flex flex-col ${isClosing ? 'animate-slide-out-to-right' : 'animate-slide-in-from-right'}`} role="dialog" aria-modal="true">
+      <header className="flex-shrink-0 flex items-center justify-between p-4 bg-slate-900 text-white shadow-md">
+        <h2 className="text-xl font-bold truncate">{title}</h2>
+        <button onClick={handleClose} className="p-2 rounded-full hover:bg-slate-700 transition-colors" aria-label="Close viewer">
+          <CloseIcon className="h-6 w-6" />
+        </button>
+      </header>
+      <main className="flex-grow bg-white">
+        <iframe
+          src={url}
+          className="w-full h-full border-none"
+          title={title}
+          sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+        ></iframe>
+      </main>
+    </div>
+  );
+};
 
 const ChapterDetailPage: React.FC<{ grade: number; chapter: Chapter; expandedExercise?: string; }> = ({ grade, chapter, expandedExercise: defaultExpandedExercise }) => {
   const [expandedExercise, setExpandedExercise] = useState<string | null>(defaultExpandedExercise || null);
-  const [selectedContent, setSelectedContent] = useState<{ [key: string]: 'videos' | 'solutions' | undefined }>({});
+  const [selectedContent, setSelectedContent] = useState<{ [key: string]: 'videos' | undefined }>({});
   const [playingVideoUrl, setPlayingVideoUrl] = useState<string | null>(null);
-  const [viewingPdf, setViewingPdf] = useState<{ url: string; title: string } | null>(null);
+  const [viewingExternalUrl, setViewingExternalUrl] = useState<{ url: string; title: string } | null>(null);
+  
   interface UnifiedExercise { name: string; videos: Video[]; solutions: SolutionResource[]; }
   const getYouTubeId = (url: string): string | null => { const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/; const match = url.match(regExp); return (match && match[2].length === 11) ? match[2] : null; };
   const unifiedExercises = useMemo((): UnifiedExercise[] => {
@@ -1010,7 +1063,7 @@ const ChapterDetailPage: React.FC<{ grade: number; chapter: Chapter; expandedExe
     return Array.from(exerciseMap.values()).map(ex => ({ name: ex.name!, videos: ex.videos || [], solutions: ex.solutions || [] })).sort((a,b) => a.name.localeCompare(b.name, undefined, {numeric: true}));
   }, [grade, chapter]);
   const handleExerciseClick = (exerciseName: string) => { setExpandedExercise(current => (current === exerciseName ? null : exerciseName)); setPlayingVideoUrl(null); };
-  const handleContentSelect = (exerciseName: string, contentType: 'videos' | 'solutions') => { setSelectedContent(prev => { if (prev[exerciseName] === contentType) { return { ...prev, [exerciseName]: undefined }; } return { ...prev, [exerciseName]: contentType }; }); setPlayingVideoUrl(null); };
+  const handleContentSelect = (exerciseName: string, contentType: 'videos') => { setSelectedContent(prev => { if (prev[exerciseName] === contentType) { return { ...prev, [exerciseName]: undefined }; } return { ...prev, [exerciseName]: contentType }; }); setPlayingVideoUrl(null); };
   if (unifiedExercises.length === 0) { return (<div className="text-center p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-lg"><h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100">{chapter.name}</h2><p className="mt-4 text-slate-500 dark:text-slate-400">Content for this chapter will be available here soon.</p></div>); }
   return (
     <>
@@ -1027,16 +1080,30 @@ const ChapterDetailPage: React.FC<{ grade: number; chapter: Chapter; expandedExe
               </button>
               {isExpanded && (
                 <div className="py-4 border-t border-slate-200 dark:border-slate-700 animate-fade-in">
-                  <div className="px-4"><div className="flex gap-4 mb-4"><button onClick={() => handleContentSelect(exercise.name, 'videos')} className={`flex-1 p-3 rounded-lg font-bold transition-colors shadow-sm text-center ${currentContent === 'videos' ? 'bg-rose-500 text-white' : 'bg-rose-100 text-rose-800 dark:bg-rose-900/50 dark:text-rose-200 hover:bg-rose-200 dark:hover:bg-rose-800/60'}`}>Videos</button><button onClick={() => handleContentSelect(exercise.name, 'solutions')} className={`flex-1 p-3 rounded-lg font-bold transition-colors shadow-sm text-center ${currentContent === 'solutions' ? 'bg-emerald-500 text-white' : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-200 hover:bg-emerald-200 dark:hover:bg-emerald-800/60'}`}>Solution</button></div></div>
+                  <div className="px-4">
+                    <div className="flex gap-4 mb-4">
+                      <button onClick={() => handleContentSelect(exercise.name, 'videos')} className={`flex-1 p-3 rounded-lg font-bold transition-colors shadow-sm text-center ${currentContent === 'videos' ? 'bg-rose-500 text-white' : 'bg-rose-100 text-rose-800 dark:bg-rose-900/50 dark:text-rose-200 hover:bg-rose-200 dark:hover:bg-rose-800/60'}`}>Videos</button>
+                      {exercise.solutions.length > 0 && (
+                          <button 
+                            onClick={() => {
+                                const solution = exercise.solutions[0];
+                                setViewingExternalUrl({ url: solution.url, title: `${exercise.name} - ${solution.name}` });
+                            }} 
+                            className="flex-1 p-3 rounded-lg font-bold transition-colors shadow-sm text-center bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-200 hover:bg-emerald-200 dark:hover:bg-emerald-800/60"
+                          >
+                            Solution
+                          </button>
+                      )}
+                    </div>
+                  </div>
                   {currentContent === 'videos' && (<div className="space-y-4 animate-fade-in">{exercise.videos.length > 0 ? exercise.videos.map(video => { const isPlaying = playingVideoUrl === video.youtubeUrl; if (isPlaying) { return <div key={video.name} className="bg-white dark:bg-slate-800"><div className="p-3"><p className="font-semibold text-slate-800 dark:text-slate-100 leading-tight">{video.name}</p></div><VideoSolution youtubeUrl={video.youtubeUrl} /></div> } const videoId = getYouTubeId(video.youtubeUrl); const thumbnailUrl = videoId ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg` : ''; return <button key={video.name} onClick={() => setPlayingVideoUrl(video.youtubeUrl)} className="group w-full text-left bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors duration-200 block focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800"><div className="p-3"><p className="font-semibold text-slate-800 dark:text-slate-100 leading-tight">{video.name}</p></div><div className="relative w-full aspect-video bg-slate-300 dark:bg-slate-700">{thumbnailUrl ? <img src={thumbnailUrl} alt={video.name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" /> : <div className="w-full h-full flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 text-slate-400"><path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" /></svg></div>}<div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"><div className="w-14 h-14 bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-8 h-8 text-white"><path d="M6.3 2.84A1.5 1.5 0 0 0 4 4.11v11.78a1.5 1.5 0 0 0 2.3 1.27l9.344-5.89a1.5 1.5 0 0 0 0-2.54L6.3 2.84Z" /></svg></div></div></div></button> }) : <p className="text-center text-slate-500 dark:text-slate-400 p-4">No videos available for this exercise.</p>}</div>)}
-                  {currentContent === 'solutions' && (<div className="space-y-4 animate-fade-in px-4">{exercise.solutions.length > 0 ? exercise.solutions.map((solution, index) => (<button key={index} onClick={() => setViewingPdf({ url: solution.pdfUrl, title: `${exercise.name} - ${solution.name}` })} className="w-full flex items-center justify-between text-left p-3 rounded-lg bg-slate-100 dark:bg-slate-700/50 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"><div className="flex items-center"><DocumentTextIcon className="h-5 w-5 mr-3 text-slate-500 dark:text-slate-400" /><p className="font-medium text-slate-700 dark:text-slate-200">{solution.name}</p></div><span className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">View Solution</span></button>)) : <p className="text-center text-slate-500 dark:text-slate-400 p-4">No solutions available for this exercise.</p>}</div>)}
                 </div>
               )}
             </div>
           )
         })}
       </div>
-      {viewingPdf && (<PdfViewer pdfUrl={viewingPdf.url} title={viewingPdf.title} onClose={() => setViewingPdf(null)} />)}
+      {viewingExternalUrl && (<IframeViewer url={viewingExternalUrl.url} title={viewingExternalUrl.title} onClose={() => setViewingExternalUrl(null)} />)}
     </>
   );
 };
@@ -1088,16 +1155,17 @@ const AiMockTestPage: React.FC<{ navigate: (view: ViewState) => void; }> = ({ na
     const handleGenerateTest = async () => {
         if (!selectedGrade || !selectedChapterName) return;
 
-        if ((window as any).aistudio && typeof (window as any).aistudio.hasSelectedApiKey === 'function' && typeof (window as any).aistudio.openSelectKey === 'function') {
-            const hasKey = await (window as any).aistudio.hasSelectedApiKey();
-            if (!hasKey) {
-                await (window as any).aistudio.openSelectKey();
-            }
-        }
-
         setIsLoading(true);
         setError(null);
+
         try {
+            if ((window as any).aistudio?.hasSelectedApiKey) {
+                const hasKey = await (window as any).aistudio.hasSelectedApiKey();
+                if (!hasKey) {
+                    await (window as any).aistudio.openSelectKey();
+                }
+            }
+
             const questions = await generateMockTest(selectedGrade, selectedChapterName);
             if (questions && questions.length > 0) {
                 navigate({ page: 'generated_mock_test', grade: selectedGrade, chapterName: selectedChapterName, questions });
@@ -1107,14 +1175,14 @@ const AiMockTestPage: React.FC<{ navigate: (view: ViewState) => void; }> = ({ na
         } catch (err) {
             console.error("Error generating mock test:", err);
             let errorMessage = "An error occurred while generating the test. Please check your connection and try again.";
-            if (err instanceof Error) {
-                if (err.message.includes('API key not valid') || err.message.includes('permission to access')) {
-                    errorMessage = "The selected API key is not valid. Please click 'Generate Test' again to select a different key.";
-                } else if (err.message === 'API key is not configured.') {
-                    errorMessage = "An API key is required for this feature. Please click 'Generate Test' again to select a key.";
-                } else if (err.message.includes("Requested entity was not found.")) {
-                    errorMessage = "The resource was not found. This can happen with an invalid API key. Please click 'Generate Test' again to select a different key.";
-                }
+            const message = err instanceof Error ? err.message : String(err);
+
+            if (message.includes('API key not valid') || message.includes('permission to access')) {
+                errorMessage = "The selected API key is not valid. Please click 'Generate Test' again to select a different key.";
+            } else if (message.includes('API key is not configured')) {
+                errorMessage = "An API key is required for this feature. Please click 'Generate Test' again to select a key.";
+            } else if (message.includes("Requested entity was not found")) {
+                errorMessage = "The resource was not found. This can happen with an invalid API key. Please click 'Generate Test' again to select a different key.";
             }
             setError(errorMessage);
         } finally {
