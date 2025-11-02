@@ -881,10 +881,25 @@ const GoogleFormPage: React.FC = () => {
 
 const GradePage: React.FC<{ grade: number; onTextbookSelect: () => void; onSolutionsSelect: () => void; }> = ({ grade, onTextbookSelect, onSolutionsSelect }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const [viewingPdf, setViewingPdf] = useState<{ url: string; title: string } | null>(null);
+  const [viewingExternalUrl, setViewingExternalUrl] = useState<{ url: string; title: string } | null>(null);
   const toggleDropdown = () => { setDropdownOpen(prev => !prev); };
-  const textbookUrl = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
-  const handleTextbookClick = () => { setViewingPdf({ url: textbookUrl, title: `ધોરણ ${grade} ગણિત Textbook` }); setDropdownOpen(false); };
+
+  const handleTextbookClick = () => {
+    let textbookUrl = '';
+    if (grade === 9) {
+      // ધોરણ 9, ગણિત
+      textbookUrl = "https://drive.google.com/file/d/11459suGwctvXxcaKNyknIDh73DU1YjvB/preview";
+    } else if (grade === 10) {
+      // ધોરણ 10, ગણિત
+      textbookUrl = "https://drive.google.com/file/d/1cBlHvd1Ew4ct_2neA5ZkxlOs4iuwJlTH/preview";
+    }
+    
+    if (textbookUrl) {
+        setViewingExternalUrl({ url: textbookUrl, title: `ધોરણ ${grade} ગણિત Textbook` });
+        setDropdownOpen(false);
+    }
+  };
+  
   return (
     <>
       <div className="relative grid grid-cols-1 gap-6 md:gap-8">
@@ -898,7 +913,7 @@ const GradePage: React.FC<{ grade: number; onTextbookSelect: () => void; onSolut
           </div>
         )}
       </div>
-      {viewingPdf && (<PdfViewer pdfUrl={viewingPdf.url} onClose={() => setViewingPdf(null)} title={viewingPdf.title} />)}
+      {viewingExternalUrl && (<IframeViewer url={viewingExternalUrl.url} onClose={() => setViewingExternalUrl(null)} title={viewingExternalUrl.title} />)}
     </>
   );
 };
