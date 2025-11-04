@@ -75,6 +75,12 @@ const createSwaadhyayChapterExercises = (exerciseNames: string[], grade: number,
     };
   });
 };
+const createComingSoonSwaadhyayExercises = (exerciseNames: string[]): SwaadhyayExercise[] => {
+    return exerciseNames.map(name => ({
+        name,
+        solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'COMING_SOON' }]
+    }));
+};
 const swaadhyayData: { [grade: number]: { [chapter: number]: SwaadhyayExercise[] } } = {
   9: {
     1: [
@@ -110,7 +116,7 @@ const swaadhyayData: { [grade: number]: { [chapter: number]: SwaadhyayExercise[]
         { name: 'સ્વાધ્યાય 7.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2020/12/standard-9-trikon-svadhyay-7.2.html' }] },
         { name: 'સ્વાધ્યાય 7.3', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2020/12/standard-9-trikon-svadhyay-7.3.html' }] },
     ],
-    8: createSwaadhyayChapterExercises(['સ્વાધ્યાય 8.1', 'સ્વાધ્યાય 8.2'], 9, 8), 9: createSwaadhyayChapterExercises(['સ્વાધ્યાય 9.1', 'સ્વાધ્યાય 9.2', 'સ્વાધ્યાય 9.3'], 9, 9), 10: createSwaadhyayChapterExercises(['સ્વાધ્યાય 10.1'], 9, 10), 11: createSwaadhyayChapterExercises(['સ્વાધ્યાય 11.1', 'સ્વાધ્યાય 11.2', 'સ્વાધ્યાય 11.3', 'સ્વાધ્યાય 11.4'], 9, 11), 12: createSwaadhyayChapterExercises(['સ્વાધ્યાય 12.1'], 9, 12),
+    8: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 8.1', 'સ્વાધ્યાય 8.2']), 9: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 9.1', 'સ્વાધ્યાય 9.2', 'સ્વાધ્યાય 9.3']), 10: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 10.1']), 11: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 11.1', 'સ્વાધ્યાય 11.2', 'સ્વાધ્યાય 11.3', 'સ્વાધ્યાય 11.4']), 12: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 12.1']),
   },
   10: {
     1: [
@@ -126,18 +132,18 @@ const swaadhyayData: { [grade: number]: { [chapter: number]: SwaadhyayExercise[]
         { name: 'સ્વાધ્યાય 3.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/09/Std10chap3.2.html' }] },
         { name: 'સ્વાધ્યાય 3.3', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/09/Std10chap3.3.html' }] }
     ],
-    4: createSwaadhyayChapterExercises(['સ્વાધ્યાય 4.1', 'સ્વાધ્યાય 4.2', 'સ્વાધ્યાય 4.3'], 10, 4),
-    5: createSwaadhyayChapterExercises(['સ્વાધ્યાય 5.1', 'સ્વાધ્યાય 5.2', 'સ્વાધ્યાય 5.3', 'સ્વાધ્યાય 5.4'], 10, 5),
-    6: createSwaadhyayChapterExercises(['સ્વાધ્યાય 6.1', 'સ્વાધ્યાય 6.2', 'સ્વાધ્યાય 6.3'], 10, 6),
+    4: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 4.1', 'સ્વાધ્યાય 4.2', 'સ્વાધ્યાય 4.3']),
+    5: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 5.1', 'સ્વાધ્યાય 5.2', 'સ્વાધ્યાય 5.3', 'સ્વાધ્યાય 5.4']),
+    6: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 6.1', 'સ્વાધ્યાય 6.2', 'સ્વાધ્યાય 6.3']),
     7: [
         { name: 'સ્વાધ્યાય 7.1', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/09/Std10chap7.1.html' }] },
         { name: 'સ્વાધ્યાય 7.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/09/Std10chap7.2.html' }] }
     ],
-    8: createSwaadhyayChapterExercises(['સ્વાધ્યાય 8.1', 'સ્વાધ્યાય 8.2', 'સ્વાધ્યાય 8.3'], 10, 8),
-    9: createSwaadhyayChapterExercises(['સ્વાધ્યાય 9.1'], 10, 9),
-    10: createSwaadhyayChapterExercises(['સ્વાધ્યાય 10.1', 'સ્વાધ્યાય 10.2'], 10, 10),
-    11: createSwaadhyayChapterExercises(['સ્વાધ્યાય 11.1'], 10, 11),
-    12: createSwaadhyayChapterExercises(['સ્વાધ્યાય 12.1', 'સ્વાધ્યાય 12.2'], 10, 12),
+    8: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 8.1', 'સ્વાધ્યાય 8.2', 'સ્વાધ્યાય 8.3']),
+    9: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 9.1']),
+    10: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 10.1', 'સ્વાધ્યાય 10.2']),
+    11: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 11.1']),
+    12: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 12.1', 'સ્વાધ્યાય 12.2']),
     13: [
         { name: 'સ્વાધ્યાય 13.1', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/09/Std10chap13.1.html' }] },
         { name: 'સ્વાધ્યાય 13.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/09/Std10chap13.2.html' }] },
@@ -1365,19 +1371,45 @@ const IframeViewer: React.FC<{ url: string; onClose: () => void; title: string; 
 
 const ChapterDetailPage: React.FC<{ grade: number; chapter: Chapter; expandedExercise?: string; }> = ({ grade, chapter, expandedExercise: defaultExpandedExercise }) => {
   const [expandedExercise, setExpandedExercise] = useState<string | null>(defaultExpandedExercise || null);
-  const [selectedContent, setSelectedContent] = useState<{ [key: string]: 'videos' | undefined }>({});
+  const [selectedContent, setSelectedContent] = useState<{ [key: string]: 'videos' | 'solution_coming_soon' | undefined }>({});
   const [playingVideoUrl, setPlayingVideoUrl] = useState<string | null>(null);
   const [viewingExternalUrl, setViewingExternalUrl] = useState<{ url: string; title: string } | null>(null);
   
-  interface UnifiedExercise { name: string; videos: Video[]; solutions: SolutionResource[]; }
+  interface UnifiedExercise { name: string; videos: Video[]; solutions: SolutionResource[]; videosComingSoon?: boolean; }
   const unifiedExercises = useMemo((): UnifiedExercise[] => {
     const videoExercises = videoData[grade]?.[chapter.number] || [];
     const swaadhyayExercises = swaadhyayData[grade]?.[chapter.number] || [];
+
+    const videosComingSoonChapters: { [grade: number]: number[] } = {
+        9: [7, 8, 9, 10, 11, 12],
+        10: [4, 5, 6, 8, 9, 10, 11, 12]
+    };
+    const isChapterComingSoon = videosComingSoonChapters[grade]?.includes(chapter.number);
+
     const exerciseMap = new Map<string, Partial<UnifiedExercise>>();
-    swaadhyayExercises.forEach(ex => { exerciseMap.set(ex.name, { name: ex.name, solutions: ex.solutions }); });
-    videoExercises.forEach(ex => { if (exerciseMap.has(ex.name)) { exerciseMap.get(ex.name)!.videos = ex.videos; } else { exerciseMap.set(ex.name, { name: ex.name, videos: ex.videos }); } });
-    return Array.from(exerciseMap.values()).map(ex => ({ name: ex.name!, videos: ex.videos || [], solutions: ex.solutions || [] })).sort((a,b) => a.name.localeCompare(b.name, undefined, {numeric: true}));
+
+    const allExerciseNames = new Set([...swaadhyayExercises.map(e => e.name), ...videoExercises.map(e => e.name)]);
+
+    allExerciseNames.forEach(name => {
+        const swaadhyayEx = swaadhyayExercises.find(e => e.name === name);
+        const videoEx = videoExercises.find(e => e.name === name);
+        
+        exerciseMap.set(name, {
+            name: name,
+            solutions: swaadhyayEx?.solutions || [],
+            videos: videoEx?.videos || [],
+            videosComingSoon: isChapterComingSoon
+        });
+    });
+
+    return Array.from(exerciseMap.values()).map(ex => ({
+        name: ex.name!,
+        videos: ex.videos || [],
+        solutions: ex.solutions || [],
+        videosComingSoon: !!ex.videosComingSoon
+    })).sort((a,b) => a.name.localeCompare(b.name, undefined, {numeric: true}));
   }, [grade, chapter]);
+
   const handleExerciseClick = (exerciseName: string) => { setExpandedExercise(current => (current === exerciseName ? null : exerciseName)); setPlayingVideoUrl(null); };
   const handleContentSelect = (exerciseName: string, contentType: 'videos') => { setSelectedContent(prev => { if (prev[exerciseName] === contentType) { return { ...prev, [exerciseName]: undefined }; } return { ...prev, [exerciseName]: contentType }; }); setPlayingVideoUrl(null); };
   if (unifiedExercises.length === 0) { return (<div className="text-center p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-lg"><h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100">{chapter.name}</h2><p className="mt-4 text-slate-500 dark:text-slate-400">Content for this chapter will be available here soon.</p></div>); }
@@ -1398,14 +1430,24 @@ const ChapterDetailPage: React.FC<{ grade: number; chapter: Chapter; expandedExe
                 <div className="py-4 border-t border-slate-200 dark:border-slate-700 animate-fade-in">
                   <div className="px-4">
                     <div className="flex gap-4 mb-4">
-                      <button onClick={() => handleContentSelect(exercise.name, 'videos')} className={`flex-1 p-3 rounded-lg font-bold transition-colors shadow-sm text-center ${currentContent === 'videos' ? 'bg-rose-500 text-white' : 'bg-rose-100 text-rose-800 dark:bg-rose-900/50 dark:text-rose-200 hover:bg-rose-200 dark:hover:bg-rose-800/60'}`}>Videos</button>
+                       <button onClick={() => handleContentSelect(exercise.name, 'videos')} className={`flex-1 p-3 rounded-lg font-bold transition-colors shadow-sm text-center ${currentContent === 'videos' ? 'bg-rose-500 text-white' : 'bg-rose-100 text-rose-800 dark:bg-rose-900/50 dark:text-rose-200 hover:bg-rose-200 dark:hover:bg-rose-800/60'}`}>Videos</button>
                       {exercise.solutions.length > 0 && (
                           <button 
                             onClick={() => {
                                 const solution = exercise.solutions[0];
-                                setViewingExternalUrl({ url: solution.url, title: `${exercise.name} - ${solution.name}` });
+                                if (solution.url === 'COMING_SOON') {
+                                    setSelectedContent(prev => {
+                                        if (prev[exercise.name] === 'solution_coming_soon') {
+                                            return { ...prev, [exercise.name]: undefined };
+                                        }
+                                        return { ...prev, [exercise.name]: 'solution_coming_soon' };
+                                    });
+                                    setPlayingVideoUrl(null);
+                                } else {
+                                    setViewingExternalUrl({ url: solution.url, title: `${exercise.name} - ${solution.name}` });
+                                }
                             }} 
-                            className="flex-1 p-3 rounded-lg font-bold transition-colors shadow-sm text-center bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-200 hover:bg-emerald-200 dark:hover:bg-emerald-800/60"
+                            className={`flex-1 p-3 rounded-lg font-bold transition-colors shadow-sm text-center ${currentContent === 'solution_coming_soon' ? 'bg-emerald-500 text-white' : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-200 hover:bg-emerald-200 dark:hover:bg-emerald-800/60'}`}
                           >
                             Solution
                           </button>
@@ -1414,7 +1456,11 @@ const ChapterDetailPage: React.FC<{ grade: number; chapter: Chapter; expandedExe
                   </div>
                   {currentContent === 'videos' && (
                     <div className="px-4 animate-fade-in">
-                        {exercise.videos.length > 0 ? (
+                        {exercise.videosComingSoon ? (
+                           <p className="text-center text-slate-500 dark:text-slate-400 py-4">
+                                વિડિઓ ટૂંક સમયમાં ઉપલબ્ધ થશે
+                            </p>
+                        ) : exercise.videos.length > 0 ? (
                         <div className="space-y-4">
                             <select
                                 value={playingVideoUrl || ''}
@@ -1441,6 +1487,13 @@ const ChapterDetailPage: React.FC<{ grade: number; chapter: Chapter; expandedExe
                             No videos available for this exercise.
                         </p>
                         )}
+                    </div>
+                  )}
+                  {currentContent === 'solution_coming_soon' && (
+                    <div className="px-4 animate-fade-in">
+                        <p className="text-center text-slate-500 dark:text-slate-400 py-4">
+                            સ્વાધ્યાય ટૂંક સમયમાં ઉપલબ્ધ થશે
+                        </p>
                     </div>
                   )}
                 </div>
