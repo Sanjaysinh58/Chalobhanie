@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom/client';
 import { GoogleGenAI, Chat, Type } from '@google/genai';
@@ -9,7 +8,7 @@ declare const pdfjsLib: any;
 // --- CONSOLIDATED CODE FROM ALL MODULES ---
 
 // From: types.ts
-type TopLevelPage = 'home' | 'videos' | 'swaadhyay' | 'news';
+type TopLevelPage = 'home' | 'videos' | 'swaadhyay';
 type ResourcePage = 'books' | 'swaadhyay' | 'videos' | 'old_papers' | 'mock_tests';
 type SidebarPage = 'home' | 'about' | 'contact' | 'privacy' | 'disclaimer';
 
@@ -430,28 +429,6 @@ const videoData: { [grade: number]: { [chapter: number]: Exercise[] } } = {
 
 
 // From: services/geminiService.ts
-interface WebChunk { uri: string; title: string; }
-interface GroundingChunk { web?: WebChunk; }
-interface NewsData { news: string; sources: GroundingChunk[]; }
-const fetchNews = async (): Promise<NewsData> => {
-    if (!process.env.API_KEY) {
-        console.error("API key is not configured.");
-        throw new Error("Configuration error. Unable to fetch news.");
-    }
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-    const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: "What are the latest news and updates from the Gujarat education board?",
-        config: { tools: [{googleSearch: {}}] },
-    });
-    const newsText = response.text;
-    const groundingChunks = response.candidates?.[0]?.groundingMetadata?.groundingChunks;
-    if (!newsText) {
-        return { news: '', sources: [] };
-    }
-    return { news: newsText, sources: (groundingChunks as GroundingChunk[]) || [] };
-};
-
 const generateMockTest = async (grade: number, chapterName: string): Promise<MockTestQuestion[]> => {
     if (!process.env.API_KEY) {
         throw new Error("API key is not configured.");
@@ -551,11 +528,6 @@ const ClipboardDocumentCheckIcon: React.FC<React.SVGProps<SVGSVGElement>> = (pro
 const DocumentTextIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
-  </svg>
-);
-const NewspaperIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M12 7.5h-1.5m-1.5 3h-1.5m-7.5 3h7.5m-7.5 3h7.5M3 12h18M3 12a9 9 0 0 1 9-9h.008c.084 0 .168.006.252.018V12m0 0v9.008c-.084.012-.168.018-.252.018H12a9 9 0 0 1-9-9Z" />
   </svg>
 );
 const MenuIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
