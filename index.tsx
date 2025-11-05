@@ -1,3 +1,4 @@
+
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom/client';
 import { GoogleGenAI, Chat, Type } from '@google/genai';
@@ -115,7 +116,10 @@ const swaadhyayData: { [grade: number]: { [chapter: number]: SwaadhyayExercise[]
         { name: 'સ્વાધ્યાય 7.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2020/12/standard-9-trikon-svadhyay-7.2.html' }] },
         { name: 'સ્વાધ્યાય 7.3', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2020/12/standard-9-trikon-svadhyay-7.3.html' }] },
     ],
-    8: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 8.1', 'સ્વાધ્યાય 8.2']), 9: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 9.1', 'સ્વાધ્યાય 9.2', 'સ્વાધ્યાય 9.3']), 10: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 10.1']), 11: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 11.1', 'સ્વાધ્યાય 11.2', 'સ્વાધ્યાય 11.3', 'સ્વાધ્યાય 11.4']), 12: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 12.1']),
+    8: [
+        { name: 'સ્વાધ્યાય 8.1', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/11/9-81.html' }] },
+        { name: 'સ્વાધ્યાય 8.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/11/9-82.html' }] },
+    ], 9: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 9.1', 'સ્વાધ્યાય 9.2', 'સ્વાધ્યાય 9.3']), 10: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 10.1']), 11: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 11.1', 'સ્વાધ્યાય 11.2', 'સ્વાધ્યાય 11.3', 'સ્વાધ્યાય 11.4']), 12: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 12.1']),
   },
   10: {
     1: [
@@ -1410,8 +1414,10 @@ const ChapterDetailPage: React.FC<{ grade: number; chapter: Chapter; expandedExe
                                 if (solution.url === 'COMING_SOON') {
                                     setSelectedContent(prev => {
                                         if (prev[exercise.name] === 'solution_coming_soon') {
+                                            // Fix: Replaced undefined variable `exerciseName` with `exercise.name`.
                                             return { ...prev, [exercise.name]: undefined };
                                         }
+                                        // Fix: Replaced undefined variable `exerciseName` with `exercise.name`.
                                         return { ...prev, [exercise.name]: 'solution_coming_soon' };
                                     });
                                     setPlayingVideoUrl(null);
