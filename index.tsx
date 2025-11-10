@@ -135,14 +135,22 @@ const swaadhyayData: { [grade: number]: { [chapter: number]: SwaadhyayExercise[]
         { name: 'સ્વાધ્યાય 3.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/09/Std10chap3.2.html' }] },
         { name: 'સ્વાધ્યાય 3.3', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/09/Std10chap3.3.html' }] }
     ],
-    4: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 4.1', 'સ્વાધ્યાય 4.2', 'સ્વાધ્યાય 4.3']),
+    4: [
+        { name: 'સ્વાધ્યાય 4.1', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/11/Std10chap4.1.html' }] },
+        { name: 'સ્વાધ્યાય 4.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/11/Std10chap4.2.html' }] },
+        { name: 'સ્વાધ્યાય 4.3', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/11/Std10chap4.3.html' }] }
+    ],
     5: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 5.1', 'સ્વાધ્યાય 5.2', 'સ્વાધ્યાય 5.3', 'સ્વાધ્યાય 5.4']),
     6: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 6.1', 'સ્વાધ્યાય 6.2', 'સ્વાધ્યાય 6.3']),
     7: [
         { name: 'સ્વાધ્યાય 7.1', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/09/Std10chap7.1.html' }] },
         { name: 'સ્વાધ્યાય 7.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/09/Std10chap7.2.html' }] }
     ],
-    8: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 8.1', 'સ્વાધ્યાય 8.2', 'સ્વાધ્યાય 8.3']),
+    8: [
+        { name: 'સ્વાધ્યાય 8.1', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'COMING_SOON' }] },
+        { name: 'સ્વાધ્યાય 8.2', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/11/Std10chap8.2.html' }] },
+        { name: 'સ્વાધ્યાય 8.3', solutions: [{ name: 'સંપૂર્ણ સ્વાધ્યાય ઉકેલ', url: 'https://chalobhanie.blogspot.com/2025/11/Std10chap8.3.html' }] }
+    ],
     9: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 9.1']),
     10: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 10.1', 'સ્વાધ્યાય 10.2']),
     11: createComingSoonSwaadhyayExercises(['સ્વાધ્યાય 11.1']),
